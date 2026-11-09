@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Roth vs. Traditional IRA Time Machine | ClearMetricTools</title>
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --danger: #f43f5e; --success: #10b981; --warning: #f59e0b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+    header { border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.92); padding: 14px 20px; position: sticky; top: 0; z-index: 50; }
+    .nav-wrap { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; } .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 11px; border-radius: 8px; transition: 0.15s; }
+    .nav-link.active { background: rgba(56, 189, 248, 0.12); color: var(--accent); border-color: rgba(56, 189, 248, 0.35); }
+    .us-badge { background: rgba(244, 63, 94, 0.15); color: #fda4af; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; text-transform: uppercase; border: 1px solid rgba(244, 63, 94, 0.3); margin-left: 6px; }
+    .container { max-width: 1160px; margin: 28px auto; padding: 0 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1.18fr; gap: 24px; }
+    @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; }
+    .input-group { margin-bottom: 16px; } .input-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-weight: 600; }
+    .input-val { color: var(--accent); font-weight: 700; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; height: 6px; background: #0f172a; border-radius: 6px; }
+    .winner-banner { border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 14px; border: 1px solid; }
+    .winner-label { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+    .winner-amt { font-size: 2.2rem; font-weight: 900; margin: 2px 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.84rem; }
+    .comparison-table th, .comparison-table td { padding: 9px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+    .val-good { color: var(--success); font-weight: 700; } .val-bad { color: var(--danger); font-weight: 700; }
+    .logic-box { background: rgba(15, 23, 42, 0.5); padding: 12px; border-radius: 8px; font-size: 0.8rem; color: var(--muted); border: 1px solid var(--border); margin-top: 15px; }
+    .matchup-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .pill-btn { background: #0f172a; border: 1px solid var(--border); color: var(--text); font-size: 0.78rem; font-weight: 600; padding: 6px 11px; border-radius: 999px; cursor: pointer; transition: 0.15s; }
+    .pill-btn.active { background: rgba(56, 189, 248, 0.15); border-color: var(--accent); color: var(--accent); }
+
+    /* EXPORT BUTTONS CSS */
+    .export-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .export-btn { flex: 1; min-width: 140px; display: flex; align-items: center; justify-content: center; gap: 6px; background: #1e293b; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: 0.15s; text-decoration: none; }
+    .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
+    .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="../index.html" class="brand">Clear<span>Metric</span>Tools<span class="us-badge">US</span></a>
+      <div class="nav-links"><a href="../index.html" class="nav-link" style="color: #10b981; font-weight: 800; border: 1px solid #10b981; margin-right: 8px;">🌍 Global Tools</a><a href="state-tax-migration.html" class="nav-link">Geo-Tax Arbitrage</a><a href="roth-vs-traditional.html" class="nav-link active">Roth vs Traditional</a><a href="401k-penalty-calculator.html" class="nav-link">401(k) Penalty</a></div>
+    </div>
+  </header>
+  <div class="container">
+    <h1 style="font-size: 1.85rem; margin-bottom: 6px;">Roth vs. Traditional IRA Time Machine</h1>
+    <p style="color: var(--muted); margin-bottom: 20px;">Mathematically prove whether you should take the tax deduction today (Traditional) or lock in tax-free growth for retirement (Roth).</p>
+    
+    <div class="matchup-bar">
+      <div style="width: 100%; margin-bottom: 4px;"><span style="font-weight:700; color:var(--accent); font-size:0.8rem;">⚡ Quick Scenarios:</span></div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; width: 100%;">
+        <button class="pill-btn scenario-btn" onclick="preset(32, 12, this)">High Income Now / Low Later</button>
+        <button class="pill-btn scenario-btn" onclick="preset(12, 24, this)">Young Earner (Low Now / High Later)</button>
+        <button class="pill-btn scenario-btn" onclick="preset(24, 24, this)">Identical Tax Brackets</button>
+        <button class="pill-btn scenario-btn" onclick="preset(37, 24, this)">Max Bracket to Middle Class</button>
+        <button class="pill-btn scenario-btn" onclick="preset(24, 0, this)">FIRE (Zero Tax in Retirement)</button>
+        <button class="pill-btn scenario-btn" onclick="preset(22, 35, this)">Tax Hike Fear (Taxes Go Up)</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">1. Investment & Time Parameters</div>
+        <div class="input-group"><div class="input-header"><span>Pre-Tax Monthly Budget</span><span class="input-val" id="lblMo">$1,000 / mo</span></div><input type="range" id="inMo" min="100" max="5000" step="50" value="1000" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span>Years Until Retirement</span><span class="input-val" id="lblYr">25 Years</span></div><input type="range" id="inYr" min="5" max="40" step="1" value="25" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span>Expected Annual Return</span><span class="input-val" id="lblRet">8.0%</span></div><input type="range" id="inRet" min="4" max="12" step="0.5" value="8.0" oninput="calc()"/></div>
+        
+        <hr style="border-color:var(--border); margin: 16px 0;" />
+        
+        <div class="card-title">2. Tax Rate Variables</div>
+        <div class="input-group">
+          <div class="input-header"><span>Current Marginal Tax Rate (Pay Now)</span><span class="input-val" id="lblCurTax">24.0%</span></div>
+          <input type="range" id="inCurTax" min="10" max="37" step="1" value="24" oninput="customInput()"/>
+          <div style="font-size:0.75rem; color:var(--muted); margin-top:4px;">Federal bracket your last dollar falls into today.</div>
+        </div>
+        <div class="input-group">
+          <div class="input-header"><span>Expected Retirement Effective Tax (Pay Later)</span><span class="input-val" id="lblRetTax">15.0%</span></div>
+          <input type="range" id="inRetTax" min="0" max="37" step="1" value="15" oninput="customInput()"/>
+          <div style="font-size:0.75rem; color:var(--muted); margin-top:4px;">Average tax rate across your entire income in retirement.</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">3. Net Wealth Audit (At Retirement)</div>
+        <div id="bannerOut" class="winner-banner">
+          <div class="winner-label" id="lblWinner">THE OPTIMAL ACCOUNT IS</div>
+          <div class="winner-amt" id="outDiff">+$0</div>
+          <div style="font-size: 0.8rem; color: #f8fafc; margin-top: 4px;" id="outSub">Extra Net Wealth at Retirement</div>
+        </div>
+        
+        <table class="comparison-table">
+          <thead><tr><th>Metric</th><th>Traditional 401(k)/IRA</th><th>Roth 401(k)/IRA</th></tr></thead>
+          <tbody>
+            <tr><td>Actual Monthly Contribution</td><td id="vMoTrad" class="val-good">$0 (Pre-Tax)</td><td id="vMoRoth" class="val-bad">$0 (Post-Tax)</td></tr>
+            <tr><td>Gross Balance Before Exit</td><td id="vGrossTrad" style="font-weight:700;">$0</td><td id="vGrossRoth" style="font-weight:700;">$0</td></tr>
+            <tr><td>Taxes Deducted at Retirement</td><td id="vTaxTrad" class="val-bad">-$0</td><td id="vTaxRoth" class="val-good">$0 (Tax-Free)</td></tr>
+            <tr><td><strong>Final Spendable Net Wealth</strong></td><td id="vNetTrad" style="font-weight:900; font-size:1rem;">$0</td><td id="vNetRoth" style="font-weight:900; font-size:1rem;">$0</td></tr>
+          </tbody>
+        </table>
+
+        <div class="logic-box" id="logicExplainer"></div>
+        <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fmt = n => '$' + Math.max(0, n).toLocaleString('en-US', {maximumFractionDigits:0});
+    
+    function preset(cur, ret, btnElement) {
+      document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+      if(btnElement) btnElement.classList.add('active');
+      document.getElementById('inCurTax').value = cur;
+      document.getElementById('inRetTax').value = ret;
+      calc();
+    }
+
+    function customInput() {
+      // Clear active button states if the user manually drags the sliders
+      document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+      calc();
+    }
+
+    function calc() {
+      const mo = +document.getElementById('inMo').value;
+      const yr = +document.getElementById('inYr').value;
+      const ret = +document.getElementById('inRet').value;
+      const curTax = +document.getElementById('inCurTax').value / 100;
+      const retTax = +document.getElementById('inRetTax').value / 100;
+      
+      document.getElementById('lblMo').innerText = fmt(mo) + ' / mo';
+      document.getElementById('lblYr').innerText = yr + ' Years';
+      document.getElementById('lblRet').innerText = ret.toFixed(1) + '%';
+      document.getElementById('lblCurTax').innerText = (curTax * 100).toFixed(1) + '%';
+      document.getElementById('lblRetTax').innerText = (retTax * 100).toFixed(1) + '%';
+      
+      const mRate = (ret / 100) / 12;
+      const months = yr * 12;
+      
+      const rothMo = mo * (1 - curTax);
+      
+      let tradBal = 0;
+      let rothBal = 0;
+      
+      for(let i=0; i<months; i++){
+        tradBal = (tradBal + mo) * (1 + mRate);
+        rothBal = (rothBal + rothMo) * (1 + mRate);
+      }
+      
+      const tradTaxPaid = tradBal * retTax;
+      const tradNet = tradBal - tradTaxPaid;
+      const rothNet = rothBal;
+      
+      document.getElementById('vMoTrad').innerText = fmt(mo) + ' (Pre-Tax)';
+      document.getElementById('vMoRoth').innerText = fmt(rothMo) + ' (Post-Tax)';
+      document.getElementById('vGrossTrad').innerText = fmt(tradBal);
+      document.getElementById('vGrossRoth').innerText = fmt(rothBal);
+      document.getElementById('vTaxTrad').innerText = '-' + fmt(tradTaxPaid);
+      document.getElementById('vTaxRoth').innerText = '$0 (Tax-Free)';
+      document.getElementById('vNetTrad').innerText = fmt(tradNet);
+      document.getElementById('vNetRoth').innerText = fmt(rothNet);
+      
+      const banner = document.getElementById('bannerOut');
+      const logic = document.getElementById('logicExplainer');
+      
+      if (Math.abs(tradNet - rothNet) < 10) {
+        banner.style.backgroundColor = 'rgba(56, 189, 248, 0.12)';
+        banner.style.borderColor = 'rgba(56, 189, 248, 0.4)';
+        document.getElementById('lblWinner').innerText = "IT IS A MATHEMATICAL TIE";
+        document.getElementById('lblWinner').style.color = 'var(--accent)';
+        document.getElementById('outDiff').innerText = "Exact Same Output";
+        document.getElementById('outDiff').style.color = 'var(--accent)';
+        document.getElementById('outSub').innerText = "Both accounts yield identical net wealth.";
+        logic.innerHTML = `<strong>The Math:</strong> Because your current tax rate (${(curTax*100).toFixed(0)}%) exactly matches your retirement tax rate (${(retTax*100).toFixed(0)}%), the math cancels out. It does not matter which account you choose.`;
+      } else if (tradNet > rothNet) {
+        banner.style.backgroundColor = 'rgba(16, 185, 129, 0.12)';
+        banner.style.borderColor = 'var(--success)';
+        document.getElementById('lblWinner').innerText = "TRADITIONAL ACCOUNT WINS BY";
+        document.getElementById('lblWinner').style.color = 'var(--success)';
+        document.getElementById('outDiff').innerText = '+' + fmt(tradNet - rothNet);
+        document.getElementById('outDiff').style.color = 'var(--success)';
+        document.getElementById('outSub').innerText = "Extra Net Wealth at Retirement";
+        logic.innerHTML = `<strong>The Math:</strong> Because your expected tax rate in retirement (${(retTax*100).toFixed(0)}%) is lower than your current tax rate (${(curTax*100).toFixed(0)}%), you gain more total wealth by taking the tax deduction today with a Traditional account.`;
+      } else {
+        banner.style.backgroundColor = 'rgba(244, 63, 94, 0.12)';
+        banner.style.borderColor = 'var(--danger)';
+        document.getElementById('lblWinner').innerText = "ROTH ACCOUNT WINS BY";
+        document.getElementById('lblWinner').style.color = 'var(--danger)';
+        document.getElementById('outDiff').innerText = '+' + fmt(rothNet - tradNet);
+        document.getElementById('outDiff').style.color = 'var(--danger)';
+        document.getElementById('outSub').innerText = "Extra Net Wealth at Retirement";
+        logic.innerHTML = `<strong>The Math:</strong> Because you expect your tax rate to be higher in retirement (${(retTax*100).toFixed(0)}%) than it is today (${(curTax*100).toFixed(0)}%), it mathematically makes sense to pay the taxes now and lock in tax-free growth with a Roth.`;
+      }
+    }
+    
+    calc();
+  </script>
+  <footer id="tDisclaimer" style="max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; line-height: 1.5; color: var(--muted); text-align: center;">For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.</footer>
+  <!-- ================= FLOATING FEEDBACK WIDGET ================= -->
+  <style>
+    .fb-btn { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #0f172a; border: none; border-radius: 50px; padding: 12px 20px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); transition: 0.2s; z-index: 100; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .fb-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4); }
+    .fb-modal { display: none; position: fixed; bottom: 80px; right: 20px; background: var(--card); border: 1px solid var(--border); width: 320px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 101; overflow: hidden; }
+    .fb-header { background: #0f172a; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .fb-header span { font-weight: 800; font-size: 0.9rem; color: var(--text); }
+    .fb-close { background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; font-weight: bold; }
+    .fb-close:hover { color: var(--danger); }
+    .fb-body { padding: 16px; }
+    .fb-input { width: 100%; background: #0f172a; border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 12px; resize: none; font-family: inherit; }
+    .fb-input:focus { outline: none; border-color: var(--accent); }
+    .fb-submit { width: 100%; background: var(--success); color: #052e16; border: none; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
+    .fb-submit:hover { opacity: 0.9; }
+  </style>
+
+  <a class="fb-btn" href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">💡 Suggest Upgrade</a>
+  <!-- ============================================================ -->
+
+  <!-- EXPORT SCRIPTS -->
+  <script>
+    function getSummaryText() {
+      let txt = document.title + "\n";
+      txt += "=========================================\n";
+      txt += "Exported from ClearMetricTools.com\n\n";
+      
+      // Look for inputs
+      txt += "--- INPUTS ---\n";
+      document.querySelectorAll('.input-group').forEach(group => {
+        const header = group.querySelector('.input-header');
+        if (header && group.style.display !== 'none') {
+           const label = header.children[0] ? header.children[0].innerText : '';
+           const val = header.children[1] ? header.children[1].innerText : '';
+           if(label) txt += label + ": " + val + "\n";
+        }
+      });
+      
+      // Look for custom toggles/selects specific to the page
+      document.querySelectorAll('.select-box').forEach(sb => {
+        if(sb.id !== 'langSelector' && sb.id !== 'currencySelector' && sb.style.display !== 'none') {
+          const label = sb.previousElementSibling && sb.previousElementSibling.tagName === 'SPAN' ? sb.previousElementSibling.innerText : sb.previousElementSibling ? sb.previousElementSibling.innerText : 'Selection';
+          txt += label + ": " + sb.options[sb.selectedIndex].text + "\n";
+        }
+      });
+      
+      txt += "\n--- RESULTS ---\n";
+      
+      // Look for big banners
+      document.querySelectorAll('.loss-banner, .gain-banner, .winner-banner').forEach(banner => {
+         if (banner.style.display !== 'none') {
+             const title = banner.children[0] ? banner.children[0].innerText : '';
+             const amt = banner.children[1] ? banner.children[1].innerText : '';
+             if(title) txt += title + ": " + amt + "\n";
+         }
+      });
+      
+      // Look for tables
+      document.querySelectorAll('.comparison-table').forEach(table => {
+         if(table.style.display !== 'none') {
+             const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
+             txt += "\n" + headers.join(" | ") + "\n";
+             txt += "-".repeat(headers.join(" | ").length) + "\n";
+             table.querySelectorAll('tbody tr').forEach(tr => {
+                 const cells = Array.from(tr.querySelectorAll('td')).map(td => td.innerText.replace(/\n/g, ' '));
+                 txt += cells.join(" | ") + "\n";
+             });
+         }
+      });
+      
+      // Look for grid buckets (75/15/10)
+      document.querySelectorAll('.bucket').forEach(b => {
+         const title = b.querySelector('.b-title') ? b.querySelector('.b-title').innerText : '';
+         const amt = b.querySelector('.b-amt') ? b.querySelector('.b-amt').innerText : '';
+         if(title) txt += title + ": " + amt + "\n";
+      });
+      
+      txt += "\n" + document.getElementById('tDisclaimer').innerText + "\n";
+
+      return txt;
+    }
+
+    function exportToTxt() {
+      const text = getSummaryText();
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ClearMetricTools_Audit.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function exportToPdf() {
+      // In a simple static site without importing heavy libraries like jsPDF or html2pdf, 
+      // the most reliable and highest-quality method is triggering the browser's native print dialog.
+      window.print();
+    }
+  </script>
+
+</body>
+</html>

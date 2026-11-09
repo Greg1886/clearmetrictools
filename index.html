@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Broker FX, ETF TER & Order Fee Drag Calculator | ClearMetricTools</title>
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --danger: #f43f5e; --success: #10b981; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+    header { border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.92); padding: 14px 20px; position: sticky; top: 0; z-index: 50; }
+    .nav-wrap { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; } .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 11px; border-radius: 8px; transition: 0.15s; }
+    #n1 { background: rgba(56, 189, 248, 0.12); color: #38bdf8 !important; }
+    .container { max-width: 1160px; margin: 28px auto; padding: 0 20px; }
+    .matchup-bar { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .pill-btn { background: #0f172a; border: 1px solid var(--border); color: var(--text); font-size: 0.78rem; font-weight: 600; padding: 6px 11px; border-radius: 999px; cursor: pointer; }
+    .pill-btn.active { background: rgba(56, 189, 248, 0.15); border-color: var(--accent); color: var(--accent); }
+    .pill-btn.danger-pill { border-color: rgba(244, 63, 94, 0.5); color: #fda4af; }
+    .pill-btn.danger-pill.active { background: rgba(244, 63, 94, 0.15); border-color: var(--danger); color: var(--danger); }
+    .grid { display: grid; grid-template-columns: 1fr 1.18fr; gap: 24px; }
+    @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; }
+    .input-group { margin-bottom: 15px; } .input-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-weight: 600; }
+    .input-val { color: var(--accent); font-weight: 700; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; height: 6px; background: #0f172a; border-radius: 6px; }
+    .loss-banner { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.4); border-radius: 12px; padding: 16px; text-align: center; margin-bottom:14px; }
+    .loss-amount { font-size: 2.2rem; font-weight: 900; color: var(--danger); margin: 2px 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.84rem; }
+    .comparison-table th, .comparison-table td { padding: 9px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+    .val-good { color: var(--success); font-weight: 700; } .val-bad { color: var(--danger); font-weight: 700; }
+
+    /* EXPORT BUTTONS CSS */
+    .export-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .export-btn { flex: 1; min-width: 140px; display: flex; align-items: center; justify-content: center; gap: 6px; background: #1e293b; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: 0.15s; text-decoration: none; }
+    .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
+    .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">Clear<span>Metric</span>Tools</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link" id="n1">1. Broker FX & TER</a>
+        <a href="pea-vs-cto.html" class="nav-link" id="n2">2. PEA vs CTO (2026)</a>
+        <a href="dividend-tax-leakage.html" class="nav-link" id="n3">3. Acc vs Dist</a>
+        <a href="crypto-tax-calculator.html" class="nav-link" id="n4">4. Crypto Cash-Out</a>
+        <a href="75-15-10-planner.html" class="nav-link" id="n5">5. 75/15/10 Planner</a><a href="us/state-tax-migration.html" class="nav-link" style="color: #f59e0b; font-weight: 800; border: 1px solid #f59e0b; margin-left: 8px;">🇺🇸 US Tools</a>
+        <select id="langSelector" onchange="changeLang()" style="background: #1e293b; color: #f8fafc; border: 1px solid #334155; padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px;">
+          <option value="en">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="es">🇪🇸 Español</option>
+        </select>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <h1 style="font-size: 1.85rem; margin-bottom: 6px;" id="tHeroTitle">Broker FX, ETF TER & Order Fee Drag Calculator</h1>
+    <p style="color: var(--muted); margin-bottom: 20px;" id="tHeroSub">Audit how currency conversion, ETF expense ratios, and flat order fees compound against your net portfolio.</p>
+    
+    <div class="matchup-bar">
+      <div style="width: 100%; margin-bottom: 10px;"><span style="font-weight:700; color:var(--accent); font-size:0.8rem;" id="tMatchups">⚡ Quick Scenarios:</span></div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; width: 100%;">
+        <button class="pill-btn scenario-btn" onclick="applyMatchup('cw8_wpea', this)" id="tPill1">Amundi CW8 vs. WPEA</button>
+        <button class="pill-btn scenario-btn" onclick="applyMatchup('degiro_ibkr', this)" id="tPill2">DEGIRO vs. IBKR</button>
+        <button class="pill-btn scenario-btn" onclick="applyMatchup('t212_ibkr', this)">Trading 212 vs. IBKR</button>
+        <button class="pill-btn scenario-btn" onclick="applyMatchup('neo_bank', this)">Trade Republic vs. Local Bank</button>
+        <button class="pill-btn scenario-btn" onclick="applyMatchup('core_thematic', this)">S&P 500 (0.07%) vs Thematic ETF (0.60%)</button>
+        <button class="pill-btn danger-pill scenario-btn" onclick="applyMatchup('bank_pea', this)" id="tPill3">Active Bank Fund (1.50%) vs. ETF</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <div class="card-title" id="tSec1">1. Portfolio Parameters</div>
+        <div class="input-group"><div class="input-header"><span id="tInit">Initial Investment</span><span class="input-val" id="lblInit">€10,000</span></div><input type="range" id="inInit" min="0" max="150000" step="1000" value="10000" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span id="tMo">Monthly DCA</span><span class="input-val" id="lblMo">€500 / mo</span></div><input type="range" id="inMo" min="50" max="5000" step="50" value="500" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span id="tYr">Investment Horizon</span><span class="input-val" id="lblYr">20 Years</span></div><input type="range" id="inYr" min="5" max="40" step="1" value="20" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span id="tRet">Gross Market Return</span><span class="input-val" id="lblRet">9.5%</span></div><input type="range" id="inRet" min="4" max="14" step="0.5" value="9.5" oninput="calc()"/></div>
+        <hr style="border-color:var(--border); margin: 16px 0;" />
+        <div class="card-title" id="tSec2">2. Fee Comparison</div>
+        <div class="input-group"><div class="input-header"><span id="tFeeA">Option A: FX (%) & Order Fee (€)</span><span class="input-val" id="lblFeeA">0.25% FX | €2.00/ord</span></div><div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"><input type="range" id="inFeeA" min="0.00" max="1.50" step="0.05" value="0.25" oninput="calc()"/><input type="range" id="inOrdA" min="0.00" max="5.00" step="0.25" value="2.00" oninput="calc()"/></div></div>
+        <div class="input-group"><div class="input-header"><span id="tTerA">Option A: Annual Fund TER</span><span class="input-val" id="lblCustA">0.38% / yr</span></div><input type="range" id="inCustA" min="0.03" max="2.00" step="0.01" value="0.38" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span id="tFeeB">Option B: Low-Fee Setup (FX & TER)</span><span class="input-val" id="lblFeeB">0.02% FX | 0.15% TER</span></div><div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;"><input type="range" id="inFeeB" min="0.00" max="0.30" step="0.01" value="0.02" oninput="calc()"/><input type="range" id="inTerB" min="0.03" max="0.50" step="0.01" value="0.15" oninput="calc()"/></div></div>
+      </div>
+      <div class="card">
+        <div class="card-title" id="tSec3">3. Wealth Audit</div>
+        <div class="loss-banner">
+          <div style="font-size:0.78rem; font-weight:700; color:#fda4af;" id="tLoss">WEALTH LOST TO FEES</div>
+          <div class="loss-amount" id="outLost">€18,140</div>
+        </div>
+        <table class="comparison-table">
+          <thead><tr><th id="thM">Metric</th><th id="thA">Option A</th><th id="thB">Option B</th></tr></thead>
+          <tbody>
+            <tr><td id="tdPrin">Total Principal</td><td id="tbPrinA">€130,000</td><td id="tbPrinB">€130,000</td></tr>
+            <tr><td id="tdDir">Direct Fees Paid</td><td class="val-bad" id="tbDirectA">€9,600</td><td class="val-good" id="tbDirectB">€3,410</td></tr>
+            <tr><td><strong id="tdFin">Final Net Value</strong></td><td class="val-bad" id="tbFinalA">€318,260</td><td class="val-good" id="tbFinalB">€336,400</td></tr>
+          </tbody>
+        </table>
+        <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const i18n = {
+      en: {
+        n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
+        heroTitle: "Broker FX, ETF TER & Order Fee Drag Calculator", heroSub: "Audit how currency conversion, ETF expense ratios, and flat order fees compound against your net portfolio.",
+        matchups: "⚡ Quick Scenarios:", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Active Bank Fund (1.50%) vs. ETF",
+        sec1: "1. Portfolio Parameters", init: "Initial Investment", mo: "Monthly DCA", yr: "Investment Horizon", ret: "Gross Market Return",
+        sec2: "2. Fee Comparison", feeA: "Option A: FX (%) & Order Fee (€)", terA: "Option A: Annual Fund TER", feeB: "Option B: Low-Fee Setup (FX & TER)",
+        sec3: "3. Wealth Audit", loss: "WEALTH LOST TO FEES",
+        thM: "Metric", thA: "Option A", thB: "Option B", tdPrin: "Total Principal", tdDir: "Direct Fees Paid", tdFin: "Final Net Value"
+      },
+      fr: {
+        n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
+        heroTitle: "Calculateur d'Impact : Frais Courtier, TER ETF & Ordres", heroSub: "Mesurez l'impact des frais de change, de gestion (TER) et de courtage sur votre capital net.",
+        matchups: "⚡ Scénarios Rapides :", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Fonds Actif (1.50%) vs. ETF",
+        sec1: "1. Paramètres du Portefeuille", init: "Investissement Initial", mo: "Épargne Mensuelle", yr: "Horizon de Placement", ret: "Rendement Brut du Marché",
+        sec2: "2. Comparaison des Frais", feeA: "Option A : Frais FX (%) & Courtage (€)", terA: "Option A : TER Annuel du Fonds", feeB: "Option B : Format Low-Cost (FX & TER)",
+        sec3: "3. Audit du Patrimoine", loss: "CAPITAL PERDU EN FRAIS",
+        thM: "Métrique", thA: "Option A", thB: "Option B", tdPrin: "Capital Total Investi", tdDir: "Frais Directs Payés", tdFin: "Valeur Nette Finale"
+      },
+      de: {
+        n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
+        heroTitle: "Broker FX, ETF TER & Ordergebühren Rechner", heroSub: "Prüfen Sie, wie sich Wechselkursgebühren, ETF-Kosten (TER) und Ordergebühren auf Ihr Portfolio auswirken.",
+        matchups: "⚡ Schnell-Szenarien:", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Aktiver Bankfonds (1.50%) vs. ETF",
+        sec1: "1. Portfolio Parameter", init: "Anfangsinvestition", mo: "Monatlicher Sparplan", yr: "Anlagehorizont", ret: "Bruttorendite",
+        sec2: "2. Gebührenvergleich", feeA: "Option A: FX (%) & Ordergebühr (€)", terA: "Option A: Jährliche Fonds-TER", feeB: "Option B: Low-Fee Setup (FX & TER)",
+        sec3: "3. Vermögensprüfung", loss: "VERMÖGENSVERLUST DURCH GEBÜHREN",
+        thM: "Metrik", thA: "Option A", thB: "Option B", tdPrin: "Eingezahltes Kapital", tdDir: "Gezahlte Direktgebühren", tdFin: "Netto-Endwert"
+      },
+      es: {
+        n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
+        heroTitle: "Calculadora de Costes: FX de Bróker, TER y Comisiones", heroSub: "Audite cómo el cambio de divisa, los gastos del ETF (TER) y las comisiones reducen su cartera neta.",
+        matchups: "⚡ Escenarios Rápidos:", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Fondo Activo (1.50%) vs. ETF",
+        sec1: "1. Parámetros de Inversión", init: "Inversión Inicial", mo: "Aportación Mensual", yr: "Horizonte de Inversión", ret: "Rentabilidad Bruta",
+        sec2: "2. Comparación de Comisiones", feeA: "Opción A: FX (%) y Comisión/Orden (€)", terA: "Opción A: TER Anual del Fondo", feeB: "Opción B: Low-Cost (FX y TER)",
+        sec3: "3. Auditoría de Patrimonio", loss: "PATRIMONIO PERDIDO EN COMISIONES",
+        thM: "Métrica", thA: "Opción A", thB: "Opción B", tdPrin: "Capital Invertido", tdDir: "Comisiones Directas Pagadas", tdFin: "Valor Neto Final"
+      }
+    };
+
+    let lang = localStorage.getItem('cmt_lang') || 'en';
+    document.getElementById('langSelector').value = lang;
+
+    function applyLang() {
+      const l = i18n[lang];
+      document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
+      document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
+      document.getElementById('tMatchups').innerText = l.matchups; document.getElementById('tPill1').innerText = l.pill1; document.getElementById('tPill2').innerText = l.pill2; document.getElementById('tPill3').innerText = l.pill3;
+      document.getElementById('tSec1').innerText = l.sec1; document.getElementById('tInit').innerText = l.init; document.getElementById('tMo').innerText = l.mo; document.getElementById('tYr').innerText = l.yr; document.getElementById('tRet').innerText = l.ret;
+      document.getElementById('tSec2').innerText = l.sec2; document.getElementById('tFeeA').innerText = l.feeA; document.getElementById('tTerA').innerText = l.terA; document.getElementById('tFeeB').innerText = l.feeB;
+      document.getElementById('tSec3').innerText = l.sec3; document.getElementById('tLoss').innerText = l.loss;
+      document.getElementById('thM').innerText = l.thM; document.getElementById('thA').innerText = l.thA; document.getElementById('thB').innerText = l.thB;
+      document.getElementById('tdPrin').innerText = l.tdPrin; document.getElementById('tdDir').innerText = l.tdDir; document.getElementById('tdFin').innerText = l.tdFin;
+    }
+
+    function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); calc(); }
+
+    const fmt = n => '€' + Math.round(n).toLocaleString('en-US');
+    function applyMatchup(t, btnElement) {
+      document.querySelectorAll('.scenario-btn').forEach(btn => btn.classList.remove('active'));
+      if(btnElement) btnElement.classList.add('active');
+
+      if(t==='cw8_wpea'){ document.getElementById('inFeeA').value=0; document.getElementById('inOrdA').value=1.5; document.getElementById('inCustA').value=0.38; document.getElementById('inFeeB').value=0; document.getElementById('inTerB').value=0.20; }
+      if(t==='degiro_ibkr'){ document.getElementById('inFeeA').value=0.25; document.getElementById('inOrdA').value=1; document.getElementById('inCustA').value=0.22; document.getElementById('inFeeB').value=0.01; document.getElementById('inTerB').value=0.15; }
+      if(t==='t212_ibkr'){ document.getElementById('inFeeA').value=0.15; document.getElementById('inOrdA').value=0; document.getElementById('inCustA').value=0.20; document.getElementById('inFeeB').value=0.01; document.getElementById('inTerB').value=0.12; }
+      if(t==='neo_bank'){ document.getElementById('inFeeA').value=0.50; document.getElementById('inOrdA').value=5.00; document.getElementById('inCustA').value=1.50; document.getElementById('inFeeB').value=0; document.getElementById('inTerB').value=0.20; }
+      if(t==='core_thematic'){ document.getElementById('inFeeA').value=0; document.getElementById('inOrdA').value=0; document.getElementById('inCustA').value=0.60; document.getElementById('inFeeB').value=0; document.getElementById('inTerB').value=0.07; }
+      if(t==='bank_pea'){ document.getElementById('inFeeA').value=0.50; document.getElementById('inOrdA').value=3; document.getElementById('inCustA').value=1.50; document.getElementById('inFeeB').value=0; document.getElementById('inTerB').value=0.20; }
+      calc();
+    }
+    function sim(init,mo,yr,ret,fx,ter,ord){
+      let bal = init*(1-fx/100); let dir = init*(fx/100);
+      for(let i=1;i<=yr*12;i++){ let f=(mo*(fx/100))+ord; dir+=f; bal+=Math.max(0,mo-f); bal*=(1+(ret/100)/12); let t=bal*((ter/100)/12); dir+=t; bal-=t; }
+      return {bal,dir};
+    }
+    function calc() {
+      const init=+document.getElementById('inInit').value, mo=+document.getElementById('inMo').value, yr=+document.getElementById('inYr').value, ret=+document.getElementById('inRet').value;
+      const fA=+document.getElementById('inFeeA').value, oA=+document.getElementById('inOrdA').value, cA=+document.getElementById('inCustA').value;
+      const fB=+document.getElementById('inFeeB').value, tB=+document.getElementById('inTerB').value;
+      document.getElementById('lblInit').innerText=fmt(init); document.getElementById('lblMo').innerText=fmt(mo)+'/mo'; document.getElementById('lblYr').innerText=yr+(lang==='fr'?' Ans':lang==='de'?' Jahre':lang==='es'?' Años':' Yrs'); document.getElementById('lblRet').innerText=ret.toFixed(1)+'%';
+      document.getElementById('lblFeeA').innerText=`${fA.toFixed(2)}% FX | €${oA.toFixed(2)}`; document.getElementById('lblCustA').innerText=`${cA.toFixed(2)}%`;
+      document.getElementById('lblFeeB').innerText=`${fB.toFixed(2)}% FX | ${tB.toFixed(2)}% TER`;
+      const resA=sim(init,mo,yr,ret,fA,cA,oA), resB=sim(init,mo,yr,ret,fB,tB,0);
+      document.getElementById('outLost').innerText=fmt(Math.max(0,resB.bal-resA.bal));
+      document.getElementById('tbPrinA').innerText=fmt(init+(mo*yr*12)); document.getElementById('tbPrinB').innerText=fmt(init+(mo*yr*12));
+      document.getElementById('tbDirectA').innerText=fmt(resA.dir); document.getElementById('tbDirectB').innerText=fmt(resB.dir);
+      document.getElementById('tbFinalA').innerText=fmt(resA.bal); document.getElementById('tbFinalB').innerText=fmt(resB.bal);
+    }
+    
+    applyLang();
+    calc();
+  </script>
+  <footer id="tDisclaimer" style="max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; line-height: 1.5; color: var(--muted); text-align: center;">For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.</footer>
+  <script>
+    (function () {
+      const text = {
+        en: "For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.",
+        fr: "À titre d'information et d'estimation uniquement. ClearMetricTools ne fournit aucun conseil financier, en investissement, fiscal ou juridique. Les règles et taux d'imposition évoluent et dépendent de votre situation ; les résultats sont des estimations simplifiées qui peuvent être inexactes. Consultez un professionnel qualifié avant toute décision.",
+        de: "Nur zu allgemeinen Informationszwecken und als Schätzung. ClearMetricTools bietet keine Finanz-, Anlage-, Steuer- oder Rechtsberatung. Steuerregeln und -sätze ändern sich und hängen von Ihrer Situation ab; die Ergebnisse sind vereinfachte Schätzungen und können ungenau sein. Wenden Sie sich vor Entscheidungen an eine qualifizierte Fachperson.",
+        es: "Solo con fines informativos y como estimación. ClearMetricTools no ofrece asesoramiento financiero, de inversión, fiscal ni legal. Las normas y los tipos impositivos cambian y dependen de su situación; los resultados son estimaciones simplificadas que pueden ser inexactas. Consulte a un profesional cualificado antes de tomar decisiones."
+      };
+      const selector = document.getElementById('langSelector');
+      const show = () => { document.getElementById('tDisclaimer').innerText = text[selector.value] || text.en; };
+      selector.addEventListener('change', show);
+      show();
+    })();
+  </script>
+  <!-- ================= FLOATING FEEDBACK WIDGET ================= -->
+  <style>
+    .fb-btn { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #0f172a; border: none; border-radius: 50px; padding: 12px 20px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); transition: 0.2s; z-index: 100; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .fb-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4); }
+    .fb-modal { display: none; position: fixed; bottom: 80px; right: 20px; background: var(--card); border: 1px solid var(--border); width: 320px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 101; overflow: hidden; }
+    .fb-header { background: #0f172a; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .fb-header span { font-weight: 800; font-size: 0.9rem; color: var(--text); }
+    .fb-close { background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; font-weight: bold; }
+    .fb-close:hover { color: var(--danger); }
+    .fb-body { padding: 16px; }
+    .fb-input { width: 100%; background: #0f172a; border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 12px; resize: none; font-family: inherit; }
+    .fb-input:focus { outline: none; border-color: var(--accent); }
+    .fb-submit { width: 100%; background: var(--success); color: #052e16; border: none; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
+    .fb-submit:hover { opacity: 0.9; }
+  </style>
+
+  <a class="fb-btn" href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">💡 Suggest Upgrade</a>
+  <!-- ============================================================ -->
+
+  <!-- EXPORT SCRIPTS -->
+  <script>
+    function getSummaryText() {
+      let txt = document.title + "\n";
+      txt += "=========================================\n";
+      txt += "Exported from ClearMetricTools.com\n\n";
+      
+      // Look for inputs
+      txt += "--- INPUTS ---\n";
+      document.querySelectorAll('.input-group').forEach(group => {
+        const header = group.querySelector('.input-header');
+        if (header && group.style.display !== 'none') {
+           const label = header.children[0] ? header.children[0].innerText : '';
+           const val = header.children[1] ? header.children[1].innerText : '';
+           if(label) txt += label + ": " + val + "\n";
+        }
+      });
+      
+      // Look for custom toggles/selects specific to the page
+      document.querySelectorAll('.select-box').forEach(sb => {
+        if(sb.id !== 'langSelector' && sb.id !== 'currencySelector' && sb.style.display !== 'none') {
+          const label = sb.previousElementSibling && sb.previousElementSibling.tagName === 'SPAN' ? sb.previousElementSibling.innerText : sb.previousElementSibling ? sb.previousElementSibling.innerText : 'Selection';
+          txt += label + ": " + sb.options[sb.selectedIndex].text + "\n";
+        }
+      });
+      
+      txt += "\n--- RESULTS ---\n";
+      
+      // Look for big banners
+      document.querySelectorAll('.loss-banner, .gain-banner, .winner-banner').forEach(banner => {
+         if (banner.style.display !== 'none') {
+             const title = banner.children[0] ? banner.children[0].innerText : '';
+             const amt = banner.children[1] ? banner.children[1].innerText : '';
+             if(title) txt += title + ": " + amt + "\n";
+         }
+      });
+      
+      // Look for tables
+      document.querySelectorAll('.comparison-table').forEach(table => {
+         if(table.style.display !== 'none') {
+             const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
+             txt += "\n" + headers.join(" | ") + "\n";
+             txt += "-".repeat(headers.join(" | ").length) + "\n";
+             table.querySelectorAll('tbody tr').forEach(tr => {
+                 const cells = Array.from(tr.querySelectorAll('td')).map(td => td.innerText.replace(/\n/g, ' '));
+                 txt += cells.join(" | ") + "\n";
+             });
+         }
+      });
+      
+      // Look for grid buckets (75/15/10)
+      document.querySelectorAll('.bucket').forEach(b => {
+         const title = b.querySelector('.b-title') ? b.querySelector('.b-title').innerText : '';
+         const amt = b.querySelector('.b-amt') ? b.querySelector('.b-amt').innerText : '';
+         if(title) txt += title + ": " + amt + "\n";
+      });
+      
+      txt += "\n" + document.getElementById('tDisclaimer').innerText + "\n";
+
+      return txt;
+    }
+
+    function exportToTxt() {
+      const text = getSummaryText();
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ClearMetricTools_Audit.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function exportToPdf() {
+      // In a simple static site without importing heavy libraries like jsPDF or html2pdf, 
+      // the most reliable and highest-quality method is triggering the browser's native print dialog.
+      window.print();
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>US State Tax Migration & Capital Gains Optimizer | ClearMetricTools</title>
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --danger: #f43f5e; --success: #10b981; --warning: #f59e0b; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+    header { border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.92); padding: 14px 20px; position: sticky; top: 0; z-index: 50; }
+    .nav-wrap { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; } .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 11px; border-radius: 8px; transition: 0.15s; }
+    .nav-link.active { background: rgba(56, 189, 248, 0.12); color: var(--accent); border-color: rgba(56, 189, 248, 0.35); }
+    .us-badge { background: rgba(244, 63, 94, 0.15); color: #fda4af; font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; font-weight: 800; text-transform: uppercase; border: 1px solid rgba(244, 63, 94, 0.3); margin-left: 6px; }
+    .container { max-width: 1160px; margin: 28px auto; padding: 0 20px; }
+    .grid { display: grid; grid-template-columns: 1fr 1.18fr; gap: 24px; }
+    @media (max-width: 880px) { .grid { grid-template-columns: 1fr; } }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .card-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 16px; }
+    .input-group { margin-bottom: 16px; } .input-header { display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 5px; font-weight: 600; }
+    .input-val { color: var(--accent); font-weight: 700; }
+    input[type="range"] { width: 100%; accent-color: var(--accent); cursor: pointer; height: 6px; background: #0f172a; border-radius: 6px; }
+    .select-box { background: #0f172a; color: var(--text); border: 1px solid var(--border); padding: 10px 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; cursor: pointer; width: 100%; margin-bottom: 15px; }
+    .loss-banner { background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.4); border-radius: 12px; padding: 16px; text-align: center; margin-bottom: 14px; }
+    .amt { font-size: 2.2rem; font-weight: 900; margin: 2px 0; }
+    .comparison-table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: 0.84rem; }
+    .comparison-table th, .comparison-table td { padding: 9px 8px; text-align: left; border-bottom: 1px solid var(--border); }
+    .val-good { color: var(--success); font-weight: 700; } .val-bad { color: var(--danger); font-weight: 700; }
+    .toggle-row { display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 16px; border-radius: 10px; border: 1px solid rgba(244, 63, 94, 0.3); margin-bottom: 15px; font-size: 0.85rem; font-weight: 700; }
+    .switch { position: relative; display: inline-block; width: 42px; height: 22px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; inset: 0; background-color: #334155; transition: .2s; border-radius: 22px; }
+    .slider:before { position: absolute; content: ""; height: 16px; width: 16px; left: 3px; bottom: 3px; background-color: white; transition: .2s; border-radius: 50%; }
+    input:checked + .slider { background-color: var(--danger); }
+    input:checked + .slider:before { transform: translateX(20px); }
+
+    /* EXPORT BUTTONS CSS */
+    .export-row { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+    .export-btn { flex: 1; min-width: 140px; display: flex; align-items: center; justify-content: center; gap: 6px; background: #1e293b; border: 1px solid var(--border); color: var(--text); padding: 10px 14px; border-radius: 8px; font-weight: 700; font-size: 0.82rem; cursor: pointer; transition: 0.15s; text-decoration: none; }
+    .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
+    .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="../index.html" class="brand">Clear<span>Metric</span>Tools<span class="us-badge">US</span></a>
+      <div class="nav-links"><a href="../index.html" class="nav-link" style="color: #10b981; font-weight: 800; border: 1px solid #10b981; margin-right: 8px;">🌍 Global Tools</a><a href="state-tax-migration.html" class="nav-link active">Geo-Tax Arbitrage</a><a href="roth-vs-traditional.html" class="nav-link">Roth vs Traditional</a><a href="401k-penalty-calculator.html" class="nav-link">401(k) Penalty</a></div>
+    </div>
+  </header>
+  <div class="container">
+    <h1 style="font-size: 1.85rem; margin-bottom: 6px;">US State Tax Migration & Capital Gains Optimizer</h1>
+    <p style="color: var(--muted); margin-bottom: 20px;">Calculate exactly how much wealth you hemorrhage to state and local governments when cashing out in high-tax jurisdictions.</p>
+    
+    <div class="grid">
+      <div class="card">
+        <div class="card-title">1. Portfolio & Income Parameters</div>
+        <div class="input-group"><div class="input-header"><span>Current W2 Salary (Ordinary Income)</span><span class="input-val" id="lblInc">$80,000</span></div><input type="range" id="inInc" min="0" max="1000000" step="5000" value="80000" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span>Initial Investment (Cost Basis)</span><span class="input-val" id="lblCost">$50,000</span></div><input type="range" id="inCost" min="1000" max="1000000" step="5000" value="50000" oninput="calc()"/></div>
+        <div class="input-group"><div class="input-header"><span>Current Portfolio Value Cashing Out</span><span class="input-val" id="lblVal">$250,000</span></div><input type="range" id="inVal" min="5000" max="5000000" step="10000" value="250000" oninput="calc()"/></div>
+        <hr style="border-color:var(--border); margin: 16px 0;" />
+        <div class="card-title">2. Geographic Arbitrage Routing</div>
+        
+        <div class="input-header"><span>High-Tax Origin State</span></div>
+        <select class="select-box" id="originSelect" onchange="toggleNyc()">
+          <option value="CA">California (Up to 13.3%)</option>
+          <option value="NY">New York State (Up to 10.9%)</option>
+          <option value="HI">Hawaii (Capital Gains Max: 7.25%)</option>
+          <option value="NJ">New Jersey (Up to 10.75%)</option>
+          <option value="OR">Oregon (Up to 9.9%)</option>
+        </select>
+
+        <div class="toggle-row" id="nycToggleRow" style="display:none;">
+          <span style="color: #fda4af;">Apply New York City Local Tax (Up to 3.876%)?</span>
+          <label class="switch"><input type="checkbox" id="inNyc" onchange="calc()"><span class="slider"></span></label>
+        </div>
+
+        <div class="input-header"><span>Zero-Tax Target State</span></div>
+        <select class="select-box" id="targetSelect" onchange="calc()" style="color: var(--success); border-color: rgba(16, 185, 129, 0.4);">
+          <option value="0">Florida (0% State Tax)</option>
+          <option value="0">Texas (0% State Tax)</option>
+          <option value="0">Nevada (0% State Tax)</option>
+          <option value="0">Wyoming (0% State Tax)</option>
+          <option value="0">South Dakota (0% State Tax)</option>
+          <option value="0">Alaska (0% State Tax)</option>
+          <option value="0">Tennessee (0% State Tax)</option>
+          <option value="0">New Hampshire (0% State Tax)</option>
+        </select>
+        <div style="font-size: 0.75rem; color: var(--muted); line-height: 1.4;">Assumes a single filer and treats salary plus gain as taxable income. Uses 2026 brackets for New York and Hawaii, and the latest published schedules for California and Oregon (2025) and New Jersey. New York's high-income supplemental tax is not included.</div>
+      </div>
+      
+      <div class="card">
+        <div class="card-title">3. Net Cash Audit</div>
+        <div class="loss-banner">
+          <div style="font-size:0.78rem; font-weight:700; color:#fda4af;">THE PENALTY FOR STAYING (LOST TO STATE/CITY)</div>
+          <div class="amt" style="color:var(--danger);" id="outLost">-$0</div>
+          <div style="font-size: 0.8rem; color: var(--muted); margin-top: 4px;">Taxes paid locally in addition to Federal IRS obligations.</div>
+        </div>
+        <table class="comparison-table">
+          <thead><tr><th>Tax Jurisdiction</th><th>Origin State</th><th id="lblTargetStateCol">Zero-Tax State</th></tr></thead>
+          <tbody>
+            <tr><td>Taxable Capital Gain</td><td id="vGain1">$0</td><td id="vGain2">$0</td></tr>
+            <tr><td>Federal LTCG Tax + NIIT</td><td id="vFed1" class="val-bad">-$0</td><td id="vFed2" class="val-bad">-$0</td></tr>
+            <tr><td>State & Local Capital Gains Tax</td><td id="vState1" class="val-bad">-$0</td><td class="val-good" id="vState2">$0</td></tr>
+            <tr><td><strong>Net Cash in Pocket</strong></td><td id="vNet1" style="font-weight:700;">$0</td><td id="vNet2" class="val-good" style="font-weight:900;">$0</td></tr>
+          </tbody>
+        </table>
+        <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const fmt = n => '$' + Math.max(0, n).toLocaleString('en-US', {maximumFractionDigits:0});
+
+    // Single-filer schedules as [top of bracket, rate %].
+    const STATE_BRACKETS = {
+      // FTB 2025 Schedule X (the 1% tax above $1M is added in stateTaxOnGain)
+      CA: [[11079, 1], [26264, 2], [41452, 4], [57542, 6], [72724, 8], [371479, 9.3], [445771, 10.3], [742953, 11.3], [Infinity, 12.3]],
+      // NY Tax Law 601(c), taxable years beginning in 2026
+      NY: [[8500, 3.9], [11700, 4.4], [13900, 5.15], [80650, 5.4], [215400, 5.9], [1077550, 6.85], [5000000, 9.65], [25000000, 10.3], [Infinity, 10.9]],
+      // HRS 235-51(c), taxable years beginning after 2024 and before 2027
+      HI: [[9600, 1.4], [14400, 3.2], [19200, 5.5], [24000, 6.4], [36000, 6.8], [48000, 7.2], [125000, 7.6], [175000, 7.9], [225000, 8.25], [275000, 9], [325000, 10], [Infinity, 11]],
+      // NJ-1040 Tax Rate Schedule, Table A (2020 and after)
+      NJ: [[20000, 1.4], [35000, 1.75], [40000, 3.5], [75000, 5.525], [500000, 6.37], [1000000, 8.97], [Infinity, 10.75]],
+      // Oregon DOR 2025 Chart S
+      OR: [[4400, 4.75], [11100, 6.75], [125000, 8.75], [Infinity, 9.9]]
+    };
+    // NY Tax Law 1304 base rates including the 14% city surcharge
+    const NYC_BRACKETS = [[12000, 3.078], [25000, 3.762], [50000, 3.819], [Infinity, 3.876]];
+
+    function bracketTax(income, brackets) {
+      let tax = 0, lower = 0;
+      for (const [upper, rate] of brackets) {
+        if (income <= lower) break;
+        tax += (Math.min(income, upper) - lower) * rate / 100;
+        lower = upper;
+      }
+      return tax;
+    }
+
+    // The gain is stacked on top of salary, so only the extra tax it causes is counted.
+    function stateTaxOnGain(state, inc, gain) {
+      const brackets = STATE_BRACKETS[state];
+      const total = inc + gain;
+      const baseTax = bracketTax(inc, brackets);
+      let onGain = bracketTax(total, brackets) - baseTax;
+      if (state === 'CA') onGain += (Math.max(0, total - 1000000) - Math.max(0, inc - 1000000)) * 0.01;
+      if (state === 'HI') {
+        // HRS 235-51(f): net capital gain above the sub-7.25% brackets is capped at 7.25%.
+        const stdPortion = Math.min(total, Math.max(inc, 48000));
+        const capped = bracketTax(stdPortion, brackets) + (total - stdPortion) * 0.0725 - baseTax;
+        onGain = Math.min(onGain, capped);
+      }
+      return onGain;
+    }
+
+    function toggleNyc() {
+      const isNy = document.getElementById('originSelect').options[document.getElementById('originSelect').selectedIndex].text.includes('New York');
+      document.getElementById('nycToggleRow').style.display = isNy ? 'flex' : 'none';
+      if(!isNy) document.getElementById('inNyc').checked = false;
+      calc();
+    }
+
+    function calc() {
+      const inc = +document.getElementById('inInc').value;
+      const cost = +document.getElementById('inCost').value;
+      const val = Math.max(cost, +document.getElementById('inVal').value);
+      
+      const originState = document.getElementById('originSelect').value;
+      const inNyc = document.getElementById('inNyc').checked;
+
+      const targetSelect = document.getElementById('targetSelect');
+      const targetRate = +targetSelect.value / 100;
+      const targetName = targetSelect.options[targetSelect.selectedIndex].text.split(' (')[0];
+      
+      document.getElementById('lblInc').innerText = fmt(inc);
+      document.getElementById('lblCost').innerText = fmt(cost);
+      document.getElementById('lblVal').innerText = fmt(val);
+      document.getElementById('lblTargetStateCol').innerText = targetName;
+      
+      const gain = val - cost;
+      
+      // IRS 2026 Estimated Long-Term Capital Gains Brackets
+      let fedTax = 0;
+      const space0 = Math.max(0, 49450 - inc);
+      const gainIn0 = Math.min(gain, space0);
+      const space15 = Math.max(0, 545500 - Math.max(inc, 49450));
+      const gainIn15 = Math.min(gain - gainIn0, space15);
+      const gainIn20 = Math.max(0, gain - gainIn0 - gainIn15);
+      fedTax += (gainIn15 * 0.15) + (gainIn20 * 0.20);
+      
+      const magi = inc + gain;
+      if (magi > 200000) {
+        const niitExposure = Math.min(gain, magi - 200000);
+        fedTax += (niitExposure * 0.038);
+      }
+      
+      let originStateTaxPaid = stateTaxOnGain(originState, inc, gain);
+      if (inNyc) originStateTaxPaid += bracketTax(inc + gain, NYC_BRACKETS) - bracketTax(inc, NYC_BRACKETS);
+      const targetStateTaxPaid = gain * targetRate;
+      
+      const netOrigin = val - fedTax - originStateTaxPaid;
+      const netTarget = val - fedTax - targetStateTaxPaid;
+      
+      document.getElementById('outLost').innerText = '-' + fmt(netTarget - netOrigin);
+      document.getElementById('vGain1').innerText = fmt(gain); 
+      document.getElementById('vGain2').innerText = fmt(gain);
+      document.getElementById('vFed1').innerText = '-' + fmt(fedTax); 
+      document.getElementById('vFed2').innerText = '-' + fmt(fedTax);
+      document.getElementById('vState1').innerText = '-' + fmt(originStateTaxPaid);
+      document.getElementById('vState2').innerText = targetStateTaxPaid === 0 ? '$0' : '-' + fmt(targetStateTaxPaid);
+      document.getElementById('vNet1').innerText = fmt(netOrigin); 
+      document.getElementById('vNet2').innerText = fmt(netTarget);
+    }
+    
+    document.getElementById('inVal').addEventListener('input', function() {
+      if(+this.value < +document.getElementById('inCost').value) { document.getElementById('inCost').value = this.value; calc(); }
+    });
+    toggleNyc();
+  </script>
+  <footer id="tDisclaimer" style="max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; line-height: 1.5; color: var(--muted); text-align: center;">For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.</footer>
+  <!-- ================= FLOATING FEEDBACK WIDGET ================= -->
+  <style>
+    .fb-btn { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #0f172a; border: none; border-radius: 50px; padding: 12px 20px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); transition: 0.2s; z-index: 100; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .fb-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4); }
+    .fb-modal { display: none; position: fixed; bottom: 80px; right: 20px; background: var(--card); border: 1px solid var(--border); width: 320px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); z-index: 101; overflow: hidden; }
+    .fb-header { background: #0f172a; padding: 12px 16px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .fb-header span { font-weight: 800; font-size: 0.9rem; color: var(--text); }
+    .fb-close { background: transparent; border: none; color: var(--muted); cursor: pointer; font-size: 1.2rem; font-weight: bold; }
+    .fb-close:hover { color: var(--danger); }
+    .fb-body { padding: 16px; }
+    .fb-input { width: 100%; background: #0f172a; border: 1px solid var(--border); color: var(--text); padding: 10px; border-radius: 8px; font-size: 0.85rem; margin-bottom: 12px; resize: none; font-family: inherit; }
+    .fb-input:focus { outline: none; border-color: var(--accent); }
+    .fb-submit { width: 100%; background: var(--success); color: #052e16; border: none; padding: 10px; border-radius: 8px; font-weight: 800; cursor: pointer; font-size: 0.85rem; }
+    .fb-submit:hover { opacity: 0.9; }
+  </style>
+
+  <a class="fb-btn" href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">💡 Suggest Upgrade</a>
+  <!-- ============================================================ -->
+
+  <!-- EXPORT SCRIPTS -->
+  <script>
+    function getSummaryText() {
+      let txt = document.title + "\n";
+      txt += "=========================================\n";
+      txt += "Exported from ClearMetricTools.com\n\n";
+      
+      // Look for inputs
+      txt += "--- INPUTS ---\n";
+      document.querySelectorAll('.input-group').forEach(group => {
+        const header = group.querySelector('.input-header');
+        if (header && group.style.display !== 'none') {
+           const label = header.children[0] ? header.children[0].innerText : '';
+           const val = header.children[1] ? header.children[1].innerText : '';
+           if(label) txt += label + ": " + val + "\n";
+        }
+      });
+      
+      // Look for custom toggles/selects specific to the page
+      document.querySelectorAll('.select-box').forEach(sb => {
+        if(sb.id !== 'langSelector' && sb.id !== 'currencySelector' && sb.style.display !== 'none') {
+          const label = sb.previousElementSibling && sb.previousElementSibling.tagName === 'SPAN' ? sb.previousElementSibling.innerText : sb.previousElementSibling ? sb.previousElementSibling.innerText : 'Selection';
+          txt += label + ": " + sb.options[sb.selectedIndex].text + "\n";
+        }
+      });
+      
+      // Yes/no toggles that change the result
+      document.querySelectorAll('.toggle-row').forEach(row => {
+        const box = row.querySelector('input[type="checkbox"]');
+        if (box && row.style.display !== 'none') txt += row.children[0].innerText + ": " + (box.checked ? "Yes" : "No") + "\n";
+      });
+
+      txt += "\n--- RESULTS ---\n";
+      
+      // Look for big banners
+      document.querySelectorAll('.loss-banner, .gain-banner, .winner-banner').forEach(banner => {
+         if (banner.style.display !== 'none') {
+             const title = banner.children[0] ? banner.children[0].innerText : '';
+             const amt = banner.children[1] ? banner.children[1].innerText : '';
+             if(title) txt += title + ": " + amt + "\n";
+         }
+      });
+      
+      // Look for tables
+      document.querySelectorAll('.comparison-table').forEach(table => {
+         if(table.style.display !== 'none') {
+             const headers = Array.from(table.querySelectorAll('th')).map(th => th.innerText);
+             txt += "\n" + headers.join(" | ") + "\n";
+             txt += "-".repeat(headers.join(" | ").length) + "\n";
+             table.querySelectorAll('tbody tr').forEach(tr => {
+                 const cells = Array.from(tr.querySelectorAll('td')).map(td => td.innerText.replace(/\n/g, ' '));
+                 txt += cells.join(" | ") + "\n";
+             });
+         }
+      });
+      
+      // Look for grid buckets (75/15/10)
+      document.querySelectorAll('.bucket').forEach(b => {
+         const title = b.querySelector('.b-title') ? b.querySelector('.b-title').innerText : '';
+         const amt = b.querySelector('.b-amt') ? b.querySelector('.b-amt').innerText : '';
+         if(title) txt += title + ": " + amt + "\n";
+      });
+      
+      txt += "\n" + document.getElementById('tDisclaimer').innerText + "\n";
+
+      return txt;
+    }
+
+    function exportToTxt() {
+      const text = getSummaryText();
+      const blob = new Blob([text], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'ClearMetricTools_Audit.txt';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+
+    function exportToPdf() {
+      // In a simple static site without importing heavy libraries like jsPDF or html2pdf, 
+      // the most reliable and highest-quality method is triggering the browser's native print dialog.
+      window.print();
+    }
+  </script>
+
+</body>
+</html>
