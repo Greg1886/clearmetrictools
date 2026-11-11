@@ -39,7 +39,13 @@
     .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
     .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+    .how { margin-top: 24px; }
+    .how h3 { font-size: 0.98rem; margin: 18px 0 6px; }
+    .how p, .how li { color: #cbd5e1; font-size: 0.9rem; } .how p { margin-bottom: 8px; }
+    .how ul { margin: 0 0 8px 20px; } .how li { margin-bottom: 4px; }
+    .how a { color: var(--accent); }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box, .how { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
   </style>
 </head>
 <body>
@@ -98,9 +104,56 @@
       </div>
       <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
     </div>
+    <section class="card how">
+      <h2 class="card-title" id="tHowTitle">How this calculator works</h2>
+      <div id="tHowBody">
+        <h3>What it calculates</h3>
+        <p>How much reaches your bank account when you sell crypto: the sale value, minus the exchange's fee, minus an estimate of the tax on your gain.</p>
+        <ul>
+          <li>Exchange fee = sale value × fee %.</li>
+          <li>Gain = sale value − what you paid (cost basis) − exchange fee.</li>
+          <li>Tax = the gain taxed under the country's rules below. With no gain, there is no tax.</li>
+          <li>Money in your bank = sale value − exchange fee − tax.</li>
+        </ul>
+        <h3>The rules applied, by country (2026)</h3>
+        <ul>
+          <li><strong>United States:</strong> crypto is treated as property. Gains on crypto held more than one year are long-term, and gains held one year or less are short-term, taxed as ordinary income. Long-term rates are 0%, 15% or 20% depending on income. The calculator uses an estimated 15% (long-term) or 24% (short-term).</li>
+          <li><strong>United Kingdom:</strong> gains above the £3,000 yearly tax-free allowance are taxed at 18% or 24%, depending on your income tax band. The calculator assumes 24%, the higher rate.</li>
+          <li><strong>Germany:</strong> crypto held privately for more than one year can be sold tax-free. For shorter holdings, gains are tax-free if your total gains from private sales in the year are below €1,000. At €1,000 or more, the whole gain is taxed at your personal income tax rate, which the calculator estimates at 35%.</li>
+          <li><strong>France:</strong> if your total crypto sales in the year are €305 or less, the gains are exempt. Above that, gains are taxed at 12.8% income tax plus social contributions (18.6% in 2026), 31.4% in total. You can opt for the progressive income tax scale instead.</li>
+          <li><strong>Italy:</strong> the calculator applies a flat 33% to the gain.</li>
+          <li><strong>Spain:</strong> crypto gains are savings income, taxed on a scale: 19% up to €6,000, 21% up to €50,000, 23% up to €200,000, 27% up to €300,000 and 30% above.</li>
+          <li><strong>Portugal:</strong> gains on crypto held 365 days or more are excluded from tax. Shorter holdings are taxed at 28%, or you can choose to add them to your other income.</li>
+        </ul>
+        <h3>Worked example</h3>
+        <p>You bought crypto for €2,000 and sell it for €10,000, with a 1.5% exchange fee. The fee is €150, so the gain is €10,000 − €2,000 − €150 = €7,850.</p>
+        <ul>
+          <li>France (sales above €305): 31.4% × €7,850 = €2,465 tax, so <strong>€7,385</strong> reaches your bank.</li>
+          <li>Portugal, held less than 365 days: 28% × €7,850 = €2,198 tax, so <strong>€7,652</strong> reaches your bank.</li>
+          <li>Germany, held more than one year: no tax, so <strong>€9,850</strong> reaches your bank.</li>
+        </ul>
+        <h3>What it leaves out</h3>
+        <ul>
+          <li>It treats your sale as one sale of a holding bought for the cost you enter. When you sell only part of your crypto, countries work out the cost differently. France uses a portfolio formula: gain = sale price − (total purchase price × sale price ÷ value of your whole portfolio). Spain uses first in, first out (FIFO).</li>
+          <li>Yearly thresholds, such as France's €305 and Germany's €1,000, apply to all your sales in the year, not one sale.</li>
+          <li>Your other income, losses from other sales, US state taxes and the US net investment income tax, and the special rules for swaps between cryptocurrencies, staking or mining.</li>
+        </ul>
+        <h3>Official sources</h3>
+        <ul>
+          <li>United States: <a href="https://www.irs.gov/filing/digital-assets" target="_blank" rel="noopener">IRS: Digital assets</a> and <a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="noopener">IRS Topic 409: Capital gains and losses</a>.</li>
+          <li>United Kingdom: <a href="https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets" target="_blank" rel="noopener">GOV.UK: Tax when you sell cryptoassets</a> and <a href="https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances" target="_blank" rel="noopener">Capital Gains Tax rates and allowances</a>.</li>
+          <li>Germany: <a href="https://www.gesetze-im-internet.de/estg/__23.html" target="_blank" rel="noopener">§ 23 EStG (private sales)</a>.</li>
+          <li>France: <a href="https://static.impots.gouv.fr/tdir/static/2026-03-30T16:36:08Z/aide/notices/notices2025/2086/notice2086.pdf" target="_blank" rel="noopener">impots.gouv.fr: notice for form 2086</a> and <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public: social contributions</a>.</li>
+          <li>Spain: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, articles 66 and 76</a> (BOE).</li>
+          <li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs10.aspx" target="_blank" rel="noopener">Código do IRS, article 10</a> and <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">article 72</a>.</li>
+        </ul>
+      </div>
+    </section>
   </div>
   <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
+    // The English explanation lives in the HTML above so search engines can read it.
+    const HOW_EN = document.getElementById('tHowBody').innerHTML;
     const i18n = {
       en: {
         linkAbout: "About & contact", linkPrivacy: "Privacy policy",
@@ -109,6 +162,7 @@
         jurisdiction: "Select Tax Jurisdiction (2026 Rules)", hold: "Asset Held For More Than 365 Days?",
         init: "Initial Investment Cost Basis", val: "Current Value Cashing Out", fee: "Exchange Spread / Selling Fee",
         lossTitle: "LOST TO LOCAL TAX & EXCHANGE FEES", netTitle: "ACTUAL FIAT LANDING IN BANK",
+        howTitle: "How this calculator works", howBody: null, // the English text is in #tHowBody in the HTML
         alertFr: "✅ <strong>Tax Exempt:</strong> Total cash-out is €305 or below. No French tax applies.",
         alertDe: "✅ <strong>Tax Free:</strong> Crypto held over 1 year is exempt from tax in Germany.",
         alertDeLimit: "✅ <strong>Tax Free:</strong> Gains under the €1,000 annual limit are exempt from tax in Germany.",
@@ -124,6 +178,46 @@
         jurisdiction: "Sélectionnez la Juridiction Fiscale (2026)", hold: "Actif Détenu Depuis Plus de 365 Jours ?",
         init: "Coût d'Acquisition Initial", val: "Valeur Actuelle (Retrait)", fee: "Frais de Spread / Plateforme",
         lossTitle: "PERDU EN IMPÔTS LOCAUX ET FRAIS", netTitle: "FIAT RÉEL REÇU EN BANQUE",
+        howTitle: "Comment fonctionne ce simulateur", howBody: `<h3>Ce qu'il calcule</h3>
+<p>Ce qui arrive sur votre compte bancaire quand vous vendez des cryptomonnaies : le montant de la vente, moins les frais de la plateforme, moins une estimation de l'impôt sur votre plus-value.</p>
+<ul>
+<li>Frais de la plateforme = montant de la vente × % de frais.</li>
+<li>Plus-value = montant de la vente − prix d'achat − frais de la plateforme.</li>
+<li>Impôt = la plus-value imposée selon les règles du pays ci-dessous. Sans plus-value, pas d'impôt.</li>
+<li>Montant reçu en banque = montant de la vente − frais − impôt.</li>
+</ul>
+<h3>Les règles appliquées, par pays (2026)</h3>
+<ul>
+<li><strong>États-Unis :</strong> les cryptomonnaies sont traitées comme des biens. Les plus-values sur des cryptos détenues plus d'un an sont à long terme ; celles détenues un an ou moins sont à court terme et imposées comme un revenu ordinaire. Les taux à long terme sont de 0 %, 15 % ou 20 % selon les revenus. Le simulateur utilise une estimation de 15 % (long terme) ou 24 % (court terme).</li>
+<li><strong>Royaume-Uni :</strong> les plus-values au-delà de l'abattement annuel de 3 000 £ sont imposées à 18 % ou 24 % selon votre tranche d'impôt sur le revenu. Le simulateur retient 24 %, le taux supérieur.</li>
+<li><strong>Allemagne :</strong> les cryptos détenues à titre privé plus d'un an peuvent être vendues sans impôt. Pour une détention plus courte, les gains sont exonérés si le total de vos gains de cessions privées dans l'année est inférieur à 1 000 €. À partir de 1 000 €, la totalité du gain est imposée à votre taux personnel d'impôt sur le revenu, estimé ici à 35 %.</li>
+<li><strong>France :</strong> si le total de vos cessions de cryptos dans l'année est de 305 € ou moins, les plus-values sont exonérées. Au-delà, elles sont imposées à 12,8 % d'impôt sur le revenu plus les prélèvements sociaux (18,6 % en 2026), soit 31,4 % au total. Vous pouvez opter pour le barème progressif à la place.</li>
+<li><strong>Italie :</strong> le simulateur applique un taux forfaitaire de 33 % à la plus-value.</li>
+<li><strong>Espagne :</strong> les plus-values sur cryptos sont des revenus de l'épargne, imposés selon un barème : 19 % jusqu'à 6 000 €, 21 % jusqu'à 50 000 €, 23 % jusqu'à 200 000 €, 27 % jusqu'à 300 000 € et 30 % au-delà.</li>
+<li><strong>Portugal :</strong> les plus-values sur des cryptos détenues 365 jours ou plus ne sont pas imposées. Une détention plus courte est imposée à 28 %, ou vous pouvez choisir de l'ajouter à vos autres revenus.</li>
+</ul>
+<h3>Exemple chiffré</h3>
+<p>Vous avez acheté des cryptos pour 2 000 € et les vendez 10 000 €, avec 1,5 % de frais. Les frais sont de 150 €, donc la plus-value est de 10 000 € − 2 000 € − 150 € = 7 850 €.</p>
+<ul>
+<li>France (cessions au-delà de 305 €) : 31,4 % × 7 850 € = 2 465 € d'impôt, donc <strong>7 385 €</strong> arrivent sur votre compte.</li>
+<li>Portugal, détention de moins de 365 jours : 28 % × 7 850 € = 2 198 € d'impôt, donc <strong>7 652 €</strong> arrivent sur votre compte.</li>
+<li>Allemagne, détention de plus d'un an : pas d'impôt, donc <strong>9 850 €</strong> arrivent sur votre compte.</li>
+</ul>
+<h3>Ce qu'il ne prend pas en compte</h3>
+<ul>
+<li>Il traite votre vente comme une seule cession d'un avoir acheté au prix que vous indiquez. Quand vous ne vendez qu'une partie de vos cryptos, chaque pays calcule le prix d'achat différemment. La France utilise une formule sur l'ensemble du portefeuille : plus-value = prix de cession − (prix total d'acquisition × prix de cession ÷ valeur globale du portefeuille). L'Espagne applique la méthode « premier entré, premier sorti » (FIFO).</li>
+<li>Les seuils annuels, comme les 305 € en France et les 1 000 € en Allemagne, portent sur toutes vos cessions de l'année, pas sur une seule.</li>
+<li>Vos autres revenus, les moins-values d'autres cessions, les impôts des États américains et la taxe américaine sur les revenus nets d'investissement, ainsi que les règles propres aux échanges entre cryptos, au staking ou au minage.</li>
+</ul>
+<h3>Sources officielles</h3>
+<ul>
+<li>États-Unis : <a href="https://www.irs.gov/filing/digital-assets" target="_blank" rel="noopener">IRS : Digital assets</a> et <a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="noopener">IRS Topic 409</a> (en anglais).</li>
+<li>Royaume-Uni : <a href="https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets" target="_blank" rel="noopener">GOV.UK : impôt à la vente de cryptoactifs</a> et <a href="https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances" target="_blank" rel="noopener">taux et abattements</a> (en anglais).</li>
+<li>Allemagne : <a href="https://www.gesetze-im-internet.de/estg/__23.html" target="_blank" rel="noopener">§ 23 EStG (cessions privées)</a> (en allemand).</li>
+<li>France : <a href="https://static.impots.gouv.fr/tdir/static/2026-03-30T16:36:08Z/aide/notices/notices2025/2086/notice2086.pdf" target="_blank" rel="noopener">impots.gouv.fr : notice de la déclaration 2086</a> et <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public : prélèvements sociaux</a>.</li>
+<li>Espagne : <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, articles 66 et 76</a> (BOE, en espagnol).</li>
+<li>Portugal : <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs10.aspx" target="_blank" rel="noopener">Código do IRS, article 10</a> et <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">article 72</a> (en portugais).</li>
+</ul>`,
         alertFr: "✅ <strong>Exonéré d'impôt :</strong> Le retrait total est de 305 € ou moins. Aucune plus-value n'est imposable.",
         alertDe: "✅ <strong>Exonéré :</strong> Les cryptos détenues > 1 an sont non imposables en Allemagne.",
         alertDeLimit: "✅ <strong>Exonéré :</strong> Les gains inférieurs au seuil annuel de 1 000 € sont non imposables en Allemagne.",
@@ -139,6 +233,46 @@
         jurisdiction: "Steuergebiet Wählen (Sätze 2026)", hold: "Asset länger als 365 Tage gehalten?",
         init: "Ursprüngliche Investitionskosten", val: "Aktueller Auszahlungswert", fee: "Spread / Verkaufsgebühr",
         lossTitle: "VERLUST DURCH LOKALE STEUERN & GEBÜHREN", netTitle: "TATSÄCHLICHES FIAT AUF BANKKONTO",
+        howTitle: "So funktioniert dieser Rechner", howBody: `<h3>Was er berechnet</h3>
+<p>Wie viel auf Ihrem Bankkonto ankommt, wenn Sie Krypto verkaufen: der Verkaufswert, abzüglich der Gebühr der Börse, abzüglich einer Schätzung der Steuer auf Ihren Gewinn.</p>
+<ul>
+<li>Börsengebühr = Verkaufswert × Gebühr in %.</li>
+<li>Gewinn = Verkaufswert − Anschaffungskosten − Börsengebühr.</li>
+<li>Steuer = der Gewinn, besteuert nach den Regeln des Landes unten. Ohne Gewinn keine Steuer.</li>
+<li>Betrag auf dem Bankkonto = Verkaufswert − Gebühr − Steuer.</li>
+</ul>
+<h3>Die angewandten Regeln, nach Land (2026)</h3>
+<ul>
+<li><strong>USA:</strong> Krypto gilt als Vermögensgegenstand. Gewinne aus Krypto, die länger als ein Jahr gehalten wurde, sind langfristig; bei einem Jahr oder weniger sind sie kurzfristig und werden wie normales Einkommen besteuert. Langfristige Sätze liegen je nach Einkommen bei 0 %, 15 % oder 20 %. Der Rechner verwendet geschätzte 15 % (langfristig) oder 24 % (kurzfristig).</li>
+<li><strong>Vereinigtes Königreich:</strong> Gewinne über dem jährlichen Freibetrag von 3.000 £ werden je nach Einkommensteuerstufe mit 18 % oder 24 % besteuert. Der Rechner nimmt 24 % an, den höheren Satz.</li>
+<li><strong>Deutschland:</strong> Privat gehaltene Kryptowerte können nach mehr als einem Jahr steuerfrei verkauft werden. Bei kürzerer Haltedauer bleiben Gewinne steuerfrei, wenn Ihr Gesamtgewinn aus privaten Veräußerungsgeschäften im Jahr unter 1.000 € liegt. Ab 1.000 € wird der gesamte Gewinn mit Ihrem persönlichen Einkommensteuersatz besteuert, den der Rechner auf 35 % schätzt.</li>
+<li><strong>Frankreich:</strong> Liegen Ihre gesamten Krypto-Verkäufe im Jahr bei 305 € oder weniger, sind die Gewinne steuerfrei. Darüber werden sie mit 12,8 % Einkommensteuer plus Sozialabgaben (18,6 % im Jahr 2026) besteuert, insgesamt 31,4 %. Alternativ kann der progressive Einkommensteuertarif gewählt werden.</li>
+<li><strong>Italien:</strong> Der Rechner wendet einen pauschalen Satz von 33 % auf den Gewinn an.</li>
+<li><strong>Spanien:</strong> Krypto-Gewinne gelten als Sparerträge und werden nach einem Stufentarif besteuert: 19 % bis 6.000 €, 21 % bis 50.000 €, 23 % bis 200.000 €, 27 % bis 300.000 € und 30 % darüber.</li>
+<li><strong>Portugal:</strong> Gewinne aus Krypto, die 365 Tage oder länger gehalten wurde, sind von der Steuer ausgenommen. Kürzere Haltedauern werden mit 28 % besteuert, oder Sie können sie Ihrem übrigen Einkommen zurechnen.</li>
+</ul>
+<h3>Rechenbeispiel</h3>
+<p>Sie haben Krypto für 2.000 € gekauft und verkaufen sie für 10.000 €, bei 1,5 % Börsengebühr. Die Gebühr beträgt 150 €, der Gewinn also 10.000 € − 2.000 € − 150 € = 7.850 €.</p>
+<ul>
+<li>Frankreich (Verkäufe über 305 €): 31,4 % × 7.850 € = 2.465 € Steuer, es kommen also <strong>7.385 €</strong> auf Ihrem Konto an.</li>
+<li>Portugal, weniger als 365 Tage gehalten: 28 % × 7.850 € = 2.198 € Steuer, es kommen also <strong>7.652 €</strong> an.</li>
+<li>Deutschland, länger als ein Jahr gehalten: keine Steuer, es kommen also <strong>9.850 €</strong> an.</li>
+</ul>
+<h3>Was er nicht berücksichtigt</h3>
+<ul>
+<li>Er behandelt Ihren Verkauf als einen einzigen Verkauf eines Bestands, der zu den eingegebenen Kosten gekauft wurde. Wenn Sie nur einen Teil verkaufen, ermitteln die Länder die Anschaffungskosten unterschiedlich. Frankreich nutzt eine Portfolio-Formel: Gewinn = Verkaufspreis − (gesamter Anschaffungspreis × Verkaufspreis ÷ Gesamtwert des Portfolios). Spanien wendet „first in, first out“ (FIFO) an.</li>
+<li>Jährliche Grenzen wie die 305 € in Frankreich und die 1.000 € in Deutschland gelten für alle Verkäufe eines Jahres, nicht für einen einzelnen.</li>
+<li>Ihr übriges Einkommen, Verluste aus anderen Verkäufen, Steuern der US-Bundesstaaten und die US-Steuer auf Nettokapitalerträge sowie Sonderregeln für Tausch zwischen Kryptowerten, Staking oder Mining.</li>
+</ul>
+<h3>Offizielle Quellen</h3>
+<ul>
+<li>USA: <a href="https://www.irs.gov/filing/digital-assets" target="_blank" rel="noopener">IRS: Digital assets</a> und <a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="noopener">IRS Topic 409</a> (auf Englisch).</li>
+<li>Vereinigtes Königreich: <a href="https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets" target="_blank" rel="noopener">GOV.UK: Steuer beim Verkauf von Kryptowerten</a> und <a href="https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances" target="_blank" rel="noopener">Sätze und Freibeträge</a> (auf Englisch).</li>
+<li>Deutschland: <a href="https://www.gesetze-im-internet.de/estg/__23.html" target="_blank" rel="noopener">§ 23 EStG (private Veräußerungsgeschäfte)</a>.</li>
+<li>Frankreich: <a href="https://static.impots.gouv.fr/tdir/static/2026-03-30T16:36:08Z/aide/notices/notices2025/2086/notice2086.pdf" target="_blank" rel="noopener">impots.gouv.fr: Erläuterung zum Formular 2086</a> und <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public: Sozialabgaben</a> (auf Französisch).</li>
+<li>Spanien: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, Artikel 66 und 76</a> (BOE, auf Spanisch).</li>
+<li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs10.aspx" target="_blank" rel="noopener">Código do IRS, Artikel 10</a> und <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">Artikel 72</a> (auf Portugiesisch).</li>
+</ul>`,
         alertFr: "✅ <strong>Steuerfrei:</strong> Gesamtauszahlung 305 € oder weniger. Keine Steuer in Frankreich.",
         alertDe: "✅ <strong>Steuerfrei:</strong> Krypto, das > 1 Jahr gehalten wird, ist in Deutschland steuerfrei.",
         alertDeLimit: "✅ <strong>Steuerfrei:</strong> Gewinne unter der jährlichen Freigrenze von 1.000 € sind in Deutschland steuerfrei.",
@@ -154,6 +288,46 @@
         jurisdiction: "Seleccione Jurisdicción Fiscal (2026)", hold: "¿Activo Mantenido Más de 365 Días?",
         init: "Costo de Inversión Inicial", val: "Valor Actual de Retiro", fee: "Margen del Exchange / Tarifa",
         lossTitle: "PERDIDO EN IMPUESTOS LOCALES Y COMISIONES", netTitle: "FIAT REAL LLEGANDO AL BANCO",
+        howTitle: "Cómo funciona esta calculadora", howBody: `<h3>Qué calcula</h3>
+<p>Cuánto llega a su cuenta bancaria cuando vende criptomonedas: el valor de venta, menos la comisión del exchange, menos una estimación del impuesto sobre su ganancia.</p>
+<ul>
+<li>Comisión del exchange = valor de venta × % de comisión.</li>
+<li>Ganancia = valor de venta − lo que pagó (coste de adquisición) − comisión del exchange.</li>
+<li>Impuesto = la ganancia gravada según las normas del país indicadas abajo. Sin ganancia, no hay impuesto.</li>
+<li>Dinero en su banco = valor de venta − comisión − impuesto.</li>
+</ul>
+<h3>Las normas aplicadas, por país (2026)</h3>
+<ul>
+<li><strong>Estados Unidos:</strong> las criptomonedas se tratan como bienes. Las ganancias de cripto mantenida más de un año son a largo plazo; las de un año o menos son a corto plazo y tributan como renta ordinaria. Los tipos a largo plazo son del 0 %, 15 % o 20 % según los ingresos. La calculadora usa un 15 % estimado (largo plazo) o un 24 % (corto plazo).</li>
+<li><strong>Reino Unido:</strong> las ganancias por encima de la exención anual de 3.000 £ tributan al 18 % o al 24 % según su tramo del impuesto sobre la renta. La calculadora supone el 24 %, el tipo superior.</li>
+<li><strong>Alemania:</strong> la cripto mantenida de forma privada más de un año puede venderse sin impuestos. Con una tenencia más corta, las ganancias están exentas si el total de sus ganancias por ventas privadas en el año es inferior a 1.000 €. A partir de 1.000 €, toda la ganancia tributa a su tipo personal del impuesto sobre la renta, que la calculadora estima en un 35 %.</li>
+<li><strong>Francia:</strong> si el total de sus ventas de cripto en el año es de 305 € o menos, las ganancias están exentas. Por encima, tributan al 12,8 % de impuesto sobre la renta más cotizaciones sociales (18,6 % en 2026), un 31,4 % en total. Puede optar por la escala progresiva en su lugar.</li>
+<li><strong>Italia:</strong> la calculadora aplica un tipo fijo del 33 % a la ganancia.</li>
+<li><strong>España:</strong> las ganancias de cripto son renta del ahorro y tributan según una escala: 19 % hasta 6.000 €, 21 % hasta 50.000 €, 23 % hasta 200.000 €, 27 % hasta 300.000 € y 30 % por encima.</li>
+<li><strong>Portugal:</strong> las ganancias de cripto mantenida 365 días o más quedan excluidas de tributación. Las tenencias más cortas tributan al 28 %, o puede optar por sumarlas a sus demás ingresos.</li>
+</ul>
+<h3>Ejemplo práctico</h3>
+<p>Compró cripto por 2.000 € y la vende por 10.000 €, con una comisión del 1,5 %. La comisión es de 150 €, así que la ganancia es 10.000 € − 2.000 € − 150 € = 7.850 €.</p>
+<ul>
+<li>Francia (ventas por encima de 305 €): 31,4 % × 7.850 € = 2.465 € de impuesto, así que llegan <strong>7.385 €</strong> a su banco.</li>
+<li>Portugal, mantenida menos de 365 días: 28 % × 7.850 € = 2.198 € de impuesto, así que llegan <strong>7.652 €</strong>.</li>
+<li>Alemania, mantenida más de un año: sin impuesto, así que llegan <strong>9.850 €</strong>.</li>
+</ul>
+<h3>Lo que no tiene en cuenta</h3>
+<ul>
+<li>Trata su venta como una única venta de una tenencia comprada al coste que indica. Cuando vende solo una parte, cada país calcula el coste de forma distinta. Francia usa una fórmula de cartera: ganancia = precio de venta − (precio total de adquisición × precio de venta ÷ valor global de la cartera). España aplica el criterio FIFO (primero en entrar, primero en salir).</li>
+<li>Los umbrales anuales, como los 305 € de Francia y los 1.000 € de Alemania, se aplican a todas sus ventas del año, no a una sola.</li>
+<li>Sus demás ingresos, las pérdidas de otras ventas, los impuestos estatales de EE. UU. y el impuesto estadounidense sobre la renta neta de inversiones, y las normas especiales para permutas entre criptomonedas, staking o minería.</li>
+</ul>
+<h3>Fuentes oficiales</h3>
+<ul>
+<li>Estados Unidos: <a href="https://www.irs.gov/filing/digital-assets" target="_blank" rel="noopener">IRS: Digital assets</a> e <a href="https://www.irs.gov/taxtopics/tc409" target="_blank" rel="noopener">IRS Topic 409</a> (en inglés).</li>
+<li>Reino Unido: <a href="https://www.gov.uk/guidance/check-if-you-need-to-pay-tax-when-you-sell-cryptoassets" target="_blank" rel="noopener">GOV.UK: impuestos al vender criptoactivos</a> y <a href="https://www.gov.uk/guidance/capital-gains-tax-rates-and-allowances" target="_blank" rel="noopener">tipos y exenciones</a> (en inglés).</li>
+<li>Alemania: <a href="https://www.gesetze-im-internet.de/estg/__23.html" target="_blank" rel="noopener">§ 23 EStG (ventas privadas)</a> (en alemán).</li>
+<li>Francia: <a href="https://static.impots.gouv.fr/tdir/static/2026-03-30T16:36:08Z/aide/notices/notices2025/2086/notice2086.pdf" target="_blank" rel="noopener">impots.gouv.fr: instrucciones del formulario 2086</a> y <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public: cotizaciones sociales</a> (en francés).</li>
+<li>España: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, artículos 66 y 76</a> (BOE).</li>
+<li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs10.aspx" target="_blank" rel="noopener">Código do IRS, artículo 10</a> y <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">artículo 72</a> (en portugués).</li>
+</ul>`,
         alertFr: "✅ <strong>Exento:</strong> El retiro total es de 305 € o menos. No se aplican impuestos en Francia.",
         alertDe: "✅ <strong>Libre de Impuestos:</strong> Cripto mantenida > 1 año exenta en Alemania.",
         alertDeLimit: "✅ <strong>Libre de Impuestos:</strong> Las ganancias inferiores al límite anual de 1.000 € están exentas en Alemania.",
@@ -175,6 +349,7 @@
       document.getElementById('tJurisdiction').innerText = l.jurisdiction; document.getElementById('tHold').innerText = l.hold;
       document.getElementById('tInit').innerText = l.init; document.getElementById('tVal').innerText = l.val; document.getElementById('tFee').innerText = l.fee;
       document.getElementById('tLossTitle').innerText = l.lossTitle; document.getElementById('tNetTitle').innerText = l.netTitle;
+      document.getElementById('tHowTitle').innerText = l.howTitle; document.getElementById('tHowBody').innerHTML = l.howBody || HOW_EN;
     }
 
     function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); calc(); }
@@ -194,6 +369,14 @@
       document.getElementById('lblVal').innerText = fmt(val);
       document.getElementById('lblFee').innerText = fee.toFixed(1) + '%';
 
+      // Tax rules used below (sources checked Nov 2026; see the "Official sources" list on the page):
+      // FR: 12.8 % + 18.6 % social (2026) = 31.4 %; exempt if total yearly sales <= 305 € (impots.gouv notice 2086; service-public F2329).
+      // DE: tax-free if held > 1 year; gains under 1,000 € total per year tax-free (§ 23 EStG). 35 % is an estimate of the personal rate.
+      // PT: excluded if held >= 365 days (CIRS art. 10 n.º 22); otherwise 28 % (CIRS art. 72 n.º 1 c)).
+      // UK: £3,000 allowance; 18 % / 24 % rates, 24 % assumed (GOV.UK, 2026/27).
+      // US: long-term > 1 year (IRS Topic 409); 15 % / 24 % are estimates.
+      // ES: savings scale 19/21/23/27/30 % at 6k/50k/200k/300k € (Ley 35/2006 arts 66 + 76, BOE consolidated 11 Nov 2026).
+      // IT: 33 % NOT re-confirmed. L. 207/2024 art. 1 c. 24 was repealed by D.Lgs. 117/2026; check the current rule.
       const exFee = val * (fee / 100);
       const gain = val - cost - exFee;
       let tax = 0;

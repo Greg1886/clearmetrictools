@@ -41,7 +41,13 @@
     .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
     .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+    .how { margin-top: 24px; }
+    .how h3 { font-size: 0.98rem; margin: 18px 0 6px; }
+    .how p, .how li { color: #cbd5e1; font-size: 0.9rem; } .how p { margin-bottom: 8px; }
+    .how ul { margin: 0 0 8px 20px; } .how li { margin-bottom: 4px; }
+    .how a { color: var(--accent); }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box, .how { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
   </style>
 </head>
 <body>
@@ -109,9 +115,47 @@
         <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
       </div>
     </div>
+    <section class="card how">
+      <h2 class="card-title" id="tHowTitle">How this calculator works</h2>
+      <div id="tHowBody">
+        <h3>What it compares</h3>
+        <p>Two ways to invest the same money for the same number of years:</p>
+        <ul>
+          <li><strong>Option A:</strong> a currency conversion (FX) fee on every deposit, a fixed order fee on every monthly purchase, and the fund's yearly fee (TER).</li>
+          <li><strong>Option B:</strong> a low-cost setup with its own FX fee and TER, and no order fee.</li>
+        </ul>
+        <p>The red figure, "wealth lost to fees", is how much less Option A leaves you at the end.</p>
+        <h3>How the numbers are calculated</h3>
+        <ul>
+          <li>Your first deposit pays the FX fee once.</li>
+          <li>Each month, the FX fee (and for Option A the order fee) comes off your deposit before it is invested.</li>
+          <li>The balance then grows by the gross return divided by 12, and one twelfth of the yearly TER is taken from it.</li>
+          <li>"Direct fees paid" adds up every FX fee, order fee and TER charge. "Wealth lost to fees" is the gap between the two final values. It is larger than the difference in fees, because money paid in fees also stops growing.</li>
+        </ul>
+        <h3>Why small fees matter</h3>
+        <p>With €500 a month, a 0.25% FX fee and a €2 order fee cost €3.25 a month: 0.65% of every deposit, gone before it earns anything. A TER of 0.38% on a €100,000 portfolio costs €380 a year, against €150 at 0.15%. Both repeat every year, and the gap compounds.</p>
+        <h3>Worked example</h3>
+        <p>Start with €10,000, add €500 a month for 20 years, with a 9.5% gross yearly return:</p>
+        <ul>
+          <li>Option A (0.25% FX, €2 per order, 0.38% TER) ends at about <strong>€400,655</strong>, after €12,209 in direct fees.</li>
+          <li>Option B (0.02% FX, 0.15% TER, no order fee) ends at about <strong>€416,166</strong>, after €4,654 in direct fees.</li>
+        </ul>
+        <p>Option A leaves you about €15,512 less, although the direct fees differ by only about €7,555.</p>
+        <h3>About the quick scenarios</h3>
+        <p>The scenario buttons fill in example fee levels for common comparisons. They are illustrations, not current price lists. Brokers change their fees, so check your broker's current fee schedule, and the fund's Key Information Document (KID) for its ongoing charges.</p>
+        <h3>What it leaves out</h3>
+        <ul>
+          <li>Taxes, inflation and changes in exchange rates.</li>
+          <li>It applies the FX fee to every deposit, as when you buy a fund priced in another currency. If your fund trades in your own currency, set the FX fee to 0.</li>
+          <li>Account or custody fees, percentage-based order fees, bid-ask spreads and fees when you sell.</li>
+        </ul>
+      </div>
+    </section>
   </div>
   <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
+    // The English explanation lives in the HTML above so search engines can read it.
+    const HOW_EN = document.getElementById('tHowBody').innerHTML;
     const i18n = {
       en: {
         linkAbout: "About & contact", linkPrivacy: "Privacy policy",
@@ -121,7 +165,8 @@
         sec1: "1. Portfolio Parameters", init: "Initial Investment", mo: "Monthly DCA", yr: "Investment Horizon", ret: "Gross Market Return",
         sec2: "2. Fee Comparison", feeA: "Option A: FX (%) & Order Fee (€)", terA: "Option A: Annual Fund TER", feeB: "Option B: Low-Fee Setup (FX & TER)",
         sec3: "3. Wealth Audit", loss: "WEALTH LOST TO FEES",
-        thM: "Metric", thA: "Option A", thB: "Option B", tdPrin: "Total Principal", tdDir: "Direct Fees Paid", tdFin: "Final Net Value"
+        thM: "Metric", thA: "Option A", thB: "Option B", tdPrin: "Total Principal", tdDir: "Direct Fees Paid", tdFin: "Final Net Value",
+        howTitle: "How this calculator works", howBody: null // the English text is in #tHowBody in the HTML
       },
       fr: {
         linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
@@ -131,7 +176,38 @@
         sec1: "1. Paramètres du Portefeuille", init: "Investissement Initial", mo: "Épargne Mensuelle", yr: "Horizon de Placement", ret: "Rendement Brut du Marché",
         sec2: "2. Comparaison des Frais", feeA: "Option A : Frais FX (%) & Courtage (€)", terA: "Option A : TER Annuel du Fonds", feeB: "Option B : Format Low-Cost (FX & TER)",
         sec3: "3. Audit du Patrimoine", loss: "CAPITAL PERDU EN FRAIS",
-        thM: "Métrique", thA: "Option A", thB: "Option B", tdPrin: "Capital Total Investi", tdDir: "Frais Directs Payés", tdFin: "Valeur Nette Finale"
+        thM: "Métrique", thA: "Option A", thB: "Option B", tdPrin: "Capital Total Investi", tdDir: "Frais Directs Payés", tdFin: "Valeur Nette Finale",
+        howTitle: "Comment fonctionne ce calculateur", howBody: `<h3>Ce qu'il compare</h3>
+<p>Deux façons d'investir la même somme sur la même durée :</p>
+<ul>
+<li><strong>Option A :</strong> des frais de change (FX) sur chaque versement, des frais de courtage fixes sur chaque achat mensuel, et les frais annuels du fonds (TER).</li>
+<li><strong>Option B :</strong> une formule à bas coût avec ses propres frais de change et TER, sans frais de courtage.</li>
+</ul>
+<p>Le chiffre en rouge, « capital perdu en frais », indique combien l'option A vous laisse en moins à la fin.</p>
+<h3>Comment les chiffres sont calculés</h3>
+<ul>
+<li>Votre premier versement paie une fois les frais de change.</li>
+<li>Chaque mois, les frais de change (et, pour l'option A, les frais de courtage) sont retirés de votre versement avant qu'il soit investi.</li>
+<li>Le solde progresse ensuite du rendement brut divisé par 12, puis un douzième du TER annuel en est retiré.</li>
+<li>« Frais directs payés » additionne tous les frais de change, de courtage et de TER. « Capital perdu en frais » est l'écart entre les deux valeurs finales. Il est plus grand que la différence de frais, car l'argent payé en frais cesse aussi de fructifier.</li>
+</ul>
+<h3>Pourquoi les petits frais comptent</h3>
+<p>Avec 500 € par mois, des frais de change de 0,25 % et un courtage de 2 € coûtent 3,25 € par mois : 0,65 % de chaque versement, perdus avant de rapporter quoi que ce soit. Un TER de 0,38 % sur un portefeuille de 100 000 € coûte 380 € par an, contre 150 € à 0,15 %. Ces frais reviennent chaque année, et l'écart se cumule.</p>
+<h3>Exemple chiffré</h3>
+<p>Vous commencez avec 10 000 €, ajoutez 500 € par mois pendant 20 ans, avec un rendement brut de 9,5 % par an :</p>
+<ul>
+<li>Option A (change 0,25 %, 2 € par ordre, TER 0,38 %) : environ <strong>400 655 €</strong> à la fin, après 12 209 € de frais directs.</li>
+<li>Option B (change 0,02 %, TER 0,15 %, sans courtage) : environ <strong>416 166 €</strong> à la fin, après 4 654 € de frais directs.</li>
+</ul>
+<p>L'option A vous laisse environ 15 512 € de moins, alors que les frais directs ne diffèrent que d'environ 7 555 €.</p>
+<h3>À propos des scénarios rapides</h3>
+<p>Les boutons de scénario remplissent des niveaux de frais donnés à titre d'exemple pour des comparaisons courantes. Ce sont des illustrations, pas des grilles tarifaires à jour. Les courtiers modifient leurs tarifs : vérifiez la grille tarifaire actuelle de votre courtier et le document d'informations clés (DIC) du fonds pour ses frais courants.</p>
+<h3>Ce qu'il ne prend pas en compte</h3>
+<ul>
+<li>Les impôts, l'inflation et les variations des taux de change.</li>
+<li>Il applique les frais de change à chaque versement, comme lorsque vous achetez un fonds coté dans une autre devise. Si votre fonds est coté dans votre devise, mettez les frais de change à 0.</li>
+<li>Les frais de tenue de compte ou de garde, les courtages en pourcentage, l'écart achat-vente et les frais à la revente.</li>
+</ul>`
       },
       de: {
         linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
@@ -141,7 +217,38 @@
         sec1: "1. Portfolio Parameter", init: "Anfangsinvestition", mo: "Monatlicher Sparplan", yr: "Anlagehorizont", ret: "Bruttorendite",
         sec2: "2. Gebührenvergleich", feeA: "Option A: FX (%) & Ordergebühr (€)", terA: "Option A: Jährliche Fonds-TER", feeB: "Option B: Low-Fee Setup (FX & TER)",
         sec3: "3. Vermögensprüfung", loss: "VERMÖGENSVERLUST DURCH GEBÜHREN",
-        thM: "Metrik", thA: "Option A", thB: "Option B", tdPrin: "Eingezahltes Kapital", tdDir: "Gezahlte Direktgebühren", tdFin: "Netto-Endwert"
+        thM: "Metrik", thA: "Option A", thB: "Option B", tdPrin: "Eingezahltes Kapital", tdDir: "Gezahlte Direktgebühren", tdFin: "Netto-Endwert",
+        howTitle: "So funktioniert dieser Rechner", howBody: `<h3>Was er vergleicht</h3>
+<p>Zwei Wege, denselben Betrag über dieselbe Laufzeit anzulegen:</p>
+<ul>
+<li><strong>Option A:</strong> eine Währungsumrechnungsgebühr (FX) auf jede Einzahlung, eine feste Ordergebühr auf jeden monatlichen Kauf und die jährlichen Fondskosten (TER).</li>
+<li><strong>Option B:</strong> eine günstige Variante mit eigener FX-Gebühr und TER, ohne Ordergebühr.</li>
+</ul>
+<p>Die rote Zahl, „Vermögensverlust durch Gebühren“, zeigt, wie viel weniger Ihnen Option A am Ende lässt.</p>
+<h3>So werden die Zahlen berechnet</h3>
+<ul>
+<li>Ihre erste Einzahlung zahlt einmal die FX-Gebühr.</li>
+<li>Jeden Monat werden die FX-Gebühr (und bei Option A die Ordergebühr) von Ihrer Einzahlung abgezogen, bevor sie angelegt wird.</li>
+<li>Der Saldo wächst dann um die Bruttorendite geteilt durch 12, und ein Zwölftel der jährlichen TER wird abgezogen.</li>
+<li>„Gezahlte Direktgebühren“ summiert alle FX-Gebühren, Ordergebühren und TER-Kosten. „Vermögensverlust durch Gebühren“ ist der Abstand zwischen den beiden Endwerten. Er ist größer als der Unterschied bei den Gebühren, weil Geld, das für Gebühren gezahlt wird, auch nicht mehr wächst.</li>
+</ul>
+<h3>Warum kleine Gebühren zählen</h3>
+<p>Bei 500 € im Monat kosten 0,25 % FX-Gebühr und 2 € Ordergebühr 3,25 € pro Monat: 0,65 % jeder Einzahlung, weg, bevor sie etwas erwirtschaftet. Eine TER von 0,38 % auf ein Portfolio von 100.000 € kostet 380 € im Jahr, gegenüber 150 € bei 0,15 %. Beide fallen jedes Jahr an, und der Abstand wächst mit dem Zinseszins.</p>
+<h3>Rechenbeispiel</h3>
+<p>Sie starten mit 10.000 €, zahlen 20 Jahre lang monatlich 500 € ein, bei 9,5 % Bruttorendite pro Jahr:</p>
+<ul>
+<li>Option A (0,25 % FX, 2 € pro Order, 0,38 % TER) endet bei etwa <strong>400.655 €</strong>, nach 12.209 € Direktgebühren.</li>
+<li>Option B (0,02 % FX, 0,15 % TER, keine Ordergebühr) endet bei etwa <strong>416.166 €</strong>, nach 4.654 € Direktgebühren.</li>
+</ul>
+<p>Mit Option A haben Sie etwa 15.512 € weniger, obwohl sich die Direktgebühren nur um etwa 7.555 € unterscheiden.</p>
+<h3>Zu den Schnell-Szenarien</h3>
+<p>Die Szenario-Schaltflächen setzen beispielhafte Gebühren für gängige Vergleiche ein. Es sind Beispiele, keine aktuellen Preislisten. Broker ändern ihre Gebühren, prüfen Sie daher das aktuelle Preis- und Leistungsverzeichnis Ihres Brokers und das Basisinformationsblatt (KID) des Fonds für die laufenden Kosten.</p>
+<h3>Was er nicht berücksichtigt</h3>
+<ul>
+<li>Steuern, Inflation und Wechselkursschwankungen.</li>
+<li>Er berechnet die FX-Gebühr auf jede Einzahlung, wie beim Kauf eines Fonds in einer anderen Währung. Wird Ihr Fonds in Ihrer eigenen Währung gehandelt, setzen Sie die FX-Gebühr auf 0.</li>
+<li>Konto- oder Depotgebühren, prozentuale Ordergebühren, Geld-Brief-Spannen und Gebühren beim Verkauf.</li>
+</ul>`
       },
       es: {
         linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
@@ -151,7 +258,38 @@
         sec1: "1. Parámetros de Inversión", init: "Inversión Inicial", mo: "Aportación Mensual", yr: "Horizonte de Inversión", ret: "Rentabilidad Bruta",
         sec2: "2. Comparación de Comisiones", feeA: "Opción A: FX (%) y Comisión/Orden (€)", terA: "Opción A: TER Anual del Fondo", feeB: "Opción B: Low-Cost (FX y TER)",
         sec3: "3. Auditoría de Patrimonio", loss: "PATRIMONIO PERDIDO EN COMISIONES",
-        thM: "Métrica", thA: "Opción A", thB: "Opción B", tdPrin: "Capital Invertido", tdDir: "Comisiones Directas Pagadas", tdFin: "Valor Neto Final"
+        thM: "Métrica", thA: "Opción A", thB: "Opción B", tdPrin: "Capital Invertido", tdDir: "Comisiones Directas Pagadas", tdFin: "Valor Neto Final",
+        howTitle: "Cómo funciona esta calculadora", howBody: `<h3>Qué compara</h3>
+<p>Dos formas de invertir el mismo dinero durante el mismo número de años:</p>
+<ul>
+<li><strong>Opción A:</strong> una comisión de cambio de divisa (FX) en cada aportación, una comisión fija por orden en cada compra mensual y la comisión anual del fondo (TER).</li>
+<li><strong>Opción B:</strong> una opción de bajo coste con su propia comisión de cambio y TER, sin comisión por orden.</li>
+</ul>
+<p>La cifra en rojo, «patrimonio perdido en comisiones», indica cuánto menos le deja la opción A al final.</p>
+<h3>Cómo se calculan las cifras</h3>
+<ul>
+<li>Su primera aportación paga una vez la comisión de cambio.</li>
+<li>Cada mes, la comisión de cambio (y en la opción A la comisión por orden) se descuenta de su aportación antes de invertirla.</li>
+<li>Después, el saldo crece según la rentabilidad bruta dividida entre 12, y se le resta una doceava parte del TER anual.</li>
+<li>«Comisiones directas pagadas» suma todas las comisiones de cambio, por orden y de TER. «Patrimonio perdido en comisiones» es la diferencia entre los dos valores finales. Es mayor que la diferencia en comisiones, porque el dinero pagado en comisiones también deja de crecer.</li>
+</ul>
+<h3>Por qué importan las comisiones pequeñas</h3>
+<p>Con 500 € al mes, una comisión de cambio del 0,25 % y 2 € por orden cuestan 3,25 € al mes: el 0,65 % de cada aportación, perdido antes de generar nada. Un TER del 0,38 % sobre una cartera de 100.000 € cuesta 380 € al año, frente a 150 € con un 0,15 %. Ambos se repiten cada año, y la diferencia se acumula.</p>
+<h3>Ejemplo práctico</h3>
+<p>Empieza con 10.000 € y aporta 500 € al mes durante 20 años, con una rentabilidad bruta del 9,5 % anual:</p>
+<ul>
+<li>Opción A (0,25 % FX, 2 € por orden, 0,38 % TER) termina en unos <strong>400.655 €</strong>, tras 12.209 € de comisiones directas.</li>
+<li>Opción B (0,02 % FX, 0,15 % TER, sin comisión por orden) termina en unos <strong>416.166 €</strong>, tras 4.654 € de comisiones directas.</li>
+</ul>
+<p>La opción A le deja unos 15.512 € menos, aunque las comisiones directas solo difieren en unos 7.555 €.</p>
+<h3>Sobre los escenarios rápidos</h3>
+<p>Los botones de escenario rellenan niveles de comisiones de ejemplo para comparaciones habituales. Son ilustraciones, no tarifas actualizadas. Los brókeres cambian sus comisiones, así que consulte las tarifas vigentes de su bróker y el documento de datos fundamentales (KID) del fondo para sus gastos corrientes.</p>
+<h3>Lo que no tiene en cuenta</h3>
+<ul>
+<li>Impuestos, inflación y variaciones del tipo de cambio.</li>
+<li>Aplica la comisión de cambio a cada aportación, como al comprar un fondo cotizado en otra divisa. Si su fondo cotiza en su propia divisa, ponga la comisión de cambio a 0.</li>
+<li>Comisiones de cuenta o custodia, comisiones por orden en porcentaje, la horquilla de compraventa y las comisiones al vender.</li>
+</ul>`
       }
     };
 
@@ -169,6 +307,7 @@
       document.getElementById('tSec3').innerText = l.sec3; document.getElementById('tLoss').innerText = l.loss;
       document.getElementById('thM').innerText = l.thM; document.getElementById('thA').innerText = l.thA; document.getElementById('thB').innerText = l.thB;
       document.getElementById('tdPrin').innerText = l.tdPrin; document.getElementById('tdDir').innerText = l.tdDir; document.getElementById('tdFin').innerText = l.tdFin;
+      document.getElementById('tHowTitle').innerText = l.howTitle; document.getElementById('tHowBody').innerHTML = l.howBody || HOW_EN;
     }
 
     function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); calc(); }
