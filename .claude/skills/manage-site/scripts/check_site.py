@@ -72,7 +72,10 @@ def check_page(path, root):
             problems.append("broken local link: %s" % href)
 
     # 2. nothing loaded from other domains (privacy promise in CLAUDE.md)
-    for tag, url in re.findall(r"""<(script|link|img|iframe)\b[^>]*?(?:src|href)\s*=\s*["']((?:https?:)?//[^"']+)""", src, re.I):
+    # A canonical link to the site's own domain is a label for search engines,
+    # not a download, so it is exempt.
+    loaded = re.sub(r"""<link\b[^>]*\brel\s*=\s*["']canonical["'][^>]*href\s*=\s*["']https://clearmetrictools\.com/[^"']*["'][^>]*>""", "", src, flags=re.I)
+    for tag, url in re.findall(r"""<(script|link|img|iframe)\b[^>]*?(?:src|href)\s*=\s*["']((?:https?:)?//[^"']+)""", loaded, re.I):
         problems.append("external resource in <%s>: %s" % (tag, url))
 
     # 3. shared blocks present
