@@ -38,7 +38,13 @@
     .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
     .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+    .how { margin-top: 24px; }
+    .how h3 { font-size: 0.98rem; margin: 18px 0 6px; }
+    .how p, .how li { color: #cbd5e1; font-size: 0.9rem; } .how p { margin-bottom: 8px; }
+    .how ul { margin: 0 0 8px 20px; } .how li { margin-bottom: 4px; }
+    .how a { color: var(--accent); }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box, .how { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
   </style>
 </head>
 <body>
@@ -112,9 +118,66 @@
         <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
       </div>
     </div>
+    <section class="card how">
+      <h2 class="card-title" id="tHowTitle">How this calculator works</h2>
+      <div id="tHowBody">
+<h3>What it compares</h3>
+<p>The same ETF in two versions. An <strong>accumulating</strong> ETF reinvests its dividends inside the fund. A <strong>distributing</strong> ETF pays them out: you pay tax on them each year, and the calculator reinvests what is left.</p>
+<h3>How the numbers are calculated</h3>
+<ul>
+<li>Both versions earn the same total return, compounded monthly.</li>
+<li>For the distributing version, the dividend part (the yield) is paid out every quarter. Tax at the selected rate comes off, and the rest is reinvested.</li>
+<li>At the end, both are sold, and the gain (final value minus everything paid in, including reinvested dividends) is taxed at the same rate.</li>
+<li>The accumulating version comes out ahead because the money that would go to dividend tax keeps growing until you sell.</li>
+</ul>
+<h3>Worked example</h3>
+<p>Start with €15,000, add €600 a month for 25 years, with a 9% total return of which 1.8% is dividends, taxed at 31.4% (France):</p>
+<ul>
+<li>Accumulating: <strong>€622,957</strong> after tax on the final gain.</li>
+<li>Distributing: <strong>€594,988</strong> after tax, having paid €37,036 in dividend tax along the way.</li>
+</ul>
+<p>The distributing version leaves you €27,969 less.</p>
+<h3>About the country presets</h3>
+<p>Each preset fills in one rate, which the calculator uses for both dividends and the final gain. Real rules are often more detailed:</p>
+<ul>
+<li><strong>France:</strong> dividends and gains are taxed at 12.8% income tax plus 18.6% social contributions in 2026, 31.4% in total, or on the progressive scale if you choose.</li>
+<li><strong>Germany:</strong> 25% plus the 5.5% solidarity surcharge, 26.375% in total. Not included: the €1,000 yearly allowance (Sparer-Pauschbetrag) and the 30% partial exemption for equity funds (Teilfreistellung).</li>
+<li><strong>Spain:</strong> 19% is the first step of the savings tax scale, which rises to 21%, 23%, 27% and 30%.</li>
+<li><strong>Portugal:</strong> 28%, or you can choose to add the income to your other income.</li>
+<li><strong>Denmark:</strong> share income is taxed at 27% up to 79,400 kr in 2026 and 42% above.</li>
+<li><strong>Sweden:</strong> 30% on capital income in a regular account. Many investors use an ISK account instead, taxed each year on a standard deemed income.</li>
+<li><strong>Norway:</strong> 37.84% is 22% multiplied by the 1.72 adjustment factor that applied in 2025.</li>
+<li><strong>Italy:</strong> 26% on capital gains.</li>
+<li><strong>Netherlands:</strong> private investments are taxed in Box 3 on a deemed return (36% in 2026), not on actual dividends and gains, so this comparison doesn't reflect Dutch rules.</li>
+<li><strong>Switzerland:</strong> the 35% withholding tax can be reclaimed by residents who declare the income, so it is not the final tax.</li>
+<li>For Belgium, Austria, Ireland and Greece, check the current rules with your tax authority.</li>
+</ul>
+<h3>What it leaves out</h3>
+<ul>
+<li>Foreign withholding tax on dividends inside the fund, which affects both versions.</li>
+<li>Some countries tax accumulating funds before you sell, which shrinks their advantage.</li>
+<li>Fund fees, yearly allowances, and changes in the dividend yield over time.</li>
+</ul>
+<h3>Official sources</h3>
+<ul>
+<li>France: <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2613" target="_blank" rel="noopener">Service-Public F2613</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">F21618</a>.</li>
+<li>Germany: <a href="https://www.gesetze-im-internet.de/estg/__32d.html" target="_blank" rel="noopener">§ 32d EStG</a>, <a href="https://www.gesetze-im-internet.de/solzg_1995/__4.html" target="_blank" rel="noopener">§ 4 SolZG</a>, <a href="https://www.gesetze-im-internet.de/estg/__20.html" target="_blank" rel="noopener">§ 20 EStG</a>, <a href="https://www.gesetze-im-internet.de/invstg_2018/__20.html" target="_blank" rel="noopener">§ 20 InvStG</a>.</li>
+<li>Spain: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, art. 66, 76</a> (BOE).</li>
+<li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs71.aspx" target="_blank" rel="noopener">Código do IRS, art. 71</a>, <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">art. 72</a>.</li>
+<li>Denmark: <a href="https://skat.dk/borger/aktier-og-andre-vaerdipapirer/skat-af-aktier" target="_blank" rel="noopener">Skat: skat af aktier</a>.</li>
+<li>Sweden: <a href="https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk.4.5fc8c94513259a4ba1d800037851.html" target="_blank" rel="noopener">Skatteverket: ISK</a>.</li>
+<li>Norway: <a href="https://www.skatteetaten.no/person/skatt/hjelp-til-riktig-skatt/aksjer-og-verdipapirer/om/skatteregler-for-gevinsttap-ved-realisasjoner-og-aksjeutbytte/" target="_blank" rel="noopener">Skatteetaten</a>.</li>
+<li>Netherlands: <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_3" target="_blank" rel="noopener">Belastingdienst: box 3</a>.</li>
+<li>Switzerland: <a href="https://www.estv.admin.ch/de/verrechnungssteuer-rueckerstatten-lassen" target="_blank" rel="noopener">ESTV: Verrechnungssteuer</a>.</li>
+<li>Italy: <a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2024-12-30;207!vig=2026-06-01" target="_blank" rel="noopener">Legge 207/2024, art. 1, c. 23</a> (Normattiva).</li>
+</ul>
+      </div>
+    </section>
   </div>
   <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
+    // The English explanation lives in the HTML above so search engines can read it.
+    const HOW_EN = document.getElementById('tHowBody').innerHTML;
     const i18n = {
       en: {
         linkAbout: "About & contact", linkPrivacy: "Privacy policy",
@@ -124,7 +187,8 @@
         sec1: "1. Investment Parameters", init: "Initial Balance", mo: "Monthly DCA", yr: "Time Horizon", ret: "Total Annual Return", yld: "Dividend Yield Portion", tax: "Local Dividend Tax Rate",
         sec2: "2. Tax-Drag Audit", loss: "NET WEALTH LOST TO DIVIDEND TAX",
         thM: "Metric", thAcc: "Accumulating (Acc)", thDist: "Distributing (Dist)",
-        tdTax: "Annual Dividend Taxes Paid", vReinv: "€0 (Reinvested)", tdNet: "Final Net Wealth (After Exit)"
+        tdTax: "Annual Dividend Taxes Paid", vReinv: "€0 (Reinvested)", tdNet: "Final Net Wealth (After Exit)",
+        howTitle: "How this calculator works", howBody: null // the English text is in #tHowBody in the HTML
       },
       fr: {
         linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
@@ -134,7 +198,57 @@
         sec1: "1. Paramètres d'Investissement", init: "Capital Initial", mo: "Épargne Mensuelle", yr: "Horizon de Placement", ret: "Rendement Annuel Total", yld: "Rendement en Dividende", tax: "Taux d'Imposition Local",
         sec2: "2. Audit de Fuite Fiscale", loss: "CAPITAL PERDU EN IMPÔTS SUR DIVIDENDES",
         thM: "Métrique", thAcc: "Capitalisant (Acc)", thDist: "Distribuant (Dist)",
-        tdTax: "Impôts Annuels Payés", vReinv: "0 € (Capitalisé)", tdNet: "Valeur Nette Finale"
+        tdTax: "Impôts Annuels Payés", vReinv: "0 € (Capitalisé)", tdNet: "Valeur Nette Finale",
+        howTitle: "Comment fonctionne ce calculateur", howBody: `<h3>Ce qu'il compare</h3>
+<p>Le même ETF en deux versions. Un ETF <strong>capitalisant</strong> réinvestit ses dividendes dans le fonds. Un ETF <strong>distribuant</strong> les verse : vous payez l'impôt dessus chaque année, et le calculateur réinvestit le reste.</p>
+<h3>Comment les chiffres sont calculés</h3>
+<ul>
+<li>Les deux versions ont le même rendement total, capitalisé chaque mois.</li>
+<li>Pour la version distribuante, la part dividende (le rendement) est versée chaque trimestre. L'impôt au taux choisi est prélevé et le reste est réinvesti.</li>
+<li>À la fin, les deux sont vendues, et la plus-value (valeur finale moins tout ce qui a été investi, dividendes réinvestis compris) est imposée au même taux.</li>
+<li>La version capitalisante l'emporte parce que l'argent qui partirait en impôt sur les dividendes continue de fructifier jusqu'à la vente.</li>
+</ul>
+<h3>Exemple chiffré</h3>
+<p>Vous commencez avec 15 000 €, ajoutez 600 € par mois pendant 25 ans, avec un rendement total de 9 % dont 1,8 % de dividendes, imposés à 31,4 % (France) :</p>
+<ul>
+<li>Capitalisant : <strong>622 957 €</strong> après impôt sur la plus-value finale.</li>
+<li>Distribuant : <strong>594 988 €</strong> après impôt, après avoir payé 37 036 € d'impôt sur les dividendes en cours de route.</li>
+</ul>
+<p>La version distribuante vous laisse 27 969 € de moins.</p>
+<h3>À propos des pays proposés</h3>
+<p>Chaque pays remplit un seul taux, que le calculateur applique aux dividendes et à la plus-value finale. Les règles réelles sont souvent plus détaillées :</p>
+<ul>
+<li><strong>France :</strong> dividendes et plus-values sont imposés à 12,8 % d'impôt sur le revenu plus 18,6 % de prélèvements sociaux en 2026, soit 31,4 %, ou au barème progressif sur option.</li>
+<li><strong>Allemagne :</strong> 25 % plus la contribution de solidarité de 5,5 %, soit 26,375 %. Non inclus : l'abattement annuel de 1 000 € (Sparer-Pauschbetrag) et l'exonération partielle de 30 % pour les fonds actions (Teilfreistellung).</li>
+<li><strong>Espagne :</strong> 19 % est la première tranche du barème de l'épargne, qui monte à 21 %, 23 %, 27 % et 30 %.</li>
+<li><strong>Portugal :</strong> 28 %, ou sur option avec vos autres revenus.</li>
+<li><strong>Danemark :</strong> les revenus d'actions sont imposés à 27 % jusqu'à 79 400 couronnes en 2026, et à 42 % au-delà.</li>
+<li><strong>Suède :</strong> 30 % sur les revenus du capital dans un compte ordinaire. Beaucoup d'investisseurs utilisent plutôt un compte ISK, imposé chaque année sur un revenu forfaitaire.</li>
+<li><strong>Norvège :</strong> 37,84 % correspond à 22 % multiplié par le coefficient de 1,72 applicable en 2025.</li>
+<li><strong>Italie :</strong> 26 % sur les plus-values.</li>
+<li><strong>Pays-Bas :</strong> les placements privés sont imposés dans la « box 3 » sur un rendement forfaitaire (36 % en 2026), pas sur les dividendes et plus-values réels : cette comparaison ne reflète donc pas les règles néerlandaises.</li>
+<li><strong>Suisse :</strong> l'impôt anticipé de 35 % est récupérable par les résidents qui déclarent ces revenus : ce n'est donc pas l'impôt final.</li>
+<li>Pour la Belgique, l'Autriche, l'Irlande et la Grèce, vérifiez les règles actuelles auprès de votre administration fiscale.</li>
+</ul>
+<h3>Ce qu'il ne prend pas en compte</h3>
+<ul>
+<li>Les retenues à la source étrangères sur les dividendes à l'intérieur du fonds, qui touchent les deux versions.</li>
+<li>Certains pays imposent les fonds capitalisants avant la vente, ce qui réduit leur avantage.</li>
+<li>Les frais du fonds, les abattements annuels et l'évolution du rendement en dividendes.</li>
+</ul>
+<h3>Sources officielles</h3>
+<ul>
+<li>France: <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2613" target="_blank" rel="noopener">Service-Public F2613</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">F21618</a>.</li>
+<li>Allemagne: <a href="https://www.gesetze-im-internet.de/estg/__32d.html" target="_blank" rel="noopener">§ 32d EStG</a>, <a href="https://www.gesetze-im-internet.de/solzg_1995/__4.html" target="_blank" rel="noopener">§ 4 SolZG</a>, <a href="https://www.gesetze-im-internet.de/estg/__20.html" target="_blank" rel="noopener">§ 20 EStG</a>, <a href="https://www.gesetze-im-internet.de/invstg_2018/__20.html" target="_blank" rel="noopener">§ 20 InvStG</a>.</li>
+<li>Espagne: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, art. 66, 76</a> (BOE).</li>
+<li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs71.aspx" target="_blank" rel="noopener">Código do IRS, art. 71</a>, <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">art. 72</a>.</li>
+<li>Danemark: <a href="https://skat.dk/borger/aktier-og-andre-vaerdipapirer/skat-af-aktier" target="_blank" rel="noopener">Skat: skat af aktier</a>.</li>
+<li>Suède: <a href="https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk.4.5fc8c94513259a4ba1d800037851.html" target="_blank" rel="noopener">Skatteverket: ISK</a>.</li>
+<li>Norvège: <a href="https://www.skatteetaten.no/person/skatt/hjelp-til-riktig-skatt/aksjer-og-verdipapirer/om/skatteregler-for-gevinsttap-ved-realisasjoner-og-aksjeutbytte/" target="_blank" rel="noopener">Skatteetaten</a>.</li>
+<li>Pays-Bas: <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_3" target="_blank" rel="noopener">Belastingdienst: box 3</a>.</li>
+<li>Suisse: <a href="https://www.estv.admin.ch/de/verrechnungssteuer-rueckerstatten-lassen" target="_blank" rel="noopener">ESTV: Verrechnungssteuer</a>.</li>
+<li>Italie: <a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2024-12-30;207!vig=2026-06-01" target="_blank" rel="noopener">Legge 207/2024, art. 1, c. 23</a> (Normattiva).</li>
+</ul>`
       },
       de: {
         linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
@@ -144,7 +258,57 @@
         sec1: "1. Anlageparameter", init: "Anfangssaldo", mo: "Monatlicher Sparplan", yr: "Anlagehorizont", ret: "Gesamtrendite", yld: "Dividendenrendite-Anteil", tax: "Lokale Dividendensteuer",
         sec2: "2. Steuerleck-Prüfung", loss: "VERLUST DURCH DIVIDENDENSTEUER",
         thM: "Metrik", thAcc: "Thesaurierend (Acc)", thDist: "Ausschüttend (Dist)",
-        tdTax: "Gezahlte Dividendensteuern", vReinv: "0 € (Reinvestiert)", tdNet: "Netto-Endwert"
+        tdTax: "Gezahlte Dividendensteuern", vReinv: "0 € (Reinvestiert)", tdNet: "Netto-Endwert",
+        howTitle: "So funktioniert dieser Rechner", howBody: `<h3>Was er vergleicht</h3>
+<p>Denselben ETF in zwei Varianten. Ein <strong>thesaurierender</strong> ETF legt seine Dividenden im Fonds wieder an. Ein <strong>ausschüttender</strong> ETF zahlt sie aus: Sie zahlen jedes Jahr Steuer darauf, und der Rechner legt den Rest wieder an.</p>
+<h3>So werden die Zahlen berechnet</h3>
+<ul>
+<li>Beide Varianten erzielen dieselbe Gesamtrendite, monatlich verzinst.</li>
+<li>Bei der ausschüttenden Variante wird der Dividendenanteil (die Rendite) jedes Quartal ausgezahlt. Die Steuer zum gewählten Satz wird abgezogen, der Rest wieder angelegt.</li>
+<li>Am Ende werden beide verkauft, und der Gewinn (Endwert minus alles Eingezahlte, einschließlich wieder angelegter Dividenden) wird zum selben Satz besteuert.</li>
+<li>Die thesaurierende Variante liegt vorn, weil das Geld, das sonst als Dividendensteuer abfließen würde, bis zum Verkauf weiter wächst.</li>
+</ul>
+<h3>Rechenbeispiel</h3>
+<p>Sie starten mit 15.000 €, zahlen 25 Jahre lang monatlich 600 € ein, bei 9 % Gesamtrendite, davon 1,8 % Dividenden, besteuert mit 31,4 % (Frankreich):</p>
+<ul>
+<li>Thesaurierend: <strong>622.957 €</strong> nach Steuer auf den Endgewinn.</li>
+<li>Ausschüttend: <strong>594.988 €</strong> nach Steuer, nachdem unterwegs 37.036 € Dividendensteuer gezahlt wurden.</li>
+</ul>
+<p>Mit der ausschüttenden Variante haben Sie 27.969 € weniger.</p>
+<h3>Zu den Länder-Voreinstellungen</h3>
+<p>Jede Voreinstellung setzt einen einzigen Satz ein, den der Rechner für Dividenden und den Endgewinn verwendet. Die echten Regeln sind oft genauer:</p>
+<ul>
+<li><strong>Frankreich:</strong> Dividenden und Gewinne werden 2026 mit 12,8 % Einkommensteuer plus 18,6 % Sozialabgaben besteuert, insgesamt 31,4 %, oder auf Antrag nach dem progressiven Tarif.</li>
+<li><strong>Deutschland:</strong> 25 % plus 5,5 % Solidaritätszuschlag, insgesamt 26,375 %. Nicht berücksichtigt: der Sparer-Pauschbetrag von 1.000 € im Jahr und die Teilfreistellung von 30 % für Aktienfonds.</li>
+<li><strong>Spanien:</strong> 19 % ist die erste Stufe des Spartarifs, der auf 21 %, 23 %, 27 % und 30 % steigt.</li>
+<li><strong>Portugal:</strong> 28 %, oder auf Wunsch zusammen mit dem übrigen Einkommen.</li>
+<li><strong>Dänemark:</strong> Aktieneinkommen wird 2026 bis 79.400 Kronen mit 27 % und darüber mit 42 % besteuert.</li>
+<li><strong>Schweden:</strong> 30 % auf Kapitaleinkommen in einem normalen Depot. Viele Anleger nutzen stattdessen ein ISK-Konto, das jährlich auf ein pauschales Einkommen besteuert wird.</li>
+<li><strong>Norwegen:</strong> 37,84 % sind 22 % mal dem Anpassungsfaktor 1,72, der 2025 galt.</li>
+<li><strong>Italien:</strong> 26 % auf Kapitalgewinne.</li>
+<li><strong>Niederlande:</strong> Private Anlagen werden in Box 3 auf eine fiktive Rendite besteuert (36 % im Jahr 2026), nicht auf tatsächliche Dividenden und Gewinne. Dieser Vergleich bildet die niederländischen Regeln daher nicht ab.</li>
+<li><strong>Schweiz:</strong> Die Verrechnungssteuer von 35 % können Einwohner zurückfordern, wenn sie die Erträge deklarieren. Sie ist also nicht die endgültige Steuer.</li>
+<li>Für Belgien, Österreich, Irland und Griechenland prüfen Sie bitte die aktuellen Regeln bei Ihrer Steuerbehörde.</li>
+</ul>
+<h3>Was er nicht berücksichtigt</h3>
+<ul>
+<li>Ausländische Quellensteuern auf Dividenden im Fonds, die beide Varianten betreffen.</li>
+<li>Manche Länder besteuern thesaurierende Fonds schon vor dem Verkauf, was ihren Vorteil verringert.</li>
+<li>Fondskosten, jährliche Freibeträge und Änderungen der Dividendenrendite über die Zeit.</li>
+</ul>
+<h3>Offizielle Quellen</h3>
+<ul>
+<li>Frankreich: <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2613" target="_blank" rel="noopener">Service-Public F2613</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">F21618</a>.</li>
+<li>Deutschland: <a href="https://www.gesetze-im-internet.de/estg/__32d.html" target="_blank" rel="noopener">§ 32d EStG</a>, <a href="https://www.gesetze-im-internet.de/solzg_1995/__4.html" target="_blank" rel="noopener">§ 4 SolZG</a>, <a href="https://www.gesetze-im-internet.de/estg/__20.html" target="_blank" rel="noopener">§ 20 EStG</a>, <a href="https://www.gesetze-im-internet.de/invstg_2018/__20.html" target="_blank" rel="noopener">§ 20 InvStG</a>.</li>
+<li>Spanien: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, art. 66, 76</a> (BOE).</li>
+<li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs71.aspx" target="_blank" rel="noopener">Código do IRS, art. 71</a>, <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">art. 72</a>.</li>
+<li>Dänemark: <a href="https://skat.dk/borger/aktier-og-andre-vaerdipapirer/skat-af-aktier" target="_blank" rel="noopener">Skat: skat af aktier</a>.</li>
+<li>Schweden: <a href="https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk.4.5fc8c94513259a4ba1d800037851.html" target="_blank" rel="noopener">Skatteverket: ISK</a>.</li>
+<li>Norwegen: <a href="https://www.skatteetaten.no/person/skatt/hjelp-til-riktig-skatt/aksjer-og-verdipapirer/om/skatteregler-for-gevinsttap-ved-realisasjoner-og-aksjeutbytte/" target="_blank" rel="noopener">Skatteetaten</a>.</li>
+<li>Niederlande: <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_3" target="_blank" rel="noopener">Belastingdienst: box 3</a>.</li>
+<li>Schweiz: <a href="https://www.estv.admin.ch/de/verrechnungssteuer-rueckerstatten-lassen" target="_blank" rel="noopener">ESTV: Verrechnungssteuer</a>.</li>
+<li>Italien: <a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2024-12-30;207!vig=2026-06-01" target="_blank" rel="noopener">Legge 207/2024, art. 1, c. 23</a> (Normattiva).</li>
+</ul>`
       },
       es: {
         linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
@@ -154,7 +318,57 @@
         sec1: "1. Parámetros de Inversión", init: "Saldo Inicial", mo: "Aportación Mensual", yr: "Horizonte", ret: "Rentabilidad Total", yld: "Porción de Dividendo", tax: "Tasa de Impuesto Local",
         sec2: "2. Auditoría de Fuga Fiscal", loss: "PATRIMONIO PERDIDO EN IMPUESTOS",
         thM: "Métrica", thAcc: "Acumulativo (Acc)", thDist: "Distributivo (Dist)",
-        tdTax: "Impuestos Anuales Pagados", vReinv: "0 € (Reinvertido)", tdNet: "Valor Neto Final"
+        tdTax: "Impuestos Anuales Pagados", vReinv: "0 € (Reinvertido)", tdNet: "Valor Neto Final",
+        howTitle: "Cómo funciona esta calculadora", howBody: `<h3>Qué compara</h3>
+<p>El mismo ETF en dos versiones. Un ETF de <strong>acumulación</strong> reinvierte sus dividendos dentro del fondo. Un ETF de <strong>distribución</strong> los reparte: usted paga impuestos sobre ellos cada año, y la calculadora reinvierte el resto.</p>
+<h3>Cómo se calculan las cifras</h3>
+<ul>
+<li>Ambas versiones obtienen la misma rentabilidad total, capitalizada cada mes.</li>
+<li>En la versión de distribución, la parte de dividendos (la rentabilidad por dividendo) se paga cada trimestre. Se descuenta el impuesto al tipo elegido y el resto se reinvierte.</li>
+<li>Al final se venden ambas, y la ganancia (valor final menos todo lo aportado, incluidos los dividendos reinvertidos) tributa al mismo tipo.</li>
+<li>La versión de acumulación sale ganando porque el dinero que iría al impuesto sobre dividendos sigue creciendo hasta la venta.</li>
+</ul>
+<h3>Ejemplo práctico</h3>
+<p>Empieza con 15.000 €, aporta 600 € al mes durante 25 años, con una rentabilidad total del 9 %, de la que un 1,8 % son dividendos, gravados al 31,4 % (Francia):</p>
+<ul>
+<li>Acumulación: <strong>622.957 €</strong> tras el impuesto sobre la ganancia final.</li>
+<li>Distribución: <strong>594.988 €</strong> tras impuestos, habiendo pagado 37.036 € de impuesto sobre dividendos por el camino.</li>
+</ul>
+<p>La versión de distribución le deja 27.969 € menos.</p>
+<h3>Sobre los países predefinidos</h3>
+<p>Cada país rellena un solo tipo, que la calculadora usa para los dividendos y para la ganancia final. Las normas reales suelen ser más detalladas:</p>
+<ul>
+<li><strong>Francia:</strong> dividendos y ganancias tributan en 2026 al 12,8 % de impuesto sobre la renta más el 18,6 % de cotizaciones sociales, un 31,4 % en total, o por la escala progresiva si se elige.</li>
+<li><strong>Alemania:</strong> 25 % más el recargo de solidaridad del 5,5 %, un 26,375 % en total. No se incluyen: la exención anual de 1.000 € (Sparer-Pauschbetrag) ni la exención parcial del 30 % para fondos de acciones (Teilfreistellung).</li>
+<li><strong>España:</strong> el 19 % es el primer tramo de la escala del ahorro, que sube al 21 %, 23 %, 27 % y 30 %.</li>
+<li><strong>Portugal:</strong> 28 %, o puede optar por sumar estas rentas a sus demás ingresos.</li>
+<li><strong>Dinamarca:</strong> la renta de acciones tributa al 27 % hasta 79.400 coronas en 2026 y al 42 % por encima.</li>
+<li><strong>Suecia:</strong> 30 % sobre rentas del capital en una cuenta normal. Muchos inversores usan en su lugar una cuenta ISK, que tributa cada año sobre un rendimiento estimado.</li>
+<li><strong>Noruega:</strong> el 37,84 % es el 22 % multiplicado por el factor de ajuste de 1,72 aplicable en 2025.</li>
+<li><strong>Italia:</strong> 26 % sobre las plusvalías.</li>
+<li><strong>Países Bajos:</strong> las inversiones privadas tributan en el Box 3 sobre un rendimiento estimado (36 % en 2026), no sobre dividendos y ganancias reales, así que esta comparación no refleja las normas neerlandesas.</li>
+<li><strong>Suiza:</strong> la retención del 35 % la pueden recuperar los residentes que declaran esos ingresos, así que no es el impuesto final.</li>
+<li>Para Bélgica, Austria, Irlanda y Grecia, consulte las normas vigentes con su administración tributaria.</li>
+</ul>
+<h3>Lo que no tiene en cuenta</h3>
+<ul>
+<li>Las retenciones extranjeras sobre dividendos dentro del fondo, que afectan a ambas versiones.</li>
+<li>Algunos países gravan los fondos de acumulación antes de la venta, lo que reduce su ventaja.</li>
+<li>Las comisiones del fondo, las exenciones anuales y los cambios en la rentabilidad por dividendo.</li>
+</ul>
+<h3>Fuentes oficiales</h3>
+<ul>
+<li>Francia: <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2613" target="_blank" rel="noopener">Service-Public F2613</a>, <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">F21618</a>.</li>
+<li>Alemania: <a href="https://www.gesetze-im-internet.de/estg/__32d.html" target="_blank" rel="noopener">§ 32d EStG</a>, <a href="https://www.gesetze-im-internet.de/solzg_1995/__4.html" target="_blank" rel="noopener">§ 4 SolZG</a>, <a href="https://www.gesetze-im-internet.de/estg/__20.html" target="_blank" rel="noopener">§ 20 EStG</a>, <a href="https://www.gesetze-im-internet.de/invstg_2018/__20.html" target="_blank" rel="noopener">§ 20 InvStG</a>.</li>
+<li>España: <a href="https://www.boe.es/buscar/act.php?id=BOE-A-2006-20764" target="_blank" rel="noopener">Ley 35/2006 del IRPF, art. 66, 76</a> (BOE).</li>
+<li>Portugal: <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs71.aspx" target="_blank" rel="noopener">Código do IRS, art. 71</a>, <a href="https://info.portaldasfinancas.gov.pt/pt/informacao_fiscal/codigos_tributarios/cirs_rep/Pages/irs72.aspx" target="_blank" rel="noopener">art. 72</a>.</li>
+<li>Dinamarca: <a href="https://skat.dk/borger/aktier-og-andre-vaerdipapirer/skat-af-aktier" target="_blank" rel="noopener">Skat: skat af aktier</a>.</li>
+<li>Suecia: <a href="https://www.skatteverket.se/privat/skatter/vardepapper/investeringssparkontoisk.4.5fc8c94513259a4ba1d800037851.html" target="_blank" rel="noopener">Skatteverket: ISK</a>.</li>
+<li>Noruega: <a href="https://www.skatteetaten.no/person/skatt/hjelp-til-riktig-skatt/aksjer-og-verdipapirer/om/skatteregler-for-gevinsttap-ved-realisasjoner-og-aksjeutbytte/" target="_blank" rel="noopener">Skatteetaten</a>.</li>
+<li>Países Bajos: <a href="https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/box_3" target="_blank" rel="noopener">Belastingdienst: box 3</a>.</li>
+<li>Suiza: <a href="https://www.estv.admin.ch/de/verrechnungssteuer-rueckerstatten-lassen" target="_blank" rel="noopener">ESTV: Verrechnungssteuer</a>.</li>
+<li>Italia: <a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:legge:2024-12-30;207!vig=2026-06-01" target="_blank" rel="noopener">Legge 207/2024, art. 1, c. 23</a> (Normattiva).</li>
+</ul>`
       }
     };
 
@@ -171,6 +385,7 @@
       document.getElementById('tSec2').innerText = l.sec2; document.getElementById('tLoss').innerText = l.loss;
       document.getElementById('thM').innerText = l.thM; document.getElementById('thAcc').innerText = l.thAcc; document.getElementById('thDist').innerText = l.thDist;
       document.getElementById('tdTax').innerText = l.tdTax; document.getElementById('vReinv').innerText = l.vReinv; document.getElementById('tdNet').innerText = l.tdNet;
+      document.getElementById('tHowTitle').innerText = l.howTitle; document.getElementById('tHowBody').innerHTML = l.howBody || HOW_EN;
     }
 
     function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); calc(); }
@@ -198,6 +413,12 @@
       document.getElementById('lblDivYield').innerText = divYield.toFixed(1) + '%'; 
       document.getElementById('lblDivTax').innerText = (taxPct * 100).toFixed(1) + '%';
       
+      // Country presets (rates in the select above), source status checked Nov 2026:
+      // FR 31.4 % = 12.8 % + 18.6 % (service-public F2613, F21618). DE 26.375 % = 25 % (§ 32d EStG) + 5.5 % Soli (§ 4 SolZG).
+      // ES 19 % = first step of savings scale (Ley 35/2006 arts 66 + 76). PT 28 % (CIRS arts 71, 72). IT 26 % on gains (L. 207/2024 c. 23).
+      // DK 27 % up to 79,400 kr in 2026, 42 % above (skat.dk). SE 30 % capital income (Skatteverket). NO 37.84 % = 22 % x 1.72 (2025 factor).
+      // NL: Box 3 deemed return (36 % in 2026), 15 % preset does not model it. CH: 35 % withholding is refundable for residents.
+      // BE 30 %, AT 27.5 %, IE 38 %, GR 5 %: NOT confirmed from an official source; official sites were unreachable.
       const mTotalRate = (totalRet / 100) / 12, mPriceRate = (Math.max(0, totalRet - divYield) / 100) / 12, qDivRate = (divYield / 100) / 4;
       let accBal = init, accPrin = init, distBal = init, distCost = init, distTax = 0;
       

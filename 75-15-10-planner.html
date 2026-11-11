@@ -39,7 +39,13 @@
     .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
     .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+    .how { margin-top: 24px; }
+    .how h3 { font-size: 0.98rem; margin: 18px 0 6px; }
+    .how p, .how li { color: #cbd5e1; font-size: 0.9rem; } .how p { margin-bottom: 8px; }
+    .how ul { margin: 0 0 8px 20px; } .how li { margin-bottom: 4px; }
+    .how a { color: var(--accent); }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box, .how { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
   </style>
 </head>
 <body>
@@ -114,9 +120,40 @@
       </div>
       <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
     </div>
+    <section class="card how">
+      <h2 class="card-title" id="tHowTitle">How this planner works</h2>
+      <div id="tHowBody">
+<h3>What it does</h3>
+<p>It splits your monthly net income into three parts: 75% for living costs, 15% for investing and 10% for a safety net (emergency savings). It then estimates how much you would need invested to live off your portfolio (financial independence, or FIRE), and how long investing 15% would take to get there.</p>
+<h3>How the numbers are calculated</h3>
+<ul>
+<li><strong>Target wealth (Auto mode):</strong> your yearly lifestyle spending (75% of income × 12) divided by the safe withdrawal rate. At 4%, that is 25 times your yearly spending. In Custom mode, you set the target yourself.</li>
+<li><strong>Passive income:</strong> the target × the withdrawal rate ÷ 12, the monthly amount the portfolio could pay out.</li>
+<li><strong>Time until independence:</strong> the number of months for your existing portfolio plus the monthly 15% to reach the target, growing each month by the expected return ÷ 12.</li>
+</ul>
+<h3>Worked example</h3>
+<p>With €2,500 a month, a 4% withdrawal rate, a 9% return and no existing portfolio:</p>
+<ul>
+<li>Lifestyle €1,875, investing €375 and safety net €250 a month.</li>
+<li>Target: €1,875 × 12 ÷ 4% = <strong>€562,500</strong>, which pays out €1,875 a month.</li>
+<li>Investing €375 a month at 9% reaches it in about <strong>27.9 years</strong>.</li>
+</ul>
+<h3>About the withdrawal rate</h3>
+<p>A 4% withdrawal rate is a common rule of thumb based on studies of historical US stock and bond returns. It is not a guarantee. A lower rate gives a larger, more cautious target.</p>
+<h3>What it leaves out</h3>
+<ul>
+<li>Inflation. Your spending and the target stay in today's money, so for a realistic timeline, enter a return after inflation.</li>
+<li>Taxes, investment fees, pay rises and changes in your spending.</li>
+<li>Market ups and downs: it assumes the same return every month.</li>
+<li>The 10% safety net is set aside, not invested.</li>
+</ul>
+      </div>
+    </section>
   </div>
   <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
+    // The English explanation lives in the HTML above so search engines can read it.
+    const HOW_EN = document.getElementById('tHowBody').innerHTML;
     const i18n = {
       en: {
         linkAbout: "About & contact", linkPrivacy: "Privacy policy",
@@ -126,7 +163,8 @@
         mode: "Target Wealth Calculation Mode", modeAuto: "Auto (Match 75% Lifestyle)", modeCustom: "Custom Fixed Target", custVal: "Custom Target Wealth",
         b75: "75% Lifestyle", b15: "15% Investing", b10: "10% Safety Net",
         targetTitle: "TARGET FIRE WEALTH", timeTitle: "TIME UNTIL INDEPENDENCE", fireYrs: "Years",
-        passivePre: "Generates ", passivePost: " / mo passive income", reality: "Based on investing 15% of income"
+        passivePre: "Generates ", passivePost: " / mo passive income", reality: "Based on investing 15% of income",
+        howTitle: "How this planner works", howBody: null // the English text is in #tHowBody in the HTML
       },
       fr: {
         linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
@@ -136,7 +174,31 @@
         mode: "Mode de Calcul du Capital Cible", modeAuto: "Auto (Couvrir 75% Dépenses)", modeCustom: "Objectif Fixe Personnalisé", custVal: "Capital Cible Personnalisé",
         b75: "75% Dépenses Courantes", b15: "15% Investissement", b10: "10% Épargne Sécurité",
         targetTitle: "CAPITAL CIBLE (FIRE)", timeTitle: "TEMPS AVANT L'INDÉPENDANCE", fireYrs: "Ans",
-        passivePre: "Génère ", passivePost: " / mois de revenus passifs", reality: "Basé sur un investissement de 15%"
+        passivePre: "Génère ", passivePost: " / mois de revenus passifs", reality: "Basé sur un investissement de 15%",
+        howTitle: "Comment fonctionne ce planificateur", howBody: `<h3>Ce qu'il fait</h3>
+<p>Il répartit votre revenu net mensuel en trois parts : 75 % pour le train de vie, 15 % pour investir et 10 % pour une épargne de précaution. Il estime ensuite le capital nécessaire pour vivre de votre portefeuille (indépendance financière, ou FIRE), et le temps qu'il faut pour l'atteindre en investissant 15 %.</p>
+<h3>Comment les chiffres sont calculés</h3>
+<ul>
+<li><strong>Capital cible (mode Auto) :</strong> vos dépenses annuelles de train de vie (75 % du revenu × 12) divisées par le taux de retrait. À 4 %, cela fait 25 fois vos dépenses annuelles. En mode Personnalisé, vous fixez la cible vous-même.</li>
+<li><strong>Revenu passif :</strong> la cible × le taux de retrait ÷ 12, soit ce que le portefeuille pourrait verser chaque mois.</li>
+<li><strong>Temps avant l'indépendance :</strong> le nombre de mois pour que votre capital existant plus les 15 % mensuels atteignent la cible, avec une croissance mensuelle égale au rendement attendu ÷ 12.</li>
+</ul>
+<h3>Exemple chiffré</h3>
+<p>Avec 2 500 € par mois, un taux de retrait de 4 %, un rendement de 9 % et aucun capital de départ :</p>
+<ul>
+<li>Train de vie 1 875 €, investissement 375 € et épargne de précaution 250 € par mois.</li>
+<li>Cible : 1 875 € × 12 ÷ 4 % = <strong>562 500 €</strong>, qui verse 1 875 € par mois.</li>
+<li>En investissant 375 € par mois à 9 %, vous l'atteignez en environ <strong>27,9 ans</strong>.</li>
+</ul>
+<h3>À propos du taux de retrait</h3>
+<p>Un taux de retrait de 4 % est une règle empirique courante, issue d'études sur les rendements historiques des actions et obligations américaines. Ce n'est pas une garantie. Un taux plus bas donne une cible plus élevée et plus prudente.</p>
+<h3>Ce qu'il ne prend pas en compte</h3>
+<ul>
+<li>L'inflation. Vos dépenses et la cible restent en euros d'aujourd'hui : pour un délai réaliste, saisissez un rendement après inflation.</li>
+<li>Les impôts, les frais d'investissement, les hausses de salaire et l'évolution de vos dépenses.</li>
+<li>Les hauts et les bas des marchés : il suppose le même rendement chaque mois.</li>
+<li>Les 10 % d'épargne de précaution sont mis de côté, pas investis.</li>
+</ul>`
       },
       de: {
         linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
@@ -146,7 +208,31 @@
         mode: "Zielvermögen Berechnungsmodus", modeAuto: "Auto (75% Lebensstil abdecken)", modeCustom: "Benutzerdefiniertes Ziel", custVal: "Benutzerdefiniertes Zielvermögen",
         b75: "75% Lebensstil", b15: "15% Investieren", b10: "10% Sicherheitsnetz",
         targetTitle: "FIRE ZIELVERMÖGEN", timeTitle: "ZEIT BIS ZUR UNABHÄNGIGKEIT", fireYrs: "Jahre",
-        passivePre: "Generiert ", passivePost: " / Monat passives Einkommen", reality: "Basierend auf 15% Investitionsquote"
+        passivePre: "Generiert ", passivePost: " / Monat passives Einkommen", reality: "Basierend auf 15% Investitionsquote",
+        howTitle: "So funktioniert dieser Planer", howBody: `<h3>Was er macht</h3>
+<p>Er teilt Ihr monatliches Nettoeinkommen in drei Teile: 75 % für Lebenshaltungskosten, 15 % zum Investieren und 10 % als Notgroschen. Dann schätzt er, wie viel Vermögen Sie bräuchten, um von Ihrem Portfolio zu leben (finanzielle Unabhängigkeit, FIRE), und wie lange es dauert, wenn Sie 15 % investieren.</p>
+<h3>So werden die Zahlen berechnet</h3>
+<ul>
+<li><strong>Zielvermögen (Auto-Modus):</strong> Ihre jährlichen Lebenshaltungskosten (75 % des Einkommens × 12) geteilt durch die Entnahmerate. Bei 4 % ist das das 25-Fache Ihrer jährlichen Ausgaben. Im Modus „Eigenes Ziel“ legen Sie das Ziel selbst fest.</li>
+<li><strong>Passives Einkommen:</strong> Ziel × Entnahmerate ÷ 12, also der Betrag, den das Portfolio monatlich auszahlen könnte.</li>
+<li><strong>Zeit bis zur Unabhängigkeit:</strong> die Zahl der Monate, bis Ihr bestehendes Portfolio plus die monatlichen 15 % das Ziel erreichen, bei einem monatlichen Wachstum von erwarteter Rendite ÷ 12.</li>
+</ul>
+<h3>Rechenbeispiel</h3>
+<p>Mit 2.500 € im Monat, 4 % Entnahmerate, 9 % Rendite und ohne bestehendes Portfolio:</p>
+<ul>
+<li>Lebenshaltung 1.875 €, Investieren 375 € und Notgroschen 250 € im Monat.</li>
+<li>Ziel: 1.875 € × 12 ÷ 4 % = <strong>562.500 €</strong>, die monatlich 1.875 € auszahlen.</li>
+<li>Mit 375 € im Monat bei 9 % erreichen Sie es in etwa <strong>27,9 Jahren</strong>.</li>
+</ul>
+<h3>Zur Entnahmerate</h3>
+<p>Eine Entnahmerate von 4 % ist eine gängige Faustregel aus Studien zu historischen Renditen von US-Aktien und -Anleihen. Sie ist keine Garantie. Eine niedrigere Rate ergibt ein höheres, vorsichtigeres Ziel.</p>
+<h3>Was er nicht berücksichtigt</h3>
+<ul>
+<li>Inflation. Ausgaben und Ziel bleiben in heutigem Geld; für einen realistischen Zeitraum geben Sie eine Rendite nach Inflation ein.</li>
+<li>Steuern, Anlagekosten, Gehaltserhöhungen und Änderungen Ihrer Ausgaben.</li>
+<li>Schwankungen am Markt: Er nimmt jeden Monat dieselbe Rendite an.</li>
+<li>Die 10 % Notgroschen werden zurückgelegt, nicht investiert.</li>
+</ul>`
       },
       es: {
         linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
@@ -156,7 +242,31 @@
         mode: "Modo de Cálculo de Patrimonio", modeAuto: "Auto (Cubrir 75% Estilo Vida)", modeCustom: "Objetivo Fijo Personalizado", custVal: "Patrimonio Objetivo Personalizado",
         b75: "75% Estilo de Vida", b15: "15% Inversión", b10: "10% Seguridad",
         targetTitle: "PATRIMONIO OBJETIVO (FIRE)", timeTitle: "TIEMPO HASTA LA INDEPENDENCIA", fireYrs: "Años",
-        passivePre: "Genera ", passivePost: " / mes en ingresos pasivos", reality: "Basado en invertir el 15% de los ingresos"
+        passivePre: "Genera ", passivePost: " / mes en ingresos pasivos", reality: "Basado en invertir el 15% de los ingresos",
+        howTitle: "Cómo funciona este planificador", howBody: `<h3>Qué hace</h3>
+<p>Divide su ingreso neto mensual en tres partes: 75 % para gastos de vida, 15 % para invertir y 10 % para un colchón de seguridad (fondo de emergencia). Después estima cuánto necesitaría invertido para vivir de su cartera (independencia financiera, o FIRE) y cuánto tardaría en llegar invirtiendo el 15 %.</p>
+<h3>Cómo se calculan las cifras</h3>
+<ul>
+<li><strong>Patrimonio objetivo (modo Auto):</strong> su gasto anual de vida (75 % del ingreso × 12) dividido entre la tasa de retiro. Al 4 %, son 25 veces su gasto anual. En modo Personalizado, usted fija el objetivo.</li>
+<li><strong>Ingreso pasivo:</strong> el objetivo × la tasa de retiro ÷ 12, lo que la cartera podría pagar cada mes.</li>
+<li><strong>Tiempo hasta la independencia:</strong> los meses que tardan su cartera actual más el 15 % mensual en alcanzar el objetivo, creciendo cada mes según la rentabilidad esperada ÷ 12.</li>
+</ul>
+<h3>Ejemplo práctico</h3>
+<p>Con 2.500 € al mes, una tasa de retiro del 4 %, una rentabilidad del 9 % y sin cartera previa:</p>
+<ul>
+<li>Gastos de vida 1.875 €, inversión 375 € y colchón 250 € al mes.</li>
+<li>Objetivo: 1.875 € × 12 ÷ 4 % = <strong>562.500 €</strong>, que paga 1.875 € al mes.</li>
+<li>Invirtiendo 375 € al mes al 9 %, lo alcanza en unos <strong>27,9 años</strong>.</li>
+</ul>
+<h3>Sobre la tasa de retiro</h3>
+<p>Una tasa de retiro del 4 % es una regla práctica habitual, basada en estudios de rentabilidades históricas de acciones y bonos de EE. UU. No es una garantía. Una tasa más baja da un objetivo mayor y más prudente.</p>
+<h3>Lo que no tiene en cuenta</h3>
+<ul>
+<li>La inflación. Sus gastos y el objetivo se mantienen en euros de hoy: para un plazo realista, introduzca una rentabilidad descontada la inflación.</li>
+<li>Impuestos, comisiones de inversión, subidas de sueldo y cambios en sus gastos.</li>
+<li>Las subidas y bajadas del mercado: supone la misma rentabilidad cada mes.</li>
+<li>El 10 % del colchón se aparta, no se invierte.</li>
+</ul>`
       }
     };
 
@@ -173,6 +283,7 @@
       document.getElementById('b75').innerText = l.b75; document.getElementById('b15').innerText = l.b15; document.getElementById('b10').innerText = l.b10;
       document.getElementById('tTargetTitle').innerText = l.targetTitle; document.getElementById('tTimeTitle').innerText = l.timeTitle;
       document.getElementById('outReality').innerText = l.reality;
+      document.getElementById('tHowTitle').innerText = l.howTitle; document.getElementById('tHowBody').innerHTML = l.howBody || HOW_EN;
     }
 
     function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); calc(); }
