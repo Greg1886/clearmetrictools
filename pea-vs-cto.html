@@ -36,7 +36,13 @@
     .export-btn:hover { background: #334155; border-color: var(--accent); color: var(--accent); }
     .export-btn svg { width: 16px; height: 16px; fill: currentColor; }
 
-    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
+    .how { margin-top: 24px; }
+    .how h3 { font-size: 0.98rem; margin: 18px 0 6px; }
+    .how p, .how li { color: #cbd5e1; font-size: 0.9rem; } .how p { margin-bottom: 8px; }
+    .how ul { margin: 0 0 8px 20px; } .how li { margin-bottom: 4px; }
+    .how a { color: var(--accent); }
+
+    @media print { .nav-wrap, header, .matchup-bar, .fb-btn, .fb-modal, .export-row, .cta-box, .how { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; box-shadow: none; break-inside: avoid; } .input-val, .val-good, .val-bad { color: #000 !important; } }
   </style>
 </head>
 <body>
@@ -91,9 +97,56 @@
         <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
       </div>
     </div>
+    <section class="card how">
+      <h2 class="card-title" id="tHowTitle">How this calculator works</h2>
+      <div id="tHowBody">
+        <h3>What it compares</h3>
+        <p>Two ways to invest the same money in ETFs for the same number of years:</p>
+        <ul>
+          <li><strong>PEA first:</strong> your deposits go into a PEA until you have paid in €150,000, the legal cap. Anything you deposit after that goes into a CTO (a standard brokerage account).</li>
+          <li><strong>CTO only:</strong> everything goes into a CTO.</li>
+        </ul>
+        <p>The result shows how much more, or less, you keep after tax by using the PEA first.</p>
+        <h3>The tax rules used (2026)</h3>
+        <ul>
+          <li><strong>PEA held 5 years or more:</strong> gains are exempt from income tax. You pay only social contributions of 18.6%.</li>
+          <li><strong>PEA withdrawn before 5 years:</strong> a withdrawal generally closes the plan, and the gain is taxed at 12.8% income tax plus 18.6% social contributions, 31.4% in total.</li>
+          <li><strong>CTO:</strong> gains are taxed at the flat tax (prélèvement forfaitaire unique) of 31.4%: 12.8% income tax plus 18.6% social contributions.</li>
+        </ul>
+        <h3>How the numbers are calculated</h3>
+        <ul>
+          <li>Each month your deposit is added, and the balance grows by the gross return minus the ETF's yearly fee (TER), divided by 12.</li>
+          <li>Tax is charged once, at the end, on the gain: the final value minus everything you paid in.</li>
+          <li>The €150,000 cap counts what you pay in, not what the account is worth. The PEA can grow well past €150,000.</li>
+        </ul>
+        <h3>Worked example</h3>
+        <p>Say each account has made a €10,000 gain, held for more than 5 years.</p>
+        <ul>
+          <li>PEA: 18.6% × €10,000 = <strong>€1,860</strong> tax, so you keep €8,160.</li>
+          <li>CTO: 31.4% × €10,000 = <strong>€3,140</strong> tax, so you keep €6,860.</li>
+        </ul>
+        <p>The PEA leaves you €1,280 more, and the gap grows with the size of the gain. If you start with €15,000 and add €800 a month, your deposits reach the €150,000 cap in month 169, about 14 years in. From then on, new money goes into the CTO.</p>
+        <h3>What it leaves out</h3>
+        <ul>
+          <li>It assumes accumulating ETFs and no sales until the end. In a real CTO, dividends and sales are taxed in the year they happen, which usually makes the CTO result lower than shown.</li>
+          <li>It uses the flat tax, not the optional progressive income tax scale, which can cost less on a low income.</li>
+          <li>Gains made before 2018 in older PEAs can follow different social contribution rules.</li>
+          <li>It ignores the PEA-PME, broker fees, inflation and future changes to tax law.</li>
+        </ul>
+        <h3>Official sources</h3>
+        <ul>
+          <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2385" target="_blank" rel="noopener">Service-Public: Plan d'épargne en actions (PEA)</a>: deposit cap and the 5-year rule.</li>
+          <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F22449" target="_blank" rel="noopener">Service-Public: taxation of PEA gains</a>: withdrawals before and after 5 years.</li>
+          <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">Service-Public: capital gains on securities</a>: the 31.4% flat tax.</li>
+          <li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public: social contributions</a>: 18.6% on 2026 income.</li>
+        </ul>
+      </div>
+    </section>
   </div>
   <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
+    // The English explanation lives in the HTML above so search engines can read it.
+    const HOW_EN = document.getElementById('tHowBody').innerHTML;
     const i18n = {
       en: {
         linkAbout: "About & contact", linkPrivacy: "Privacy policy",
@@ -103,7 +156,8 @@
         sec2: "2. ETF TER Offset", peaTer: "PEA ETF TER (e.g. WPEA)", ctoTer: "CTO ETF TER (e.g. VUAA)",
         sec3: "3. Net-of-Tax Audit", gain: "NET EXTRA WEALTH IN YOUR POCKET",
         thM: "Metric", thPea: "PEA (18.6%) + CTO Overflow", thCto: "100% CTO (31.4%)",
-        tdPrin: "Total Principal", tdGross: "Gross Portfolio", tdTax: "Exit Taxes Paid", tdNet: "Final Net Wealth"
+        tdPrin: "Total Principal", tdGross: "Gross Portfolio", tdTax: "Exit Taxes Paid", tdNet: "Final Net Wealth",
+        howTitle: "How this calculator works", howBody: null // the English text is in #tHowBody in the HTML
       },
       fr: {
         linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
@@ -113,7 +167,47 @@
         sec2: "2. Écart de Frais (TER)", peaTer: "TER ETF PEA (ex: WPEA)", ctoTer: "TER ETF CTO (ex: VUAA)",
         sec3: "3. Audit Net d'Impôt", gain: "GAIN NET SUPPLÉMENTAIRE EN POCHE",
         thM: "Métrique", thPea: "PEA (18,6%) + Surplus CTO", thCto: "100% CTO (31,4%)",
-        tdPrin: "Capital Total Investi", tdGross: "Portefeuille Brut", tdTax: "Impôts Payés", tdNet: "Patrimoine Net Final"
+        tdPrin: "Capital Total Investi", tdGross: "Portefeuille Brut", tdTax: "Impôts Payés", tdNet: "Patrimoine Net Final",
+        howTitle: "Comment fonctionne ce simulateur", howBody: `<h3>Ce qu'il compare</h3>
+<p>Deux façons d'investir la même somme en ETF sur la même durée :</p>
+<ul>
+<li><strong>PEA d'abord :</strong> vos versements vont sur un PEA jusqu'à ce que vous ayez versé 150 000 €, le plafond légal. Tout ce que vous versez ensuite va sur un CTO (compte-titres ordinaire).</li>
+<li><strong>CTO uniquement :</strong> tout va sur un CTO.</li>
+</ul>
+<p>Le résultat montre combien il vous reste en plus, ou en moins, après impôt en passant d'abord par le PEA.</p>
+<h3>Les règles fiscales utilisées (2026)</h3>
+<ul>
+<li><strong>PEA détenu 5 ans ou plus :</strong> les gains sont exonérés d'impôt sur le revenu. Vous ne payez que les prélèvements sociaux de 18,6 %.</li>
+<li><strong>Retrait du PEA avant 5 ans :</strong> un retrait entraîne en principe la clôture du plan, et le gain est imposé à 12,8 % d'impôt sur le revenu plus 18,6 % de prélèvements sociaux, soit 31,4 % au total.</li>
+<li><strong>CTO :</strong> les gains sont soumis au prélèvement forfaitaire unique (flat tax) de 31,4 % : 12,8 % d'impôt sur le revenu plus 18,6 % de prélèvements sociaux.</li>
+</ul>
+<h3>Comment les chiffres sont calculés</h3>
+<ul>
+<li>Chaque mois, votre versement est ajouté et le solde progresse du rendement brut moins les frais annuels de l'ETF (TER), divisé par 12.</li>
+<li>L'impôt est prélevé une seule fois, à la fin, sur le gain : la valeur finale moins tout ce que vous avez versé.</li>
+<li>Le plafond de 150 000 € porte sur les versements, pas sur la valeur du compte. Le PEA peut largement dépasser 150 000 €.</li>
+</ul>
+<h3>Exemple chiffré</h3>
+<p>Supposons que chaque compte ait réalisé un gain de 10 000 €, détenu plus de 5 ans.</p>
+<ul>
+<li>PEA : 18,6 % × 10 000 € = <strong>1 860 €</strong> d'impôt, il vous reste 8 160 €.</li>
+<li>CTO : 31,4 % × 10 000 € = <strong>3 140 €</strong> d'impôt, il vous reste 6 860 €.</li>
+</ul>
+<p>Le PEA vous laisse 1 280 € de plus, et l'écart grandit avec le montant du gain. Si vous commencez avec 15 000 € et versez 800 € par mois, vos versements atteignent le plafond de 150 000 € au 169e mois, soit environ 14 ans. Ensuite, les nouveaux versements vont sur le CTO.</p>
+<h3>Ce qu'il ne prend pas en compte</h3>
+<ul>
+<li>Il suppose des ETF capitalisants et aucune vente avant la fin. Sur un vrai CTO, les dividendes et les ventes sont imposés l'année où ils ont lieu, ce qui rend en général le résultat du CTO plus faible qu'affiché.</li>
+<li>Il applique la flat tax, pas l'option pour le barème progressif de l'impôt sur le revenu, qui peut coûter moins cher avec des revenus modestes.</li>
+<li>Les gains acquis avant 2018 sur un ancien PEA peuvent suivre des règles de prélèvements sociaux différentes.</li>
+<li>Il ne tient pas compte du PEA-PME, des frais de courtage, de l'inflation ni des futures évolutions de la loi fiscale.</li>
+</ul>
+<h3>Sources officielles</h3>
+<ul>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2385" target="_blank" rel="noopener">Service-Public : Plan d'épargne en actions (PEA)</a> : plafond de versements et règle des 5 ans.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F22449" target="_blank" rel="noopener">Service-Public : imposition des revenus d'un PEA</a> : retraits avant et après 5 ans.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">Service-Public : plus-values sur valeurs mobilières</a> : flat tax de 31,4 %.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public : prélèvements sociaux</a> : 18,6 % sur les revenus de 2026.</li>
+</ul>`
       },
       de: {
         linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
@@ -123,7 +217,47 @@
         sec2: "2. ETF TER Vergleich", peaTer: "PEA ETF TER", ctoTer: "CTO ETF TER",
         sec3: "3. Netto-Steuerprüfung", gain: "ZUSÄTZLICHER NETTOGEWINN",
         thM: "Metrik", thPea: "PEA (18.6%) + CTO Überlauf", thCto: "100% CTO (31.4%)",
-        tdPrin: "Eingezahltes Kapital", tdGross: "Brutto-Portfolio", tdTax: "Gezahlte Steuern", tdNet: "Netto-Endwert"
+        tdPrin: "Eingezahltes Kapital", tdGross: "Brutto-Portfolio", tdTax: "Gezahlte Steuern", tdNet: "Netto-Endwert",
+        howTitle: "So funktioniert dieser Rechner", howBody: `<h3>Was er vergleicht</h3>
+<p>Zwei Wege, denselben Betrag über dieselbe Laufzeit in ETFs anzulegen:</p>
+<ul>
+<li><strong>Zuerst PEA:</strong> Ihre Einzahlungen fließen in einen PEA, bis Sie 150.000 € eingezahlt haben, die gesetzliche Obergrenze. Alles, was Sie danach einzahlen, geht in einen CTO (ein normales französisches Wertpapierdepot).</li>
+<li><strong>Nur CTO:</strong> alles geht in einen CTO.</li>
+</ul>
+<p>Das Ergebnis zeigt, wie viel Ihnen nach Steuern mehr oder weniger bleibt, wenn Sie zuerst den PEA nutzen.</p>
+<h3>Die verwendeten Steuerregeln (2026)</h3>
+<ul>
+<li><strong>PEA 5 Jahre oder länger gehalten:</strong> Gewinne sind von der Einkommensteuer befreit. Sie zahlen nur Sozialabgaben von 18,6 %.</li>
+<li><strong>Entnahme aus dem PEA vor 5 Jahren:</strong> Eine Entnahme schließt den Plan grundsätzlich, und der Gewinn wird mit 12,8 % Einkommensteuer plus 18,6 % Sozialabgaben besteuert, insgesamt 31,4 %.</li>
+<li><strong>CTO:</strong> Gewinne unterliegen der Pauschalsteuer (prélèvement forfaitaire unique) von 31,4 %: 12,8 % Einkommensteuer plus 18,6 % Sozialabgaben.</li>
+</ul>
+<h3>So werden die Zahlen berechnet</h3>
+<ul>
+<li>Jeden Monat wird Ihre Einzahlung hinzugefügt, und der Saldo wächst um die Bruttorendite abzüglich der jährlichen ETF-Kosten (TER), geteilt durch 12.</li>
+<li>Die Steuer fällt einmal am Ende auf den Gewinn an: Endwert minus alles, was Sie eingezahlt haben.</li>
+<li>Die Obergrenze von 150.000 € gilt für die Einzahlungen, nicht für den Kontowert. Der PEA kann weit über 150.000 € wachsen.</li>
+</ul>
+<h3>Rechenbeispiel</h3>
+<p>Angenommen, jedes Konto hat einen Gewinn von 10.000 € erzielt und wurde länger als 5 Jahre gehalten.</p>
+<ul>
+<li>PEA: 18,6 % × 10.000 € = <strong>1.860 €</strong> Steuer, Ihnen bleiben 8.160 €.</li>
+<li>CTO: 31,4 % × 10.000 € = <strong>3.140 €</strong> Steuer, Ihnen bleiben 6.860 €.</li>
+</ul>
+<p>Mit dem PEA bleiben Ihnen 1.280 € mehr, und der Abstand wächst mit der Höhe des Gewinns. Wenn Sie mit 15.000 € beginnen und monatlich 800 € einzahlen, erreichen Ihre Einzahlungen die Grenze von 150.000 € im 169. Monat, nach etwa 14 Jahren. Danach geht neues Geld in den CTO.</p>
+<h3>Was er nicht berücksichtigt</h3>
+<ul>
+<li>Er geht von thesaurierenden ETFs und keinen Verkäufen bis zum Ende aus. In einem echten CTO werden Dividenden und Verkäufe im jeweiligen Jahr besteuert, wodurch das CTO-Ergebnis meist niedriger ausfällt als angezeigt.</li>
+<li>Er verwendet die Pauschalsteuer, nicht die wahlweise progressive Einkommensteuer, die bei niedrigem Einkommen günstiger sein kann.</li>
+<li>Gewinne aus der Zeit vor 2018 in älteren PEAs können anderen Regeln für Sozialabgaben unterliegen.</li>
+<li>PEA-PME, Brokergebühren, Inflation und künftige Steueränderungen bleiben unberücksichtigt.</li>
+</ul>
+<h3>Offizielle Quellen (auf Französisch)</h3>
+<ul>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2385" target="_blank" rel="noopener">Service-Public: Plan d'épargne en actions (PEA)</a>: Einzahlungsgrenze und 5-Jahres-Regel.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F22449" target="_blank" rel="noopener">Service-Public: Besteuerung von PEA-Gewinnen</a>: Entnahmen vor und nach 5 Jahren.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">Service-Public: Veräußerungsgewinne aus Wertpapieren</a>: Pauschalsteuer von 31,4 %.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public: Sozialabgaben</a>: 18,6 % auf Einkünfte 2026.</li>
+</ul>`
       },
       es: {
         linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
@@ -133,7 +267,47 @@
         sec2: "2. Diferencia de TER", peaTer: "TER ETF PEA", ctoTer: "TER ETF CTO",
         sec3: "3. Auditoría Neta", gain: "RIQUEZA EXTRA NETA EN SU BOLSILLO",
         thM: "Métrica", thPea: "PEA (18.6%) + CTO Excedente", thCto: "100% CTO (31.4%)",
-        tdPrin: "Capital Invertido", tdGross: "Cartera Bruta", tdTax: "Impuestos Pagados", tdNet: "Valor Neto Final"
+        tdPrin: "Capital Invertido", tdGross: "Cartera Bruta", tdTax: "Impuestos Pagados", tdNet: "Valor Neto Final",
+        howTitle: "Cómo funciona esta calculadora", howBody: `<h3>Qué compara</h3>
+<p>Dos formas de invertir el mismo dinero en ETF durante el mismo número de años:</p>
+<ul>
+<li><strong>Primero el PEA:</strong> sus aportaciones van a un PEA hasta que haya ingresado 150.000 €, el límite legal. Lo que aporte después va a un CTO (una cuenta de valores francesa normal).</li>
+<li><strong>Solo CTO:</strong> todo va a un CTO.</li>
+</ul>
+<p>El resultado muestra cuánto más, o menos, le queda después de impuestos si usa primero el PEA.</p>
+<h3>Las normas fiscales aplicadas (2026)</h3>
+<ul>
+<li><strong>PEA mantenido 5 años o más:</strong> las ganancias están exentas del impuesto sobre la renta. Solo paga cotizaciones sociales del 18,6 %.</li>
+<li><strong>Retirada del PEA antes de 5 años:</strong> una retirada cierra en principio el plan, y la ganancia tributa al 12,8 % de impuesto sobre la renta más el 18,6 % de cotizaciones sociales, un 31,4 % en total.</li>
+<li><strong>CTO:</strong> las ganancias tributan al tipo único (prélèvement forfaitaire unique) del 31,4 %: 12,8 % de impuesto sobre la renta más 18,6 % de cotizaciones sociales.</li>
+</ul>
+<h3>Cómo se calculan las cifras</h3>
+<ul>
+<li>Cada mes se suma su aportación y el saldo crece según la rentabilidad bruta menos la comisión anual del ETF (TER), dividida entre 12.</li>
+<li>El impuesto se paga una sola vez, al final, sobre la ganancia: el valor final menos todo lo que ha aportado.</li>
+<li>El límite de 150.000 € se aplica a lo aportado, no al valor de la cuenta. El PEA puede crecer muy por encima de 150.000 €.</li>
+</ul>
+<h3>Ejemplo práctico</h3>
+<p>Suponga que cada cuenta ha obtenido una ganancia de 10.000 €, mantenida más de 5 años.</p>
+<ul>
+<li>PEA: 18,6 % × 10.000 € = <strong>1.860 €</strong> de impuesto, le quedan 8.160 €.</li>
+<li>CTO: 31,4 % × 10.000 € = <strong>3.140 €</strong> de impuesto, le quedan 6.860 €.</li>
+</ul>
+<p>El PEA le deja 1.280 € más, y la diferencia crece con el tamaño de la ganancia. Si empieza con 15.000 € y aporta 800 € al mes, sus aportaciones alcanzan el límite de 150.000 € en el mes 169, a los 14 años aproximadamente. A partir de ahí, el dinero nuevo va al CTO.</p>
+<h3>Lo que no tiene en cuenta</h3>
+<ul>
+<li>Supone ETF de acumulación y ninguna venta hasta el final. En un CTO real, los dividendos y las ventas tributan el año en que se producen, por lo que el resultado del CTO suele ser menor que el mostrado.</li>
+<li>Aplica el tipo único, no la opción por la escala progresiva del impuesto sobre la renta, que puede salir más barata con ingresos bajos.</li>
+<li>Las ganancias anteriores a 2018 en PEA antiguos pueden seguir reglas distintas de cotizaciones sociales.</li>
+<li>No incluye el PEA-PME, las comisiones del bróker, la inflación ni futuros cambios en la ley fiscal.</li>
+</ul>
+<h3>Fuentes oficiales (en francés)</h3>
+<ul>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2385" target="_blank" rel="noopener">Service-Public: Plan d'épargne en actions (PEA)</a>: límite de aportaciones y regla de los 5 años.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F22449" target="_blank" rel="noopener">Service-Public: tributación de las ganancias del PEA</a>: retiradas antes y después de 5 años.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F21618" target="_blank" rel="noopener">Service-Public: plusvalías de valores mobiliarios</a>: tipo único del 31,4 %.</li>
+<li><a href="https://www.service-public.gouv.fr/particuliers/vosdroits/F2329" target="_blank" rel="noopener">Service-Public: cotizaciones sociales</a>: 18,6 % sobre los ingresos de 2026.</li>
+</ul>`
       }
     };
 
@@ -150,20 +324,32 @@
       document.getElementById('tSec3').innerText = l.sec3; document.getElementById('tGain').innerText = l.gain;
       document.getElementById('thM').innerText = l.thM; document.getElementById('thPea').innerText = l.thPea; document.getElementById('thCto').innerText = l.thCto;
       document.getElementById('tdPrin').innerText = l.tdPrin; document.getElementById('tdGross').innerText = l.tdGross; document.getElementById('tdTax').innerText = l.tdTax; document.getElementById('tdNet').innerText = l.tdNet;
+      document.getElementById('tHowTitle').innerText = l.howTitle; document.getElementById('tHowBody').innerHTML = l.howBody || HOW_EN;
     }
 
     function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); calc(); }
 
     const fmt = n => '€' + Math.round(n).toLocaleString('en-US');
+
+    // French tax rules for 2026 (service-public.gouv.fr, checked Nov 2026):
+    // F2385 (verified 22 May 2026): PEA deposit cap 150 000 €; gains exempt from income tax after 5 years.
+    // F2329 (verified 30 Jun 2026): prélèvements sociaux 18.6 % on 2026 income (LFSS 2026, art. 12).
+    // F21618 (verified 15 Apr 2026): flat tax (PFU) 31.4 % = 12.8 % income tax + 18.6 % social.
+    // F22449 (verified 15 Apr 2026): PEA withdrawal before 5 years closes the plan; gain taxed 12.8 % + social.
+    const PEA_DEPOSIT_CAP = 150000;
+    const PEA_MIN_YEARS = 5;
+    const PEA_TAX_AFTER_5Y = 0.186; // social contributions only
+    const PFU_RATE = 0.314;         // CTO, and PEA closed before 5 years
+
     function calc() {
       const init=+document.getElementById('inInit').value, mo=+document.getElementById('inMo').value, yr=+document.getElementById('inYr').value, ret=+document.getElementById('inRet').value;
       const peaTer=+document.getElementById('inPeaTer').value, ctoTer=+document.getElementById('inCtoTer').value;
       document.getElementById('lblInit').innerText=fmt(init); document.getElementById('lblMo').innerText=fmt(mo)+'/mo'; document.getElementById('lblYr').innerText=yr+(lang==='fr'?' Ans':lang==='de'?' Jahre':lang==='es'?' Años':' Yrs'); document.getElementById('lblRet').innerText=ret.toFixed(1)+'%';
       document.getElementById('lblPeaTer').innerText=peaTer.toFixed(2)+'%'; document.getElementById('lblCtoTer').innerText=ctoTer.toFixed(2)+'%';
       const mRatePea=((ret-peaTer)/100)/12, mRateCto=((ret-ctoTer)/100)/12;
-      let pP=Math.min(150000,init), oP=Math.max(0,init-150000), pB=pP, oB=oP, cP=init, cB=init;
-      for(let m=1;m<=yr*12;m++){ let toP=Math.min(Math.max(0,150000-pP),mo), toO=mo-toP; pP+=toP; oP+=toO; pB=(pB+toP)*(1+mRatePea); oB=(oB+toO)*(1+mRateCto); cP+=mo; cB=(cB+mo)*(1+mRateCto); }
-      const peaTaxRate = yr >= 5 ? 0.186 : 0.314; const ctoTaxRate = 0.314;
+      let pP=Math.min(PEA_DEPOSIT_CAP,init), oP=Math.max(0,init-PEA_DEPOSIT_CAP), pB=pP, oB=oP, cP=init, cB=init;
+      for(let m=1;m<=yr*12;m++){ let toP=Math.min(Math.max(0,PEA_DEPOSIT_CAP-pP),mo), toO=mo-toP; pP+=toP; oP+=toO; pB=(pB+toP)*(1+mRatePea); oB=(oB+toO)*(1+mRateCto); cP+=mo; cB=(cB+mo)*(1+mRateCto); }
+      const peaTaxRate = yr >= PEA_MIN_YEARS ? PEA_TAX_AFTER_5Y : PFU_RATE; const ctoTaxRate = PFU_RATE;
       const tax1 = (Math.max(0,pB-pP)*peaTaxRate) + (Math.max(0,oB-oP)*ctoTaxRate); const net1 = (pB+oB)-tax1;
       const tax2 = Math.max(0,cB-cP)*ctoTaxRate; const net2 = cB-tax2;
       document.getElementById('outNetGain').innerText=(net1>=net2?'+':'')+fmt(net1-net2);
