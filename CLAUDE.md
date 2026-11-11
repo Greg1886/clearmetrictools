@@ -16,6 +16,9 @@ dependencies, no API keys and no network calls.
 | `us/state-tax-migration.html` | State tax migration and capital gains | US |
 | `us/roth-vs-traditional.html` | Roth vs Traditional IRA | US |
 | `us/401k-penalty-calculator.html` | 401(k) early-withdrawal penalty | US |
+| `about.html` | About & contact (text page, no calculator) | All, 4 languages |
+| `privacy.html` | Privacy policy (text page, no calculator) | All, 4 languages |
+| `robots.txt`, `sitemap.xml` | Search engine files. Add every new page to the sitemap. | |
 | `CNAME` | Custom domain for hosting. Do not edit or delete. | |
 
 ## How a page is built
@@ -37,6 +40,12 @@ kept identical by hand:
 - **Disclaimer footer** (`#tDisclaimer`), in the same four languages on global pages.
 - **Feedback button** linking to the Google Form, and the **export** functions
   `getSummaryText()`, `exportToTxt()`, `exportToPdf()` (PDF is the browser print dialog).
+  The two text pages (`about.html`, `privacy.html`) have no calculator or export code.
+- **Footer links** (`.legal-links`) to About and Privacy, placed above the disclaimer.
+  On global pages the link text is in `i18n` (`linkAbout`, `linkPrivacy`).
+- **Privacy policy facts.** `privacy.html` states that the site sets no cookies, has no
+  analytics or ads, loads nothing from other domains and stores only `cmt_lang`. Any
+  change to that (ads, analytics, a new stored value) must update the policy first.
 
 Inputs are range sliders wired with `oninput="calc()"`. `calc()` reads every input,
 recomputes, and writes the results into the page.

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy | ClearMetricTools</title>
+  <meta name="description" content="ClearMetricTools collects no personal data. Calculators run in your browser, with no cookies, analytics or ads. Read how hosting, the feedback form and your settings are handled.">
+  <link rel="canonical" href="https://clearmetrictools.com/privacy.html">
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --danger: #f43f5e; --success: #10b981; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+    header { border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.92); padding: 14px 20px; position: sticky; top: 0; z-index: 50; }
+    .nav-wrap { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; } .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 11px; border-radius: 8px; transition: 0.15s; }
+    .container { max-width: 820px; margin: 28px auto; padding: 0 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .prose h2 { font-size: 1.15rem; margin: 22px 0 8px; } .prose h2:first-child { margin-top: 0; }
+    .prose p, .prose li { color: #cbd5e1; font-size: 0.95rem; } .prose p { margin-bottom: 10px; }
+    .prose ul { margin: 0 0 10px 20px; } .prose li { margin-bottom: 6px; }
+    .prose a { color: var(--accent); }
+    .legal-links { max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted); }
+    .legal-links a { color: var(--muted); }
+    @media print { .nav-wrap, header, .fb-btn { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; } .prose p, .prose li { color: #000; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">Clear<span>Metric</span>Tools</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link" id="n1">1. Broker FX & TER</a>
+        <a href="pea-vs-cto.html" class="nav-link" id="n2">2. PEA vs CTO (2026)</a>
+        <a href="dividend-tax-leakage.html" class="nav-link" id="n3">3. Acc vs Dist</a>
+        <a href="crypto-tax-calculator.html" class="nav-link" id="n4">4. Crypto Cash-Out</a>
+        <a href="75-15-10-planner.html" class="nav-link" id="n5">5. 75/15/10 Planner</a><a href="us/state-tax-migration.html" class="nav-link" style="color: #f59e0b; font-weight: 800; border: 1px solid #f59e0b; margin-left: 8px;">🇺🇸 US Tools</a>
+        <select id="langSelector" onchange="changeLang()" style="background: #1e293b; color: #f8fafc; border: 1px solid #334155; padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px;">
+          <option value="en">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="es">🇪🇸 Español</option>
+        </select>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <h1 style="font-size: 1.85rem; margin-bottom: 6px;" id="tHeroTitle">Privacy policy</h1>
+    <p style="color: var(--muted); margin-bottom: 20px;" id="tHeroSub">Last updated: 11 November 2026</p>
+    <div class="card prose" id="tBody"></div>
+  </div>
+  <script>
+    const i18n = {
+      en: {
+        n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
+        heroTitle: "Privacy policy", heroSub: "Last updated: 11 November 2026",
+        linkAbout: "About & contact", linkPrivacy: "Privacy policy",
+        body: `<h2>In short</h2>
+<p>ClearMetricTools does not collect, store or sell personal data. The calculators run entirely in your browser.</p>
+<h2>What you type into the calculators</h2>
+<p>The numbers you enter stay on your device. They are not sent to us or to anyone else, and they are gone when you close or reload the page.</p>
+<h2>Cookies and storage on your device</h2>
+<p>The site sets no cookies. It saves one setting in your browser's local storage: your language choice (stored as <code>cmt_lang</code>), so the next page opens in the same language. This setting never leaves your device, and you can delete it by clearing this site's data in your browser.</p>
+<h2>Analytics and advertising</h2>
+<p>There is none. The site uses no tracking, analytics, advertising, social media plugins, or fonts and scripts from other websites. If this ever changes, this policy will be updated first.</p>
+<h2>Hosting</h2>
+<p>The site is hosted on GitHub Pages, run by GitHub, Inc. Like any web host, GitHub's servers process technical data such as your IP address to deliver pages and keep the service secure. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub General Privacy Statement</a>.</p>
+<h2>Feedback form</h2>
+<p>The "Suggest Upgrade" button opens a form on Google Forms. Anything you submit there is collected by Google and shared with us, and Google handles it under the <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>. Please leave out personal details you don't want to share.</p>
+<h2>Exports</h2>
+<p>The TXT export is created in your browser and saved straight to your device. The PDF export uses your browser's print dialog. Nothing is uploaded.</p>
+<h2>Links to other websites</h2>
+<p>Pages may link to other websites, which have their own privacy policies.</p>
+<h2>Questions</h2>
+<p>Because the calculators collect no personal data, there is normally nothing for us to access or delete. For questions about this policy or about feedback you sent, contact us through the <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">feedback form</a>.</p>`
+      },
+      fr: {
+        n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
+        heroTitle: "Politique de confidentialité", heroSub: "Dernière mise à jour : 11 novembre 2026",
+        linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
+        body: `<h2>En bref</h2>
+<p>ClearMetricTools ne collecte, ne conserve et ne vend aucune donnée personnelle. Les calculateurs fonctionnent entièrement dans votre navigateur.</p>
+<h2>Ce que vous saisissez dans les calculateurs</h2>
+<p>Les chiffres que vous saisissez restent sur votre appareil. Ils ne sont envoyés ni à nous ni à personne d'autre, et ils disparaissent quand vous fermez ou rechargez la page.</p>
+<h2>Cookies et stockage sur votre appareil</h2>
+<p>Le site ne dépose aucun cookie. Il enregistre un seul réglage dans le stockage local de votre navigateur : votre choix de langue (sous le nom <code>cmt_lang</code>), pour que la page suivante s'ouvre dans la même langue. Ce réglage ne quitte jamais votre appareil, et vous pouvez le supprimer en effaçant les données de ce site dans votre navigateur.</p>
+<h2>Mesure d'audience et publicité</h2>
+<p>Aucune. Le site n'utilise ni suivi, ni mesure d'audience, ni publicité, ni modules de réseaux sociaux, ni polices ou scripts provenant d'autres sites. Si cela change un jour, cette politique sera mise à jour avant.</p>
+<h2>Hébergement</h2>
+<p>Le site est hébergé sur GitHub Pages, service de GitHub, Inc. Comme tout hébergeur, les serveurs de GitHub traitent des données techniques, comme votre adresse IP, pour afficher les pages et sécuriser le service. Voir la <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">déclaration de confidentialité de GitHub</a> (en anglais).</p>
+<h2>Formulaire de suggestions</h2>
+<p>Le bouton « Suggest Upgrade » ouvre un formulaire Google Forms. Ce que vous y envoyez est collecté par Google et partagé avec nous, et Google le traite selon les <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">règles de confidentialité de Google</a>. N'y indiquez pas de données personnelles que vous ne souhaitez pas partager.</p>
+<h2>Exports</h2>
+<p>L'export TXT est créé dans votre navigateur et enregistré directement sur votre appareil. L'export PDF utilise la fenêtre d'impression de votre navigateur. Rien n'est envoyé en ligne.</p>
+<h2>Liens vers d'autres sites</h2>
+<p>Les pages peuvent contenir des liens vers d'autres sites, qui ont leur propre politique de confidentialité.</p>
+<h2>Questions</h2>
+<p>Comme les calculateurs ne collectent aucune donnée personnelle, il n'y a en principe rien à consulter ni à supprimer. Pour toute question sur cette politique ou sur un message que vous avez envoyé, contactez-nous via le <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">formulaire de suggestions</a>.</p>`
+      },
+      de: {
+        n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
+        heroTitle: "Datenschutzerklärung", heroSub: "Zuletzt aktualisiert: 11. November 2026",
+        linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
+        body: `<h2>Kurz gesagt</h2>
+<p>ClearMetricTools erhebt, speichert und verkauft keine personenbezogenen Daten. Die Rechner laufen vollständig in Ihrem Browser.</p>
+<h2>Was Sie in die Rechner eingeben</h2>
+<p>Die Zahlen, die Sie eingeben, bleiben auf Ihrem Gerät. Sie werden weder an uns noch an andere gesendet und sind weg, sobald Sie die Seite schließen oder neu laden.</p>
+<h2>Cookies und Speicherung auf Ihrem Gerät</h2>
+<p>Die Website setzt keine Cookies. Sie speichert eine einzige Einstellung im lokalen Speicher Ihres Browsers: Ihre Sprachwahl (unter dem Namen <code>cmt_lang</code>), damit die nächste Seite in derselben Sprache öffnet. Diese Einstellung verlässt Ihr Gerät nie, und Sie können sie löschen, indem Sie die Daten dieser Website in Ihrem Browser entfernen.</p>
+<h2>Analyse und Werbung</h2>
+<p>Gibt es nicht. Die Website verwendet kein Tracking, keine Analyse-Tools, keine Werbung, keine Social-Media-Plugins und keine Schriften oder Skripte von anderen Websites. Sollte sich das ändern, wird diese Erklärung vorher aktualisiert.</p>
+<h2>Hosting</h2>
+<p>Die Website wird bei GitHub Pages gehostet, einem Dienst von GitHub, Inc. Wie jeder Webhoster verarbeiten die Server von GitHub technische Daten wie Ihre IP-Adresse, um Seiten auszuliefern und den Dienst abzusichern. Siehe das <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">GitHub General Privacy Statement</a> (auf Englisch).</p>
+<h2>Feedback-Formular</h2>
+<p>Die Schaltfläche „Suggest Upgrade“ öffnet ein Formular bei Google Forms. Was Sie dort absenden, wird von Google erhoben und mit uns geteilt; Google verarbeitet es gemäß der <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Datenschutzerklärung von Google</a>. Geben Sie dort keine persönlichen Daten an, die Sie nicht teilen möchten.</p>
+<h2>Exporte</h2>
+<p>Der TXT-Export wird in Ihrem Browser erstellt und direkt auf Ihrem Gerät gespeichert. Der PDF-Export nutzt den Druckdialog Ihres Browsers. Es wird nichts hochgeladen.</p>
+<h2>Links zu anderen Websites</h2>
+<p>Seiten können auf andere Websites verlinken, für die deren eigene Datenschutzerklärungen gelten.</p>
+<h2>Fragen</h2>
+<p>Da die Rechner keine personenbezogenen Daten erheben, gibt es in der Regel nichts, was wir einsehen oder löschen könnten. Bei Fragen zu dieser Erklärung oder zu einer Nachricht, die Sie gesendet haben, kontaktieren Sie uns über das <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">Feedback-Formular</a>.</p>`
+      },
+      es: {
+        n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
+        heroTitle: "Política de privacidad", heroSub: "Última actualización: 11 de noviembre de 2026",
+        linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
+        body: `<h2>En resumen</h2>
+<p>ClearMetricTools no recoge, guarda ni vende datos personales. Las calculadoras funcionan por completo en su navegador.</p>
+<h2>Lo que escribe en las calculadoras</h2>
+<p>Las cifras que introduce se quedan en su dispositivo. No se envían ni a nosotros ni a nadie más, y desaparecen al cerrar o recargar la página.</p>
+<h2>Cookies y almacenamiento en su dispositivo</h2>
+<p>El sitio no instala cookies. Guarda un solo ajuste en el almacenamiento local de su navegador: el idioma elegido (con el nombre <code>cmt_lang</code>), para que la siguiente página se abra en el mismo idioma. Este ajuste nunca sale de su dispositivo y puede borrarlo eliminando los datos de este sitio en su navegador.</p>
+<h2>Analítica y publicidad</h2>
+<p>No hay. El sitio no usa seguimiento, analítica, publicidad, complementos de redes sociales ni fuentes o scripts de otros sitios. Si esto cambia, esta política se actualizará antes.</p>
+<h2>Alojamiento</h2>
+<p>El sitio está alojado en GitHub Pages, un servicio de GitHub, Inc. Como cualquier proveedor de alojamiento, los servidores de GitHub tratan datos técnicos, como su dirección IP, para servir las páginas y mantener el servicio seguro. Consulte la <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">declaración de privacidad de GitHub</a> (en inglés).</p>
+<h2>Formulario de sugerencias</h2>
+<p>El botón «Suggest Upgrade» abre un formulario de Google Forms. Lo que envíe allí lo recoge Google y lo comparte con nosotros, y Google lo trata según la <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Política de Privacidad de Google</a>. No incluya datos personales que no quiera compartir.</p>
+<h2>Exportaciones</h2>
+<p>La exportación TXT se crea en su navegador y se guarda directamente en su dispositivo. La exportación PDF usa el diálogo de impresión de su navegador. No se sube nada.</p>
+<h2>Enlaces a otros sitios</h2>
+<p>Las páginas pueden enlazar a otros sitios web, que tienen sus propias políticas de privacidad.</p>
+<h2>Preguntas</h2>
+<p>Como las calculadoras no recogen datos personales, normalmente no hay nada que consultar ni borrar. Si tiene preguntas sobre esta política o sobre un mensaje que nos haya enviado, contáctenos mediante el <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">formulario de sugerencias</a>.</p>`
+      }
+    };
+
+    let lang = localStorage.getItem('cmt_lang') || 'en';
+    if (!i18n[lang]) lang = 'en';
+    document.getElementById('langSelector').value = lang;
+
+    function applyLang() {
+      const l = i18n[lang];
+      document.documentElement.lang = lang;
+      document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
+      document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
+      document.getElementById('tBody').innerHTML = l.body;
+      document.getElementById('tLinkAbout').innerText = l.linkAbout; document.getElementById('tLinkPrivacy').innerText = l.linkPrivacy;
+    }
+
+    function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); }
+  </script>
+  <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
+  <footer id="tDisclaimer" style="max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; line-height: 1.5; color: var(--muted); text-align: center;">For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.</footer>
+  <script>applyLang();</script>
+  <script>
+    (function () {
+      const text = {
+        en: "For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.",
+        fr: "À titre d'information et d'estimation uniquement. ClearMetricTools ne fournit aucun conseil financier, en investissement, fiscal ou juridique. Les règles et taux d'imposition évoluent et dépendent de votre situation ; les résultats sont des estimations simplifiées qui peuvent être inexactes. Consultez un professionnel qualifié avant toute décision.",
+        de: "Nur zu allgemeinen Informationszwecken und als Schätzung. ClearMetricTools bietet keine Finanz-, Anlage-, Steuer- oder Rechtsberatung. Steuerregeln und -sätze ändern sich und hängen von Ihrer Situation ab; die Ergebnisse sind vereinfachte Schätzungen und können ungenau sein. Wenden Sie sich vor Entscheidungen an eine qualifizierte Fachperson.",
+        es: "Solo con fines informativos y como estimación. ClearMetricTools no ofrece asesoramiento financiero, de inversión, fiscal ni legal. Las normas y los tipos impositivos cambian y dependen de su situación; los resultados son estimaciones simplificadas que pueden ser inexactas. Consulte a un profesional cualificado antes de tomar decisiones."
+      };
+      const selector = document.getElementById('langSelector');
+      const show = () => { document.getElementById('tDisclaimer').innerText = text[selector.value] || text.en; };
+      selector.addEventListener('change', show);
+      show();
+    })();
+  </script>
+  <style>
+    .fb-btn { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #0f172a; border: none; border-radius: 50px; padding: 12px 20px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); transition: 0.2s; z-index: 100; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .fb-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4); }
+  </style>
+  <a class="fb-btn" href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">💡 Suggest Upgrade</a>
+</body>
+</html>

@@ -92,9 +92,11 @@
       </div>
     </div>
   </div>
+  <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
     const i18n = {
       en: {
+        linkAbout: "About & contact", linkPrivacy: "Privacy policy",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
         heroTitle: "2026 PEA vs. CTO Tax-Shelter Solver", heroSub: "Updated for the 2026 French Tax Code (PEA at 18.6% vs. CTO Flat Tax at 31.4%), including the €150k deposit cap overflow logic.",
         sec1: "1. Investment Inputs", init: "Initial Deposit", mo: "Monthly DCA", yr: "Horizon (5+ Yrs = 18.6% PEA Tax)", ret: "Gross Market Return",
@@ -104,6 +106,7 @@
         tdPrin: "Total Principal", tdGross: "Gross Portfolio", tdTax: "Exit Taxes Paid", tdNet: "Final Net Wealth"
       },
       fr: {
+        linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
         n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Simulateur PEA vs CTO (Fiscalité 2026)", heroSub: "Mis à jour avec la fiscalité 2026 (PEA 18,6% vs CTO 31,4%), incluant le basculement automatique après 150 000 €.",
         sec1: "1. Paramètres d'Investissement", init: "Apport Initial", mo: "Épargne Mensuelle", yr: "Horizon (5+ Ans = PEA 18,6%)", ret: "Rendement Brut du Marché",
@@ -113,6 +116,7 @@
         tdPrin: "Capital Total Investi", tdGross: "Portefeuille Brut", tdTax: "Impôts Payés", tdNet: "Patrimoine Net Final"
       },
       de: {
+        linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
         heroTitle: "2026 PEA vs. CTO Steuer-Rechner", heroSub: "Aktualisiert für die französische Steuergesetzgebung 2026 (PEA 18,6% vs CTO 31,4%), inklusive der 150.000 € Einzahlungsgrenze.",
         sec1: "1. Anlageparameter", init: "Anfangsinvestition", mo: "Monatlicher Sparplan", yr: "Anlagehorizont", ret: "Bruttorendite",
@@ -122,6 +126,7 @@
         tdPrin: "Eingezahltes Kapital", tdGross: "Brutto-Portfolio", tdTax: "Gezahlte Steuern", tdNet: "Netto-Endwert"
       },
       es: {
+        linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
         n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Calculadora PEA vs CTO (Impuestos 2026)", heroSub: "Actualizado para el código fiscal francés 2026 (PEA 18.6% vs CTO 31.4%), incluye la lógica de límite de 150.000 €.",
         sec1: "1. Parámetros de Inversión", init: "Inversión Inicial", mo: "Aportación Mensual", yr: "Horizonte", ret: "Rentabilidad Bruta",
@@ -137,6 +142,7 @@
 
     function applyLang() {
       const l = i18n[lang];
+      document.getElementById('tLinkAbout').innerText = l.linkAbout; document.getElementById('tLinkPrivacy').innerText = l.linkPrivacy;
       document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
       document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
       document.getElementById('tSec1').innerText = l.sec1; document.getElementById('tInit').innerText = l.init; document.getElementById('tMo').innerText = l.mo; document.getElementById('tYr').innerText = l.yr; document.getElementById('tRet').innerText = l.ret;

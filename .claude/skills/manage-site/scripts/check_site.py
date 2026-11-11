@@ -18,6 +18,9 @@ from pathlib import Path
 LANGS = ["en", "fr", "de", "es"]
 REQUIRED_FUNCS = ["calc", "getSummaryText", "exportToTxt", "exportToPdf"]
 FEEDBACK_HOST = "forms.gle"
+# Text pages with no calculator: no calc/export code, linked from the footer
+# links on every page instead of the nav.
+INFO_PAGES = {"about.html", "privacy.html"}
 
 
 def pages(root):
@@ -83,9 +86,11 @@ def check_page(path, root):
         problems.append("disclaimer footer (#tDisclaimer) missing")
     if FEEDBACK_HOST not in src:
         problems.append("feedback button link missing")
-    for fn in REQUIRED_FUNCS:
+    for fn in ([] if rel in INFO_PAGES else REQUIRED_FUNCS):
         if not re.search(r"function\s+%s\s*\(" % fn, src):
             problems.append("function %s() missing" % fn)
+    if 'class="legal-links"' not in src:
+        problems.append("footer links to About and Privacy (.legal-links) missing")
     if not re.search(r"<title>[^<]+</title>", src):
         problems.append("<title> missing or empty")
 
@@ -143,6 +148,8 @@ def check_nav(root, all_pages):
             problems.append("nav differs between pages in %s: %s" % (label, detail))
         linked = {h for s in sigs if s for h in s if "/" not in h}
         for p in members:
+            if p.relative_to(root).as_posix() in INFO_PAGES:
+                continue
             if linked and p.name not in linked:
                 problems.append("%s is not linked from its own nav" % p.relative_to(root).as_posix())
     return problems

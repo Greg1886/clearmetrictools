@@ -99,9 +99,11 @@
       <div class="export-row"><button type="button" class="export-btn" onclick="exportToTxt()" aria-label="Download results as a text file">⬇ TXT</button><button type="button" class="export-btn" onclick="exportToPdf()" aria-label="Print or save results as a PDF">🖨 PDF</button></div>
     </div>
   </div>
+  <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
     const i18n = {
       en: {
+        linkAbout: "About & contact", linkPrivacy: "Privacy policy",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
         heroTitle: "Global Crypto \"Net Cash-Out\" Tax Solver", heroSub: "Calculate your exact net bank deposit after exchange spreads and jurisdictional 2026 crypto tax rules.",
         jurisdiction: "Select Tax Jurisdiction (2026 Rules)", hold: "Asset Held For More Than 365 Days?",
@@ -116,6 +118,7 @@
         alertUsS: "⚠️ <strong>Short-Term Gains:</strong> Taxed as ordinary income (~24% estimated)."
       },
       fr: {
+        linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
         n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Simulateur Global d'Impôt Crypto (Retrait)", heroSub: "Calculez exactement ce qui arrive sur votre compte après le spread des plateformes et la fiscalité locale 2026.",
         jurisdiction: "Sélectionnez la Juridiction Fiscale (2026)", hold: "Actif Détenu Depuis Plus de 365 Jours ?",
@@ -130,6 +133,7 @@
         alertUsS: "⚠️ <strong>Court Terme :</strong> Imposé comme un revenu ordinaire (~24% estimé)."
       },
       de: {
+        linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
         heroTitle: "Globaler Krypto Netto-Auszahlung & Steuerrechner", heroSub: "Berechnen Sie genau, was nach Spread-Gebühren und lokalen 2026 Krypto-Steuerregeln auf Ihrem Bankkonto landet.",
         jurisdiction: "Steuergebiet Wählen (Sätze 2026)", hold: "Asset länger als 365 Tage gehalten?",
@@ -144,6 +148,7 @@
         alertUsS: "⚠️ <strong>Kurzfristig:</strong> Wird als normales Einkommen besteuert (~24% geschätzt)."
       },
       es: {
+        linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
         n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Calculadora Global de Impuestos y Retiro de Crypto", heroSub: "Calcule su depósito bancario neto después de los spreads del exchange y las leyes fiscales cripto de 2026.",
         jurisdiction: "Seleccione Jurisdicción Fiscal (2026)", hold: "¿Activo Mantenido Más de 365 Días?",
@@ -164,6 +169,7 @@
 
     function applyLang() {
       const l = i18n[lang];
+      document.getElementById('tLinkAbout').innerText = l.linkAbout; document.getElementById('tLinkPrivacy').innerText = l.linkPrivacy;
       document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
       document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
       document.getElementById('tJurisdiction').innerText = l.jurisdiction; document.getElementById('tHold').innerText = l.hold;

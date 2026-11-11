@@ -110,9 +110,11 @@
       </div>
     </div>
   </div>
+  <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
     const i18n = {
       en: {
+        linkAbout: "About & contact", linkPrivacy: "Privacy policy",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
         heroTitle: "Broker FX, ETF TER & Order Fee Drag Calculator", heroSub: "Audit how currency conversion, ETF expense ratios, and flat order fees compound against your net portfolio.",
         matchups: "⚡ Quick Scenarios:", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Active Bank Fund (1.50%) vs. ETF",
@@ -122,6 +124,7 @@
         thM: "Metric", thA: "Option A", thB: "Option B", tdPrin: "Total Principal", tdDir: "Direct Fees Paid", tdFin: "Final Net Value"
       },
       fr: {
+        linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
         n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Calculateur d'Impact : Frais Courtier, TER ETF & Ordres", heroSub: "Mesurez l'impact des frais de change, de gestion (TER) et de courtage sur votre capital net.",
         matchups: "⚡ Scénarios Rapides :", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Fonds Actif (1.50%) vs. ETF",
@@ -131,6 +134,7 @@
         thM: "Métrique", thA: "Option A", thB: "Option B", tdPrin: "Capital Total Investi", tdDir: "Frais Directs Payés", tdFin: "Valeur Nette Finale"
       },
       de: {
+        linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
         heroTitle: "Broker FX, ETF TER & Ordergebühren Rechner", heroSub: "Prüfen Sie, wie sich Wechselkursgebühren, ETF-Kosten (TER) und Ordergebühren auf Ihr Portfolio auswirken.",
         matchups: "⚡ Schnell-Szenarien:", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Aktiver Bankfonds (1.50%) vs. ETF",
@@ -140,6 +144,7 @@
         thM: "Metrik", thA: "Option A", thB: "Option B", tdPrin: "Eingezahltes Kapital", tdDir: "Gezahlte Direktgebühren", tdFin: "Netto-Endwert"
       },
       es: {
+        linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
         n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Calculadora de Costes: FX de Bróker, TER y Comisiones", heroSub: "Audite cómo el cambio de divisa, los gastos del ETF (TER) y las comisiones reducen su cartera neta.",
         matchups: "⚡ Escenarios Rápidos:", pill1: "Amundi CW8 vs. WPEA", pill2: "DEGIRO vs. IBKR", pill3: "Fondo Activo (1.50%) vs. ETF",
@@ -155,6 +160,7 @@
 
     function applyLang() {
       const l = i18n[lang];
+      document.getElementById('tLinkAbout').innerText = l.linkAbout; document.getElementById('tLinkPrivacy').innerText = l.linkPrivacy;
       document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
       document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
       document.getElementById('tMatchups').innerText = l.matchups; document.getElementById('tPill1').innerText = l.pill1; document.getElementById('tPill2').innerText = l.pill2; document.getElementById('tPill3').innerText = l.pill3;

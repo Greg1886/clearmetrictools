@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About &amp; Contact | ClearMetricTools</title>
+  <meta name="description" content="ClearMetricTools is an independent collection of free, private finance and tax calculators for Europe and the US. Learn how the tools work and how to reach us.">
+  <link rel="canonical" href="https://clearmetrictools.com/about.html">
+  <style>
+    :root { --bg: #0f172a; --card: #1e293b; --border: #334155; --text: #f8fafc; --muted: #94a3b8; --accent: #38bdf8; --danger: #f43f5e; --success: #10b981; }
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+    body { background: var(--bg); color: var(--text); line-height: 1.6; padding-bottom: 60px; }
+    header { border-bottom: 1px solid var(--border); background: rgba(15, 23, 42, 0.92); padding: 14px 20px; position: sticky; top: 0; z-index: 50; }
+    .nav-wrap { max-width: 1160px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .brand { font-size: 1.25rem; font-weight: 800; color: var(--text); text-decoration: none; } .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .nav-link { color: var(--muted); text-decoration: none; font-size: 0.82rem; font-weight: 600; padding: 6px 11px; border-radius: 8px; transition: 0.15s; }
+    .container { max-width: 820px; margin: 28px auto; padding: 0 20px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 22px; }
+    .prose h2 { font-size: 1.15rem; margin: 22px 0 8px; } .prose h2:first-child { margin-top: 0; }
+    .prose p, .prose li { color: #cbd5e1; font-size: 0.95rem; } .prose p { margin-bottom: 10px; }
+    .prose ul { margin: 0 0 10px 20px; } .prose li { margin-bottom: 6px; }
+    .prose a { color: var(--accent); }
+    .legal-links { max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted); }
+    .legal-links a { color: var(--muted); }
+    @media print { .nav-wrap, header, .fb-btn { display: none !important; } body { padding: 0; background: #fff; color: #000; } .card { border: 1px solid #ddd; } .prose p, .prose li { color: #000; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-wrap">
+      <a href="index.html" class="brand">Clear<span>Metric</span>Tools</a>
+      <div class="nav-links">
+        <a href="index.html" class="nav-link" id="n1">1. Broker FX & TER</a>
+        <a href="pea-vs-cto.html" class="nav-link" id="n2">2. PEA vs CTO (2026)</a>
+        <a href="dividend-tax-leakage.html" class="nav-link" id="n3">3. Acc vs Dist</a>
+        <a href="crypto-tax-calculator.html" class="nav-link" id="n4">4. Crypto Cash-Out</a>
+        <a href="75-15-10-planner.html" class="nav-link" id="n5">5. 75/15/10 Planner</a><a href="us/state-tax-migration.html" class="nav-link" style="color: #f59e0b; font-weight: 800; border: 1px solid #f59e0b; margin-left: 8px;">🇺🇸 US Tools</a>
+        <select id="langSelector" onchange="changeLang()" style="background: #1e293b; color: #f8fafc; border: 1px solid #334155; padding: 6px 10px; border-radius: 8px; font-size: 0.8rem; font-weight: 700; cursor: pointer; margin-left: 8px;">
+          <option value="en">🇬🇧 English</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="es">🇪🇸 Español</option>
+        </select>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <h1 style="font-size: 1.85rem; margin-bottom: 6px;" id="tHeroTitle">About ClearMetricTools</h1>
+    <p style="color: var(--muted); margin-bottom: 20px;" id="tHeroSub">Free, private calculators that answer one money question at a time.</p>
+    <div class="card prose" id="tBody"></div>
+  </div>
+  <script>
+    const i18n = {
+      en: {
+        n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
+        heroTitle: "About ClearMetricTools", heroSub: "Free, private calculators that answer one money question at a time.",
+        linkAbout: "About & contact", linkPrivacy: "Privacy policy",
+        body: `<h2>What this site is</h2>
+<p>ClearMetricTools is a small, independent collection of free calculators for investors and savers in Europe and the United States. Each tool answers one specific question, such as how much broker fees cost you over 20 years, or whether a French PEA beats a CTO after tax.</p>
+<h2>How the tools work</h2>
+<ul>
+<li><strong>Private by design.</strong> Every calculation runs in your browser. Nothing you type is sent to a server, and the site uses no cookies, analytics or advertising. See the <a href="privacy.html">privacy policy</a>.</li>
+<li><strong>Based on official sources.</strong> Tax rates and thresholds come from official government sources for the tax year stated on each page.</li>
+<li><strong>Free, with no sign-up.</strong> Open a page and start moving the sliders. You can export your results as a text file or a PDF.</li>
+</ul>
+<h2>The calculators</h2>
+<ul>
+<li><a href="index.html">Broker FX, ETF TER and order-fee drag</a>: what fees cost you over time.</li>
+<li><a href="pea-vs-cto.html">PEA vs CTO</a>: France's tax-advantaged PEA compared with a standard brokerage account.</li>
+<li><a href="dividend-tax-leakage.html">Accumulating vs distributing ETFs</a>: how much dividend tax leaks from your returns, by country.</li>
+<li><a href="crypto-tax-calculator.html">Crypto cash-out</a>: what you keep after tax when you sell crypto.</li>
+<li><a href="75-15-10-planner.html">75/15/10 planner</a>: split your pay and estimate your FIRE number.</li>
+<li><a href="us/state-tax-migration.html">US state tax migration</a>, <a href="us/roth-vs-traditional.html">Roth vs Traditional IRA</a> and <a href="us/401k-penalty-calculator.html">401(k) early withdrawal</a> (US, in English).</li>
+</ul>
+<h2>Limits</h2>
+<p>Results are simplified estimates. They leave out many personal factors, and tax rules change. They are not financial, tax or legal advice, so check with a qualified professional before acting on them.</p>
+<h2>Contact</h2>
+<p>Found a mistake, spotted a tax rule that changed, or want a new calculator? Send a message through the <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">feedback form</a>. It goes straight to the person who maintains the site.</p>`
+      },
+      fr: {
+        n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
+        heroTitle: "À propos de ClearMetricTools", heroSub: "Des calculateurs gratuits et confidentiels, une question d'argent à la fois.",
+        linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
+        body: `<h2>Ce qu'est ce site</h2>
+<p>ClearMetricTools est une petite collection indépendante de calculateurs gratuits pour les investisseurs et les épargnants en Europe et aux États-Unis. Chaque outil répond à une question précise, par exemple ce que vous coûtent les frais de courtage sur 20 ans, ou si un PEA est plus intéressant qu'un CTO après impôt.</p>
+<h2>Comment fonctionnent les outils</h2>
+<ul>
+<li><strong>Confidentiels par conception.</strong> Tous les calculs sont faits dans votre navigateur. Rien de ce que vous saisissez n'est envoyé à un serveur, et le site n'utilise ni cookies, ni outils de mesure d'audience, ni publicité. Voir la <a href="privacy.html">politique de confidentialité</a>.</li>
+<li><strong>Fondés sur des sources officielles.</strong> Les taux et seuils d'imposition proviennent de sources officielles pour l'année fiscale indiquée sur chaque page.</li>
+<li><strong>Gratuits, sans inscription.</strong> Ouvrez une page et déplacez les curseurs. Vous pouvez exporter vos résultats en fichier texte ou en PDF.</li>
+</ul>
+<h2>Les calculateurs</h2>
+<ul>
+<li><a href="index.html">Frais de change, TER des ETF et frais d'ordre</a> : ce que les frais vous coûtent dans le temps.</li>
+<li><a href="pea-vs-cto.html">PEA vs CTO</a> : le PEA comparé à un compte-titres ordinaire.</li>
+<li><a href="dividend-tax-leakage.html">ETF capitalisants vs distribuants</a> : la part de vos rendements perdue en impôt sur les dividendes, par pays.</li>
+<li><a href="crypto-tax-calculator.html">Retrait crypto</a> : ce qu'il vous reste après impôt quand vous vendez des cryptomonnaies.</li>
+<li><a href="75-15-10-planner.html">Plan 75/15/10</a> : répartissez votre salaire et estimez votre objectif FIRE.</li>
+<li><a href="us/state-tax-migration.html">Changement d'État aux États-Unis</a>, <a href="us/roth-vs-traditional.html">Roth vs IRA traditionnel</a> et <a href="us/401k-penalty-calculator.html">retrait anticipé de 401(k)</a> (États-Unis, en anglais).</li>
+</ul>
+<h2>Limites</h2>
+<p>Les résultats sont des estimations simplifiées. Ils ne tiennent pas compte de nombreux éléments personnels, et les règles fiscales évoluent. Ce ne sont pas des conseils financiers, fiscaux ou juridiques : consultez un professionnel qualifié avant d'agir.</p>
+<h2>Contact</h2>
+<p>Vous avez trouvé une erreur, repéré une règle fiscale qui a changé, ou souhaitez un nouveau calculateur ? Écrivez-nous via le <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">formulaire de suggestions</a>. Votre message arrive directement à la personne qui gère le site.</p>`
+      },
+      de: {
+        n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
+        heroTitle: "Über ClearMetricTools", heroSub: "Kostenlose, private Rechner, die jeweils eine Geldfrage beantworten.",
+        linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
+        body: `<h2>Was diese Website ist</h2>
+<p>ClearMetricTools ist eine kleine, unabhängige Sammlung kostenloser Rechner für Anleger und Sparer in Europa und den USA. Jedes Tool beantwortet eine konkrete Frage, etwa was Brokergebühren über 20 Jahre kosten oder ob ein französischer PEA nach Steuern besser abschneidet als ein CTO.</p>
+<h2>So funktionieren die Tools</h2>
+<ul>
+<li><strong>Privat von Grund auf.</strong> Alle Berechnungen laufen in Ihrem Browser. Nichts, was Sie eingeben, wird an einen Server gesendet, und die Website verwendet keine Cookies, keine Analyse-Tools und keine Werbung. Siehe die <a href="privacy.html">Datenschutzerklärung</a>.</li>
+<li><strong>Auf Basis offizieller Quellen.</strong> Steuersätze und Grenzwerte stammen aus offiziellen Quellen für das auf jeder Seite angegebene Steuerjahr.</li>
+<li><strong>Kostenlos, ohne Anmeldung.</strong> Seite öffnen und die Regler bewegen. Sie können Ihre Ergebnisse als Textdatei oder PDF exportieren.</li>
+</ul>
+<h2>Die Rechner</h2>
+<ul>
+<li><a href="index.html">Broker-Währungsgebühren, ETF-TER und Ordergebühren</a>: was Gebühren Sie über die Zeit kosten.</li>
+<li><a href="pea-vs-cto.html">PEA vs CTO</a>: das steuerbegünstigte französische PEA im Vergleich zum normalen Depot.</li>
+<li><a href="dividend-tax-leakage.html">Thesaurierende vs ausschüttende ETFs</a>: wie viel Dividendensteuer Ihre Rendite kostet, nach Land.</li>
+<li><a href="crypto-tax-calculator.html">Krypto-Auszahlung</a>: was Ihnen nach Steuern beim Verkauf von Krypto bleibt.</li>
+<li><a href="75-15-10-planner.html">75/15/10-Planer</a>: Gehalt aufteilen und Ihre FIRE-Zahl schätzen.</li>
+<li><a href="us/state-tax-migration.html">US-Bundesstaatenwechsel</a>, <a href="us/roth-vs-traditional.html">Roth vs traditionelles IRA</a> und <a href="us/401k-penalty-calculator.html">vorzeitige 401(k)-Entnahme</a> (USA, auf Englisch).</li>
+</ul>
+<h2>Grenzen</h2>
+<p>Die Ergebnisse sind vereinfachte Schätzungen. Viele persönliche Faktoren fehlen, und Steuerregeln ändern sich. Sie sind keine Finanz-, Steuer- oder Rechtsberatung. Sprechen Sie vor einer Entscheidung mit einer qualifizierten Fachperson.</p>
+<h2>Kontakt</h2>
+<p>Einen Fehler gefunden, eine geänderte Steuerregel bemerkt oder einen Wunsch für einen neuen Rechner? Schreiben Sie uns über das <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">Feedback-Formular</a>. Ihre Nachricht geht direkt an die Person, die die Website betreut.</p>`
+      },
+      es: {
+        n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
+        heroTitle: "Acerca de ClearMetricTools", heroSub: "Calculadoras gratuitas y privadas que responden una pregunta de dinero cada vez.",
+        linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
+        body: `<h2>Qué es este sitio</h2>
+<p>ClearMetricTools es una pequeña colección independiente de calculadoras gratuitas para inversores y ahorradores de Europa y Estados Unidos. Cada herramienta responde a una pregunta concreta, como cuánto le cuestan las comisiones del bróker en 20 años, o si un PEA francés sale mejor que un CTO después de impuestos.</p>
+<h2>Cómo funcionan las herramientas</h2>
+<ul>
+<li><strong>Privadas por diseño.</strong> Todos los cálculos se hacen en su navegador. Nada de lo que escribe se envía a un servidor, y el sitio no usa cookies, analítica ni publicidad. Consulte la <a href="privacy.html">política de privacidad</a>.</li>
+<li><strong>Basadas en fuentes oficiales.</strong> Los tipos y umbrales fiscales proceden de fuentes oficiales para el año fiscal indicado en cada página.</li>
+<li><strong>Gratis y sin registro.</strong> Abra una página y mueva los controles. Puede exportar los resultados como archivo de texto o PDF.</li>
+</ul>
+<h2>Las calculadoras</h2>
+<ul>
+<li><a href="index.html">Comisiones de cambio, TER de ETF y comisiones por orden</a>: lo que le cuestan las comisiones con el tiempo.</li>
+<li><a href="pea-vs-cto.html">PEA vs CTO</a>: el PEA francés con ventajas fiscales frente a una cuenta de valores normal.</li>
+<li><a href="dividend-tax-leakage.html">ETF de acumulación vs distribución</a>: cuánto impuesto sobre dividendos pierde su rentabilidad, por país.</li>
+<li><a href="crypto-tax-calculator.html">Retiro de cripto</a>: lo que le queda después de impuestos al vender criptomonedas.</li>
+<li><a href="75-15-10-planner.html">Plan 75/15/10</a>: reparta su sueldo y estime su cifra FIRE.</li>
+<li><a href="us/state-tax-migration.html">Cambio de estado en EE. UU.</a>, <a href="us/roth-vs-traditional.html">Roth vs IRA tradicional</a> y <a href="us/401k-penalty-calculator.html">retiro anticipado del 401(k)</a> (EE. UU., en inglés).</li>
+</ul>
+<h2>Límites</h2>
+<p>Los resultados son estimaciones simplificadas. Omiten muchos factores personales y las normas fiscales cambian. No son asesoramiento financiero, fiscal ni legal: consulte a un profesional cualificado antes de actuar.</p>
+<h2>Contacto</h2>
+<p>¿Ha encontrado un error, una norma fiscal que ha cambiado o quiere una nueva calculadora? Escríbanos mediante el <a href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">formulario de sugerencias</a>. El mensaje llega directamente a la persona que mantiene el sitio.</p>`
+      }
+    };
+
+    let lang = localStorage.getItem('cmt_lang') || 'en';
+    if (!i18n[lang]) lang = 'en';
+    document.getElementById('langSelector').value = lang;
+
+    function applyLang() {
+      const l = i18n[lang];
+      document.documentElement.lang = lang;
+      document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
+      document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
+      document.getElementById('tBody').innerHTML = l.body;
+      document.getElementById('tLinkAbout').innerText = l.linkAbout; document.getElementById('tLinkPrivacy').innerText = l.linkPrivacy;
+    }
+
+    function changeLang() { lang = document.getElementById('langSelector').value; localStorage.setItem('cmt_lang', lang); applyLang(); }
+  </script>
+  <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
+  <footer id="tDisclaimer" style="max-width: 1160px; margin: 0 auto 20px; padding: 0 20px; font-size: 0.75rem; line-height: 1.5; color: var(--muted); text-align: center;">For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.</footer>
+  <script>applyLang();</script>
+  <script>
+    (function () {
+      const text = {
+        en: "For general information and estimates only. ClearMetricTools does not provide financial, investment, tax or legal advice. Tax rules and rates change and depend on your situation, and results are simplified estimates that may be inaccurate. Check with a qualified professional before making decisions.",
+        fr: "À titre d'information et d'estimation uniquement. ClearMetricTools ne fournit aucun conseil financier, en investissement, fiscal ou juridique. Les règles et taux d'imposition évoluent et dépendent de votre situation ; les résultats sont des estimations simplifiées qui peuvent être inexactes. Consultez un professionnel qualifié avant toute décision.",
+        de: "Nur zu allgemeinen Informationszwecken und als Schätzung. ClearMetricTools bietet keine Finanz-, Anlage-, Steuer- oder Rechtsberatung. Steuerregeln und -sätze ändern sich und hängen von Ihrer Situation ab; die Ergebnisse sind vereinfachte Schätzungen und können ungenau sein. Wenden Sie sich vor Entscheidungen an eine qualifizierte Fachperson.",
+        es: "Solo con fines informativos y como estimación. ClearMetricTools no ofrece asesoramiento financiero, de inversión, fiscal ni legal. Las normas y los tipos impositivos cambian y dependen de su situación; los resultados son estimaciones simplificadas que pueden ser inexactas. Consulte a un profesional cualificado antes de tomar decisiones."
+      };
+      const selector = document.getElementById('langSelector');
+      const show = () => { document.getElementById('tDisclaimer').innerText = text[selector.value] || text.en; };
+      selector.addEventListener('change', show);
+      show();
+    })();
+  </script>
+  <style>
+    .fb-btn { position: fixed; bottom: 20px; right: 20px; background: var(--accent); color: #0f172a; border: none; border-radius: 50px; padding: 12px 20px; font-weight: 800; font-size: 0.85rem; cursor: pointer; box-shadow: 0 4px 12px rgba(56, 189, 248, 0.3); transition: 0.2s; z-index: 100; display: flex; align-items: center; gap: 8px; text-decoration: none; }
+    .fb-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(56, 189, 248, 0.4); }
+  </style>
+  <a class="fb-btn" href="https://forms.gle/qv83cWEYFwA1WKfq9" target="_blank" rel="noopener">💡 Suggest Upgrade</a>
+</body>
+</html>

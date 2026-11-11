@@ -113,9 +113,11 @@
       </div>
     </div>
   </div>
+  <p class="legal-links" style="max-width: 1160px; margin: 0 auto 8px; padding: 0 20px; font-size: 0.75rem; text-align: center; color: var(--muted);"><a href="about.html" id="tLinkAbout" style="color: var(--muted);">About &amp; contact</a> · <a href="privacy.html" id="tLinkPrivacy" style="color: var(--muted);">Privacy policy</a></p>
   <script>
     const i18n = {
       en: {
+        linkAbout: "About & contact", linkPrivacy: "Privacy policy",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Crypto Cash-Out", n5: "5. 75/15/10 Planner",
         heroTitle: "Accumulating vs. Distributing ETF Tax-Leakage Calculator", heroSub: "See how annual dividend taxes on Distributing ETFs silently bleed your compounding compared to Accumulating ETFs.",
         matchups: "🌍 Select Your Tax Jurisdiction (2026 Rates):",
@@ -125,6 +127,7 @@
         tdTax: "Annual Dividend Taxes Paid", vReinv: "€0 (Reinvested)", tdNet: "Final Net Wealth (After Exit)"
       },
       fr: {
+        linkAbout: "À propos et contact", linkPrivacy: "Politique de confidentialité",
         n1: "1. Frais Courtier & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retrait Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Calculateur de Fuite Fiscale : ETF Capitalisant vs Distribuant", heroSub: "Mesurez comment la fiscalité annuelle sur les dividendes d'un ETF Distribuant freine vos intérêts composés face à un ETF Capitalisant.",
         matchups: "🌍 Sélectionnez votre juridiction fiscale (Taux 2026) :",
@@ -134,6 +137,7 @@
         tdTax: "Impôts Annuels Payés", vReinv: "0 € (Capitalisé)", tdNet: "Valeur Nette Finale"
       },
       de: {
+        linkAbout: "Über uns & Kontakt", linkPrivacy: "Datenschutzerklärung",
         n1: "1. Broker FX & TER", n2: "2. PEA vs CTO (2026)", n3: "3. Thes vs Aussch", n4: "4. Krypto Auszahlung", n5: "5. 75/15/10 Planer",
         heroTitle: "Thesaurierend vs. Ausschüttend ETF Steuerleck-Rechner", heroSub: "Sehen Sie, wie jährliche Dividendensteuern auf ausschüttende ETFs Ihren Zinseszins im Vergleich zu thesaurierenden ETFs verringern.",
         matchups: "🌍 Wählen Sie Ihr Steuergebiet (Sätze 2026):",
@@ -143,6 +147,7 @@
         tdTax: "Gezahlte Dividendensteuern", vReinv: "0 € (Reinvestiert)", tdNet: "Netto-Endwert"
       },
       es: {
+        linkAbout: "Acerca de y contacto", linkPrivacy: "Política de privacidad",
         n1: "1. Bróker FX y TER", n2: "2. PEA vs CTO (2026)", n3: "3. Acc vs Dist", n4: "4. Retiro Crypto", n5: "5. Plan 75/15/10",
         heroTitle: "Calculadora de Fuga Fiscal: ETF Acumulativo vs Distributivo", heroSub: "Vea cómo los impuestos anuales sobre dividendos en ETFs Distributivos reducen su interés compuesto en comparación con ETFs Acumulativos.",
         matchups: "🌍 Seleccione su Jurisdicción Fiscal (Tasas 2026):",
@@ -158,6 +163,7 @@
 
     function applyLang() {
       const l = i18n[lang];
+      document.getElementById('tLinkAbout').innerText = l.linkAbout; document.getElementById('tLinkPrivacy').innerText = l.linkPrivacy;
       document.getElementById('n1').innerText = l.n1; document.getElementById('n2').innerText = l.n2; document.getElementById('n3').innerText = l.n3; document.getElementById('n4').innerText = l.n4; document.getElementById('n5').innerText = l.n5;
       document.getElementById('tHeroTitle').innerText = l.heroTitle; document.getElementById('tHeroSub').innerText = l.heroSub;
       document.getElementById('tMatchups').innerText = l.matchups;
